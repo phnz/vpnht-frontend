@@ -1,27 +1,15 @@
 {
-  "name": "node-stripe-membership-saas",
-  "description": "This project is a boilerplate express app for creating a membership/subscription site with Stripe.",
+  "name": "vpnht-frontend",
+  "description": "",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git://github.com/davidlemarier/vpnht-frontend.git"
   },
-  "keywords": [
-    "stripe",
-    "subscription",
-    "membership",
-    "saas",
-    "plan"
-  ],
-  "author": {
-    "name": "Eddy Hernandez",
-    "email": "edward.d.hernandez@gmail.com",
-    "url": "http://eddywashere.com"
-  },
+  "keywords": [],
+  "author": {},
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/eddywashere/node-stripe-membership-saas/issues"
-  },
+  "bugs": {},
   "scripts": {
     "start": "node server"
   },
