@@ -1,0 +1,46 @@
+{% extends '../layouts/dashboard.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  <div class="container-fluid container-max">
+    <div class="page-header">
+      <h1>Home <small>/views/dashboard/index</small></h1>
+    </div>
+    {% include "../partials/flash.html" %}
+    {% if user.stripe.plan == 'monthly' %}
+    <div class="panel panel-default">
+      <div class="panel-heading">Monthly Plan</div>
+      <div class="panel-body">
+        <p>Thanks for subscribing to the monthly plan!</p>
+      </div>
+    </div>
+    {% else %}
+    <div class="panel panel-default">
+      <div class="panel-heading">Monthly Plan (<a href="/billing">Change to this plan</a>)</div>
+    </div>
+    {% endif %}
+
+    {% if user.stripe.plan == 'yearly' %}
+    <div class="panel panel-default">
+      <div class="panel-heading">Yearly Plan</div>
+      <div class="panel-body">
+        <p>Thanks for subscribing to the yearly plan!</p>
+      </div>
+    </div>
+    {% else %}
+    <div class="panel panel-default">
+      <div class="panel-heading">Yearly Plan (<a href="/billing">Change to this plan</a>)</div>
+    </div>
+    {% endif %}
+
+    <div class="well">
+      <p>Debug Info:</p>
+      <ul>
+        <li>Does this user have a plan? {% if _.has(plans, user.stripe.plan) %}YES{% else %}NOPE{% endif %}</li>
+        <li>Does this user have paid plan? {% if _.contains(['monthly','yearly'], user.stripe.plan) %}YES{% else %}NOPE{% endif %}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
