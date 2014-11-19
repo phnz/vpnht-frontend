@@ -2,7 +2,7 @@ module.exports = {
 
   db: process.env.MONGODB || process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/membership',
 
-  sessionSecret: process.env.SESSION_SECRET || '',
+  sessionSecret: process.env.SESSION_SECRET || 'vpn',
 
   mailgun: {
     user: process.env.MAILGUN_USER || 'vpn.ht',

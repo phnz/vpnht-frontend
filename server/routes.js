@@ -89,6 +89,18 @@ module.exports = function (app, passport) {
     isAuthenticated,
     dashboard.getProfile);
 
+app.get('/documentation',
+  setRender('dashboard/documentation/list'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/windows',
+  setRender('dashboard/documentation/windows'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
   // user api stuff
   app.post('/user',
     setRedirect({auth: '/', success: '/profile', failure: '/profile'}),
