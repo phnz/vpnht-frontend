@@ -33,14 +33,7 @@
       <div class="panel-heading">Yearly Plan (<a href="/billing">Change to this plan</a>)</div>
     </div>
     {% endif %}
-
-    <div class="well">
-      <p>Debug Info:</p>
-      <ul>
-        <li>Does this user have a plan? {% if _.has(plans, user.stripe.plan) %}YES{% else %}NOPE{% endif %}</li>
-        <li>Does this user have paid plan? {% if _.contains(['monthly','yearly'], user.stripe.plan) %}YES{% else %}NOPE{% endif %}</li>
-      </ul>
-    </div>
+    
   </div>
 </div>
 {% endblock %}
