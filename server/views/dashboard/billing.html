@@ -55,9 +55,9 @@
       {% if !user.stripe.last4 %}
       <div id="cardWrapper">
         <div class="form-group">
-          <label class="col-sm-3 control-label">Test Card Info</label>
-          <div class="col-sm-7">
-            <div class="form-control-static">4242424242424242, 11/19, 123 - <a href="https://stripe.com/docs/testing">additional test info</a></div>
+          <label class="col-sm-3 control-label">Name on card</label>
+          <div class="col-sm-4">
+            <input id="card-name" type="text" class="form-control">
           </div>
         </div>
         <div class="form-group">
@@ -83,6 +83,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label">Zip Code</label>
+          <div class="col-sm-2">
+            <input id="card-zip" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
           <div class="col-sm-6">
             <div id="cardFormError" class="alert alert-danger hidden" role="alert">
               <p>{{error}}</p>
@@ -104,11 +110,17 @@
     </div>
     <form role="form" id="cardForm" action="/user/billing" method="POST" class="form-horizontal">
       <div class="form-group">
-        <label class="col-sm-3 control-label">Test Card Info</label>
+        <label class="col-sm-3 control-label">Current card</label>
         <div class="col-sm-7">
-          <div class="form-control-static">4242424242424242, 11/19, 123 - <a href="https://stripe.com/docs/testing">additional test cards</a></div>
+          <div class="form-control-static">XXXX XXXX XXXX {{user.stripe.last4}}</div>
         </div>
       </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Name on card</label>
+      <div class="col-sm-4">
+        <input id="card-name" type="text" class="form-control">
+      </div>
+    </div>      
       <div class="form-group">
         <label class="col-sm-3 control-label">Card Number</label>
         <div class="col-sm-4">
@@ -131,6 +143,12 @@
           </div>
         </div>
       </div>
+     <div class="form-group">
+      <label class="col-sm-3 control-label">Zip Code</label>
+      <div class="col-sm-2">
+        <input id="card-zip" type="text" class="form-control">
+      </div>
+     </div>
       <div class="form-group">
         <div class="col-sm-6">
           <div id="cardFormError" class="alert alert-danger hidden" role="alert">

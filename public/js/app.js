@@ -24,7 +24,9 @@ jQuery(function($) {
     var cardNum,
     cardMonth,
     cardYear,
-    cardCVC;
+    cardCVC,
+    cardName,
+    cardZip;
 
     if(cardForm.find("input:radio[name=plan]:checked").val() != 'free'){
       cardFormBtn.prop('disabled', true);
@@ -33,12 +35,15 @@ jQuery(function($) {
       cardMonth = $('#card-month').val();
       cardYear = $('#card-year').val();
       cardCVC = $('#card-cvc').val();
+      cardName = $('#card-name').val();
+      cardZip = $('#card-zip').val();
 
       Stripe.card.createToken({
         number: cardNum,
         exp_month: cardMonth,
         exp_year: cardYear,
-        cvc: cardCVC
+        name: cardName,
+        address_zip: cardZip
       }, function(status, response) {
         if (response.error) {
           formError.find('p').text(response.error.message);
