@@ -14,7 +14,7 @@ main = require('./controllers/main-controller'),
 dashboard = require('./controllers/dashboard-controller'),
 passwords = require('./controllers/passwords-controller'),
 registrations = require('./controllers/registrations-controller'),
-sessions = require('./controllers/sessions-controller'),
+sessions = require('./controllers/sessions-controller');
 
 var stripeWebhook = new StripeWebhook({
   stripeApiKey: secrets.stripeOptions.apiKey,
