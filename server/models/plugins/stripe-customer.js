@@ -133,13 +133,25 @@ module.exports = exports = function stripeCustomer (schema, options) {
     });
   };
 
-    schema.methods.setCoupon = function(cb){
+    schema.methods.setCoupon = function(coupon, cb){
       var user = this;
 
       if(!user.stripe.customerId) return cb();
 
-      stripe.customers.update(user.stripe.customerId, {coupon: user.coupon}, function(err, customer) {
-        cb(err);
+      stripe.customers.update(user.stripe.customerId, {coupon: coupon}, function(err, customer) {
+
+        if (err) {
+            // make sure we dont store any coupon
+            delete user.coupon;
+        } else {
+            user.coupon = coupon;
+        }
+
+        user.save(function(err2){
+          if (err) return cb(err);
+          if (err2) return cb(err2);
+          return cb(null);
+        });
       });
     };
 

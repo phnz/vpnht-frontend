@@ -80,15 +80,17 @@ exports.postProfile = function(req, res, next){
 exports.postCoupon = function(req, res, next){
     User.findById(req.user.id, function(err, user) {
       if (err) return next(err);
-      user.coupon = req.body.coupon || '';
-      user.save(function(err) {
-        if (err) return next(err);
-        user.setCoupon(function(err){
-          if (err) return next(err);
-          req.flash('success', { msg: 'Coupon updated.' });
-          res.redirect(req.redirect.success);
+        user.setCoupon(req.body.coupon, function(err){
+
+          if (err) {
+              req.flash('errors', { msg: err.message.toString() || 'Invalid coupon' });
+              res.redirect(req.redirect.failure);
+          } else {
+            req.flash('success', { msg: 'Coupon updated.' });
+            res.redirect(req.redirect.success);
+          }
         });
-      });
+
     });
 };
 
