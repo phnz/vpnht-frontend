@@ -14,7 +14,7 @@ main = require('./controllers/main-controller'),
 dashboard = require('./controllers/dashboard-controller'),
 passwords = require('./controllers/passwords-controller'),
 registrations = require('./controllers/registrations-controller'),
-sessions = require('./controllers/sessions-controller');
+sessions = require('./controllers/sessions-controller'),
 
 var stripeWebhook = new StripeWebhook({
   stripeApiKey: secrets.stripeOptions.apiKey,
@@ -116,4 +116,20 @@ module.exports = function (app, passport) {
     stripeWebhook.middleware,
     stripeEvents
   );
+
+    // ovpn login
+    app.post('/api/login', function(req, res, next) {
+        passport.authenticate('login', function(err, user, info) {
+            if (err) { return next(err) }
+
+            if (!user) {
+                res.json({satus: 'FAIL'});
+            }
+
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+                return res.json({satus: 'OK'});
+            });
+        })(req, res, next);
+    });
 };
