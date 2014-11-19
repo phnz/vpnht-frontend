@@ -23,6 +23,13 @@ var stripeWebhook = new StripeWebhook({
 
 module.exports = function (app, passport) {
 
+    app.all('*',function(req,res,next){
+      if(req.headers['x-forwarded-proto'] !== 'https' && process.env.NODE_ENV === "production")
+        res.redirect('https://vpn.ht'+req.url)
+      else
+        next()
+    });
+
   // homepage and dashboard
   app.get('/',
     setRedirect({auth: '/dashboard'}),
