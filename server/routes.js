@@ -130,6 +130,8 @@ module.exports = function (app, passport) {
         req.body.email = username;
         req.body.password = password;
 
+        console.log(req.body);
+
         passport.authenticate('login', function(err, user, info) {
 
             if (err) { return next(err) }
