@@ -107,6 +107,30 @@ app.get('/documentation/windows',
   isAuthenticated,
   dashboard.getDocumentation);
 
+app.get('/documentation/linux',
+  setRender('dashboard/documentation/linux'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/mac',
+  setRender('dashboard/documentation/mac'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/ios',
+  setRender('dashboard/documentation/ios'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+  app.get('/documentation/android',
+    setRender('dashboard/documentation/android'),
+    setRedirect({auth: '/'}),
+    isAuthenticated,
+    dashboard.getDocumentation);
+
   // user api stuff
   app.post('/user',
     setRedirect({auth: '/', success: '/profile', failure: '/profile'}),
