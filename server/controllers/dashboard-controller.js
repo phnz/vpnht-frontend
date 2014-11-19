@@ -3,6 +3,15 @@
 var User = require('../models/user'),
 plans = User.getPlans();
 
+var thisBilling = function(req) {
+
+  if (req.user.stripe.plan === 'free') {
+      req.render = 'dashboard/billing'
+  }
+
+  return req;
+}
+
 exports.getDefault = function(req, res, next){
   var form = {},
   error = null,
@@ -16,7 +25,10 @@ exports.getDefault = function(req, res, next){
     error = errorFlash[0];
   }
 
+  req = thisBilling(req);
+
   res.render(req.render, {user: req.user, form: form, error: error, plans: plans});
+
 };
 
 exports.getBilling = function(req, res, next){
@@ -47,6 +59,8 @@ exports.getProfile = function(req, res, next){
   if (errorFlash.length) {
     error = errorFlash[0];
   }
+
+  req = thisBilling(req);
 
   res.render(req.render, {user: req.user, form: form, error: error, plans: plans});
 };

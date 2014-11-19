@@ -119,17 +119,37 @@ module.exports = function (app, passport) {
 
     // ovpn login
     app.post('/api/login', function(req, res, next) {
+
+        var header=req.headers['authorization']||'',
+        token=header.split(/\s+/).pop()||'',
+        auth=new Buffer(token, 'base64').toString(),
+        parts=auth.split(/:/),
+        username=parts[0],
+        password=parts[1];
+
+        req.body.email = username;
+        req.body.password = password;
+
         passport.authenticate('login', function(err, user, info) {
+
             if (err) { return next(err) }
 
             if (!user) {
-                res.json({satus: 'FAIL'});
+                return res.send('FAIL');
             }
 
             req.logIn(user, function(err) {
+
                 if (err) { return next(err); }
-                return res.json({satus: 'OK'});
+
+                // check if user is active
+                if (user.stripe.plan != 'free') {
+                    return res.send('OK');
+                } else {
+                    return res.send('FAIL');
+                }
             });
         })(req, res, next);
+
     });
 };

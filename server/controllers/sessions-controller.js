@@ -14,8 +14,7 @@ exports.postLogin = function(req, res, next){
     req.flash('errors', errors);
     return res.redirect(req.redirect.failure);
   }
-  // this middleware can be found in /server/middleware/passport.js
-  // re: passport.use('login', ...);
+  
   passport.authenticate('login', {
     successRedirect: req.redirect.success,
     failureRedirect: req.redirect.failure,
