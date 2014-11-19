@@ -38,7 +38,7 @@ app.get('/login',
 
   // sessions
   app.post('/login',
-    setRedirect({auth: '/dashboard', success: '/dashboard', failure: '/'}),
+    setRedirect({auth: '/dashboard', success: '/dashboard', failure: '/login'}),
     isUnauthenticated,
     sessions.postLogin);
   app.get('/logout',
