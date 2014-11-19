@@ -30,6 +30,12 @@ module.exports = function (app, passport) {
     setRender('index'),
     main.getHome);
 
+app.get('/login',
+  setRedirect({auth: '/dashboard'}),
+  isUnauthenticated,
+  setRender('login'),
+  main.getHome);
+
   // sessions
   app.post('/login',
     setRedirect({auth: '/dashboard', success: '/dashboard', failure: '/'}),
