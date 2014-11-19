@@ -17,11 +17,11 @@ module.exports = {
     planData: {
       'monthly': {
         name: 'Monthly',
-        price: 5
+        price: 4.99
       },
       'yearly': {
         name: 'Yearly',
-        price: 40
+        price: 39.99
       }
     }
   },

@@ -116,10 +116,14 @@ app.get('/documentation/windows',
     setRedirect({auth: '/', success: '/billing', failure: '/billing'}),
     isAuthenticated,
     users.postBilling);
-  app.post('/user/plan',
-    setRedirect({auth: '/', success: '/billing', failure: '/billing'}),
-    isAuthenticated,
-    users.postPlan);
+app.post('/user/plan',
+  setRedirect({auth: '/', success: '/billing', failure: '/billing'}),
+  isAuthenticated,
+  users.postPlan);
+app.post('/user/coupon',
+  setRedirect({auth: '/', success: '/billing', failure: '/billing'}),
+  isAuthenticated,
+  users.postCoupon);
   app.post('/user/password',
     setRedirect({auth: '/', success: '/profile', failure: '/profile'}),
     isAuthenticated,

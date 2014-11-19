@@ -133,6 +133,16 @@ module.exports = exports = function stripeCustomer (schema, options) {
     });
   };
 
+    schema.methods.setCoupon = function(cb){
+      var user = this;
+
+      if(!user.stripe.customerId) return cb();
+
+      stripe.customers.update(user.stripe.customerId, {coupon: user.coupon}, function(err, customer) {
+        cb(err);
+      });
+    };
+
   schema.methods.cancelStripe = function(cb){
     var user = this;
 

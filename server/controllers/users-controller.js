@@ -77,6 +77,21 @@ exports.postProfile = function(req, res, next){
   }
 };
 
+exports.postCoupon = function(req, res, next){
+    User.findById(req.user.id, function(err, user) {
+      if (err) return next(err);
+      user.coupon = req.body.coupon || '';
+      user.save(function(err) {
+        if (err) return next(err);
+        user.setCoupon(function(err){
+          if (err) return next(err);
+          req.flash('success', { msg: 'Coupon updated.' });
+          res.redirect(req.redirect.success);
+        });
+      });
+    });
+};
+
 // Removes account
 
 exports.deleteAccount = function(req, res, next){
