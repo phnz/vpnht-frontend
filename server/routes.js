@@ -16,6 +16,12 @@ passwords = require('./controllers/passwords-controller'),
 registrations = require('./controllers/registrations-controller'),
 sessions = require('./controllers/sessions-controller');
 
+var User = require('./models/user');
+var restify = require('restify');
+var nodemailer = require('nodemailer');
+var mailgunApiTransport = require('nodemailer-mailgunapi-transport');
+var moment = require('moment');
+
 var stripeWebhook = new StripeWebhook({
   stripeApiKey: secrets.stripeOptions.apiKey,
   respond: true
@@ -171,8 +177,132 @@ app.post('/stripe/events',
 );
 
     app.post('/bitpay/events', function(req, res, next) {
-        console.log(req.body);
-        res.send(200);
+        var obj = req.body;
+
+        // 1 year access
+        if (obj.status === 'complete' && obj.price === '39.99' && obj.posData.id) {
+
+            User.findOne({
+              'id': obj.posData
+            }, function (err, user) {
+              if (err) return next(err);
+              if(!user){
+                // user does not exist, no need to process
+                return res.status(200).end();
+              } else {
+
+                  var t = moment().add(1, 'years');
+                  var expiration = t.format("YYYY/MM/DD HH:mm:ss");
+                  var client = restify.createStringClient({
+                    url: secrets.vpnht.url,
+                  });
+
+                  client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+                  client.put('/activate/' + user.username, { expiration: expiration }, function (err, req2, res2, obj) {
+
+                      if (err) return next(err);
+
+                      var transporter = nodemailer.createTransport(
+                        mailgunApiTransport({
+                          apiKey: secrets.mailgun.password,
+                          domain: secrets.mailgun.user
+                        }));
+
+                      var mailOptions = {
+                        to: user.email,
+                        from: 'noreply@vpn.ht',
+                        subject: 'VPN Account enabled',
+                        text: 'You are receiving this email because your account has been activated till ' + expiration + '.\n\n' +
+                          'You can read the documentation how to get started on:\n\n' +
+                          'https://vpn.ht/documentation\n\n' +
+                          'If you need help, feel free to contact us at support@vpn.ht.\n'
+                      };
+                      transporter.sendMail(mailOptions, function(err) {
+                        if (err) return next(err);
+
+                        user.stripe.plan = 'monthly';
+
+                        user.save(function(err) {
+                          if (err) return next(err);
+                          console.log('user: ' + user.username + ' subscription was successfully updated and expire on ' + expiration);
+                          return res.status(200).end();
+                        });
+
+
+
+                      });
+
+
+
+                  });
+
+              }
+            });
+
+
+        } else if (obj.status === 'complete' && obj.posData.id) {
+
+            User.findOne({
+              'id': obj.posData
+            }, function (err, user) {
+              if (err) return next(err);
+              if(!user){
+                // user does not exist, no need to process
+                return res.status(200).end();
+              } else {
+
+                  var t = moment().add(1, 'months');
+                  var expiration = t.format("YYYY/MM/DD HH:mm:ss");
+                  var client = restify.createStringClient({
+                    url: secrets.vpnht.url,
+                  });
+
+                  client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+                  client.put('/activate/' + user.username, { expiration: expiration }, function (err, req2, res2, obj) {
+
+                      if (err) return next(err);
+
+                      var transporter = nodemailer.createTransport(
+                        mailgunApiTransport({
+                          apiKey: secrets.mailgun.password,
+                          domain: secrets.mailgun.user
+                        }));
+
+                      var mailOptions = {
+                        to: user.email,
+                        from: 'noreply@vpn.ht',
+                        subject: 'VPN Account enabled',
+                        text: 'You are receiving this email because your account has been activated till ' + expiration + '.\n\n' +
+                          'You can read the documentation how to get started on:\n\n' +
+                          'https://vpn.ht/documentation\n\n' +
+                          'If you need help, feel free to contact us at support@vpn.ht.\n'
+                      };
+                      transporter.sendMail(mailOptions, function(err) {
+                        if (err) return next(err);
+
+                        user.stripe.plan = 'monthly';
+
+                        user.save(function(err) {
+                          if (err) return next(err);
+                          console.log('user: ' + user.username + ' subscription was successfully updated and expire on ' + expiration);
+                          return res.status(200).end();
+                        });
+
+
+
+                      });
+
+
+
+                  });
+
+              }
+            });
+
+        } else {
+            return res.status(200).end();
+        }
+
     });
 
     // ovpn login
