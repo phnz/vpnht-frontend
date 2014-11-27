@@ -165,10 +165,39 @@ app.post('/user/coupon',
     users.deleteAccount);
 
   // use this url to receive stripe webhook events
-  app.post('/stripe/events',
-    stripeWebhook.middleware,
-    stripeEvents
-  );
+app.post('/stripe/events',
+  stripeWebhook.middleware,
+  stripeEvents
+);
+
+    app.post('/bitpay/events', function(req, res, next) {
+        var data = '', contentType = req.headers['content-type'];
+        if ((contentType == 'application/json') || (contentType == 'application/x-www-form-urlencoded')) {
+
+            req.on('data', function(chunk) {data += chunk});
+
+            req.on('end', function() {
+                var notification;
+                try {
+                    notification = parseBody(data.toString(), contentType);
+                } catch(e) {
+                    console.error(JSON.stringify({error: ('parsing error: '+e)}));
+                }
+                if(notification) {
+                    console.log(JSON.stringify(notification));
+                }
+                res.writeHead(200);
+                res.end();
+            });
+
+        } else {
+            console.error('{"warning": "malformed request"}');
+            res.writeHead(400);
+            res.write(JSON.stringify({error: {type: 'badRequest', message: 'unsupported encoding'}}))
+            res.end();
+          }
+
+    });
 
     // ovpn login
     app.post('/api/login', function(req, res, next) {
