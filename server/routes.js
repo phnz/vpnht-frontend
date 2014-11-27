@@ -180,10 +180,10 @@ app.post('/stripe/events',
         var obj = req.body;
 
         // 1 year access
-        if (obj.status === 'complete' && obj.price === '39.99' && obj.posData.id) {
+        if (obj.status === 'complete' && obj.price === '39.99' && obj.posData) {
 
             User.findOne({
-              'id': obj.posData
+              'stripe.customerId': obj.posData
             }, function (err, user) {
               if (err) return next(err);
               if(!user){
@@ -240,10 +240,10 @@ app.post('/stripe/events',
             });
 
 
-        } else if (obj.status === 'complete' && obj.posData.id) {
+        } else if (obj.status === 'complete' && obj.posData) {
 
             User.findOne({
-              'id': obj.posData
+              'stripe.customerId': obj.posData
             }, function (err, user) {
               if (err) return next(err);
               if(!user){
