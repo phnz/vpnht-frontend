@@ -20,17 +20,15 @@ var knownEvents = {
           return res.status(200).end();
         } else {
 
-            console.log(req.stripeEvent.data.object);
-
-            //var t = new Date( req.stripeEvent.data.object.period_end );
-            var expiration = req.stripeEvent.data.object.period_end;
+            var t = new Date( req.stripeEvent.data.object.period_end * 1000 );
+            var expiration = t.format("yyyy/mm/dd hh:MM:ss");
             var client = restify.createStringClient({
               url: secrets.vpnht.url,
             });
 
             client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
             client.post('/activate/' + user.username, { expiration: expiration }, function (err, req2, res2, obj) {
-
+                console.log(err);
                 if (err) return next(err);
 
                 var transporter = nodemailer.createTransport(
@@ -49,7 +47,7 @@ var knownEvents = {
                     'If you need help, feel free to contact us at support@vpn.ht.\n'
                 };
                 transporter.sendMail(mailOptions, function(err) {
-
+                    console.log(err);
                   if (err) return next(err);
 
                   console.log('user: ' + user.username + ' subscription was successfully updated and expire on ' + expiration);
