@@ -5,6 +5,7 @@ var secrets = require('../config/secrets');
 var restify = require('restify');
 var nodemailer = require('nodemailer');
 var mailgunApiTransport = require('nodemailer-mailgunapi-transport');
+var moment = require('moment');
 
 var knownEvents = {
   'invoice.payment_succeeded': function(req, res, next) {
@@ -20,9 +21,8 @@ var knownEvents = {
           return res.status(200).end();
         } else {
 
-            console.log (req.stripeEvent.data.object.period_end);
-            var t = new Date( req.stripeEvent.data.object.period_end * 1000 );
-            var expiration = t.format("yyyy/mm/dd hh:MM:ss");
+            var t = moment(new Date( req.stripeEvent.data.object.period_end * 1000 ));
+            var expiration = t.format("YYYY/MM/DD HH:mm:ss");
             var client = restify.createStringClient({
               url: secrets.vpnht.url,
             });
