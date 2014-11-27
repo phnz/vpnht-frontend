@@ -9,6 +9,12 @@ module.exports = {
     password: process.env.MAILGUN_PASSWORD || ''
   },
 
+  vpnht: {
+    url: process.env.VPNHT_URL || '',
+    key: process.env.VPNHT_APIKEY || '',
+    secret: process.env.VPNHT_APISECRET || ''
+  },
+
   stripeOptions: {
     apiKey: process.env.STRIPE_KEY || '',
     stripePubKey: process.env.STRIPE_PUB_KEY || '',

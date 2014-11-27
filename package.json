@@ -36,6 +36,7 @@
     "nodemailer-mailgunapi-transport": "0.0.3",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
+    "restify": "^2.8.3",
     "serve-favicon": "~2.1.3",
     "stripe": "^2.8.0",
     "stripe-webhook-middleware": "^0.1.2",

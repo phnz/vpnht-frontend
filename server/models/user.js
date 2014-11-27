@@ -9,7 +9,8 @@ var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
   coupon: String,
-  
+  username: { type: String, unique: true, lowercase: true },
+
   profile: {
     name: { type: String, default: '' },
     gender: { type: String, default: '' },

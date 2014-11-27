@@ -1,8 +1,71 @@
 'use strict';
 
 var User = require('../models/user');
+var secrets = require('../config/secrets');
+var restify = require('restify');
+var nodemailer = require('nodemailer');
+var mailgunApiTransport = require('nodemailer-mailgunapi-transport');
 
 var knownEvents = {
+  'invoice.payment_succeeded': function(req, res, next) {
+    console.log(req.stripeEvent.type + ': event processed');
+    if(req.stripeEvent.data && req.stripeEvent.data.object && req.stripeEvent.data.object.customer){
+      // find user where stripeEvent.data.object.customer
+      User.findOne({
+        'stripe.customerId': req.stripeEvent.data.object.customer
+      }, function (err, user) {
+        if (err) return next(err);
+        if(!user){
+          // user does not exist, no need to process
+          return res.status(200).end();
+        } else {
+
+            var t = new Date( req.stripeEvent.data.object.period_end );
+            var expiration = t.format("yyyy/mm/dd hh:MM:ss");
+            var client = restify.createStringClient({
+              url: secrets.vpnht.url,
+            });
+
+            client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+            client.post('/activate/' + user.username, { expiration: expiration }, function (err, req2, res2, obj) {
+
+                if (err) return next(err);
+
+                var transporter = nodemailer.createTransport(
+                  mailgunApiTransport({
+                    apiKey: secrets.mailgun.password,
+                    domain: secrets.mailgun.user
+                  }));
+
+                var mailOptions = {
+                  to: user.email,
+                  from: 'noreply@vpn.ht',
+                  subject: 'VPN Account enabled',
+                  text: 'You are receiving this email because your account has been activated till ' + expiration + '.\n\n' +
+                    'You can read the documentation how to get started on:\n\n' +
+                    'https://vpn.ht/documentation\n\n' +
+                    'If you need help, feel free to contact us at support@vpn.ht.\n'
+                };
+                transporter.sendMail(mailOptions, function(err) {
+
+                  if (err) return next(err);
+
+                  console.log('user: ' + user.username + ' subscription was successfully updated and expire on ' + expiration);
+                  return res.status(200).end();
+
+                });
+
+
+
+            });
+
+        }
+      });
+    } else {
+      return next(new Error('stripeEvent.data.object.customer is undefined'));
+    }
+  },
+
   'account.updated': function(req, res, next) {
     console.log(req.stripeEvent.type + ': event processed');
     res.status(200).end();
@@ -135,10 +198,6 @@ var knownEvents = {
     res.status(200).end();
   },
   'invoice.updated': function(req, res, next) {
-    console.log(req.stripeEvent.type + ': event processed');
-    res.status(200).end();
-  },
-  'invoice.payment_succeeded': function(req, res, next) {
     console.log(req.stripeEvent.type + ': event processed');
     res.status(200).end();
   },

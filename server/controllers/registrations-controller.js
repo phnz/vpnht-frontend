@@ -6,6 +6,7 @@ var crypto = require('crypto');
 var passport = require('passport');
 var User = require('../models/user');
 var secrets = require('../config/secrets');
+var restify = require('restify');
 
 // Show Registration Page
 
@@ -33,14 +34,26 @@ exports.postSignup = function(req, res, next){
   if (errors) {
     req.flash('errors', errors);
     req.flash('form', {
-      email: req.body.email
+        username: req.body.username,
+        email: req.body.email
     });
     return res.redirect('/signup');
   }
-  // calls next middleware to authenticate with passport
-  passport.authenticate('signup', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/signup',
-    failureFlash : true
-  })(req, res, next);
+
+  // we can create our VPN user
+  var client = restify.createStringClient({
+    url: secrets.vpnht.url,
+  });
+  client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+  client.post('/user', { username: req.body.username, password: req.body.password, expiration: '2001/01/01 00:00:00' }, function (err, req2, res2, obj) {
+
+    // calls next middleware to authenticate with passport
+    passport.authenticate('signup', {
+      successRedirect: '/dashboard',
+      failureRedirect: '/signup',
+      failureFlash : true
+    })(req, res, next);
+
+  });
+
 };
