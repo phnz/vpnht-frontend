@@ -21,7 +21,7 @@ var knownEvents = {
           return res.status(200).end();
         } else {
 
-            var t = moment(new Date( req.stripeEvent.data.object.period_end * 1000 ));
+            var t = moment(new Date( req.stripeEvent.data.object.lines.data[0].period.end * 1000 ));
             var expiration = t.format("YYYY/MM/DD HH:mm:ss");
             var client = restify.createStringClient({
               url: secrets.vpnht.url,
@@ -48,7 +48,6 @@ var knownEvents = {
                     'If you need help, feel free to contact us at support@vpn.ht.\n'
                 };
                 transporter.sendMail(mailOptions, function(err) {
-                    console.log(err);
                   if (err) return next(err);
 
                   console.log('user: ' + user.username + ' subscription was successfully updated and expire on ' + expiration);
