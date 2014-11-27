@@ -28,8 +28,8 @@ var knownEvents = {
             });
 
             client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
-            client.post('/activate/' + user.username, { expiration: expiration }, function (err, req2, res2, obj) {
-                console.log(err);
+            client.put('/activate/' + user.username, { expiration: expiration }, function (err, req2, res2, obj) {
+
                 if (err) return next(err);
 
                 var transporter = nodemailer.createTransport(
