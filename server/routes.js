@@ -171,32 +171,8 @@ app.post('/stripe/events',
 );
 
     app.post('/bitpay/events', function(req, res, next) {
-        var data = '', contentType = req.headers['content-type'];
-        if ((contentType == 'application/json') || (contentType == 'application/x-www-form-urlencoded')) {
-
-            req.on('data', function(chunk) {data += chunk});
-
-            req.on('end', function() {
-                var notification;
-                try {
-                    notification = parseBody(data.toString(), contentType);
-                } catch(e) {
-                    console.error(JSON.stringify({error: ('parsing error: '+e)}));
-                }
-                if(notification) {
-                    console.log(JSON.stringify(notification));
-                }
-                res.writeHead(200);
-                res.end();
-            });
-
-        } else {
-            console.error('{"warning": "malformed request"}');
-            res.writeHead(400);
-            res.write(JSON.stringify({error: {type: 'badRequest', message: 'unsupported encoding'}}))
-            res.end();
-          }
-
+        console.log(req.body);
+        res.send(200);
     });
 
     // ovpn login
