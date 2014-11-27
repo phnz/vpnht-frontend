@@ -1,6 +1,8 @@
 'use strict';
 
 var User = require('../models/user');
+var restify = require('restify');
+var secrets = require('../config/secrets');
 
 // show user page
 
@@ -100,15 +102,22 @@ exports.deleteAccount = function(req, res, next){
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
 
-    user.remove(function (err, user) {
-      if (err) return next(err);
-      user.cancelStripe(function(err){
-        if (err) return next(err);
+    var client = restify.createStringClient({
+      url: secrets.vpnht.url,
+    });
+    client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+    client.del('/username/' + user.username, function (err, req2, res2, obj) {
 
-        req.logout();
-        req.flash('info', { msg: 'Your account has been deleted.' });
-        res.redirect(req.redirect.success);
-      });
+        user.remove(function (err, user) {
+          if (err) return next(err);
+          user.cancelStripe(function(err){
+            if (err) return next(err);
+
+            req.logout();
+            req.flash('info', { msg: 'Your account has been deleted.' });
+            res.redirect(req.redirect.success);
+          });
+        });
     });
   });
 };

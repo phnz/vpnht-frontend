@@ -6,6 +6,7 @@ var async = require('async');
 var crypto = require('crypto');
 var User = require('../models/user');
 var secrets = require('../config/secrets');
+var restify = require('restify');
 
 // edit password
 
@@ -24,11 +25,20 @@ exports.postNewPassword = function(req, res, next){
     if (err) return next(err);
 
     user.password = req.body.password;
-
     user.save(function(err) {
       if (err) return next(err);
-      req.flash('success', { msg: 'Success! Your password has been changed.' });
-      res.redirect(req.redirect.success);
+
+        var client = restify.createStringClient({
+          url: secrets.vpnht.url,
+        });
+        client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+        client.put('/password/' + user.username, { password: req.body.password }, function (err, req2, res2, obj) {
+
+            req.flash('success', { msg: 'Success! Your password has been changed.' });
+            res.redirect(req.redirect.success);
+
+        });
+
     });
   });
 };
@@ -179,21 +189,33 @@ exports.postToken = function(req, res, next){
             return res.redirect(req.redirect.failure);
           }
 
-          user.password = req.body.password;
-          user.resetPasswordToken = undefined;
-          user.resetPasswordExpires = undefined;
+            // update new password on vpn's
 
-          user.save(function(err) {
-            if (err) return next(err);
-            var time = 14 * 24 * 3600000;
-            req.session.cookie.maxAge = time; //2 weeks
-            req.session.cookie.expires = new Date(Date.now() + time);
-            req.session.touch();
-
-            req.logIn(user, function(err) {
-              done(err, user);
+            var client = restify.createStringClient({
+              url: secrets.vpnht.url,
             });
-          });
+            client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+            client.put('/password/' + user.username, { password: req.body.password }, function (err, req2, res2, obj) {
+
+                user.password = req.body.password;
+                user.resetPasswordToken = undefined;
+                user.resetPasswordExpires = undefined;
+
+                user.save(function(err) {
+                  if (err) return next(err);
+                  var time = 14 * 24 * 3600000;
+                  req.session.cookie.maxAge = time; //2 weeks
+                  req.session.cookie.expires = new Date(Date.now() + time);
+                  req.session.touch();
+
+                  req.logIn(user, function(err) {
+                    done(err, user);
+                  });
+                });
+
+            });
+
+
         });
     },
     function(user, done) {
