@@ -1,9 +1,9 @@
 # Mac OpenVPN `/views/dashboard/docs`
 
 ## 1
-### Download and install tunnelblick
+### Download and install Tunnelblick
 
-Download Tunnelblick from [here](code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2)
+You can download Tunnelblick from [the official site](https://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2)
 
 ***
 
