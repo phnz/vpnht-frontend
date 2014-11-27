@@ -20,6 +20,7 @@ var knownEvents = {
           return res.status(200).end();
         } else {
 
+            console.log (req.stripeEvent.data.object.period_end);
             var t = new Date( req.stripeEvent.data.object.period_end * 1000 );
             var expiration = t.format("yyyy/mm/dd hh:MM:ss");
             var client = restify.createStringClient({
