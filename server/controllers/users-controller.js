@@ -106,8 +106,7 @@ exports.deleteAccount = function(req, res, next){
       url: secrets.vpnht.url,
     });
     client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
-    client.del('/username/' + user.username, function (err, req2, res2, obj) {
-
+    client.del('/user/' + user.username, function (err, req2, res2, obj) {
         user.remove(function (err, user) {
           if (err) return next(err);
           user.cancelStripe(function(err){
