@@ -32,6 +32,8 @@ var knownEvents = {
 
                 if (err) return next(err);
 
+                console.log(obj);
+
                 var transporter = nodemailer.createTransport(
                   mailgunApiTransport({
                     apiKey: secrets.mailgun.password,
