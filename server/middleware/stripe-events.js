@@ -20,8 +20,8 @@ var knownEvents = {
           return res.status(200).end();
         } else {
 
-            var t = new Date( req.stripeEvent.data.object.period.end );
-            var expiration = t.format("yyyy/mm/dd hh:MM:ss");
+            //var t = new Date( req.stripeEvent.data.object.period_end );
+            var expiration = req.stripeEvent.data.object.period_end;
             var client = restify.createStringClient({
               url: secrets.vpnht.url,
             });
