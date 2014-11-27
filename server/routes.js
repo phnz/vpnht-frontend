@@ -151,8 +151,8 @@ app.get('/documentation/mac/openvpn',
   isAuthenticated,
   dashboard.getDocumentation);
 
-app.get('/documentation/mac/pptp',
-  setRender('dashboard/documentation/mac-pptp'),
+app.get('/documentation/mac/l2tp',
+  setRender('dashboard/documentation/mac-l2tp'),
   setRedirect({auth: '/'}),
   isAuthenticated,
   dashboard.getDocumentation);
@@ -178,12 +178,6 @@ app.get('/documentation/android/l2tp',
 
 app.get('/documentation/android/openvpn',
   setRender('dashboard/documentation/android-openvpn'),
-  setRedirect({auth: '/'}),
-  isAuthenticated,
-  dashboard.getDocumentation);
-
-app.get('/documentation/android/pptp',
-  setRender('dashboard/documentation/android-pptp'),
   setRedirect({auth: '/'}),
   isAuthenticated,
   dashboard.getDocumentation);
