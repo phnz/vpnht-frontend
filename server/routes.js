@@ -54,10 +54,17 @@ app.get('/login',
     setRedirect({auth: '/dashboard', success: '/dashboard', failure: '/login'}),
     isUnauthenticated,
     sessions.postLogin);
+
   app.get('/logout',
     setRedirect({auth: '/', success: '/'}),
     isAuthenticated,
     sessions.logout);
+
+ app.get('/openvpn/config',
+   setRedirect({auth: '/', success: '/'}),
+   isAuthenticated,
+   dashboard.getOpenvpn);
+
 
   // registrations
   app.get('/signup',
@@ -114,35 +121,73 @@ app.get('/documentation',
   isAuthenticated,
   dashboard.getDocumentation);
 
-app.get('/documentation/windows',
-  setRender('dashboard/documentation/windows'),
+app.get('/documentation/windows/openvpn',
+  setRender('dashboard/documentation/windows-openvpn'),
   setRedirect({auth: '/'}),
   isAuthenticated,
   dashboard.getDocumentation);
 
-app.get('/documentation/linux',
-  setRender('dashboard/documentation/linux'),
+app.get('/documentation/windows/pptp',
+  setRender('dashboard/documentation/windows-pptp'),
   setRedirect({auth: '/'}),
   isAuthenticated,
   dashboard.getDocumentation);
 
-app.get('/documentation/mac',
-  setRender('dashboard/documentation/mac'),
+app.get('/documentation/windows8-pptp',
+  setRender('dashboard/documentation/windows8-pptp'),
   setRedirect({auth: '/'}),
   isAuthenticated,
   dashboard.getDocumentation);
 
-app.get('/documentation/ios',
-  setRender('dashboard/documentation/ios'),
+app.get('/documentation/linux/openvpn',
+  setRender('dashboard/documentation/linux-openvpn'),
   setRedirect({auth: '/'}),
   isAuthenticated,
   dashboard.getDocumentation);
 
-  app.get('/documentation/android',
-    setRender('dashboard/documentation/android'),
-    setRedirect({auth: '/'}),
-    isAuthenticated,
-    dashboard.getDocumentation);
+app.get('/documentation/mac/openvpn',
+  setRender('dashboard/documentation/mac-openvpn'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/mac/pptp',
+  setRender('dashboard/documentation/mac-pptp'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+
+app.get('/documentation/ios/l2tp',
+  setRender('dashboard/documentation/ios-l2tp'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/ios/openvpn',
+  setRender('dashboard/documentation/ios-openvpn'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/android/l2tp',
+  setRender('dashboard/documentation/android-l2tp'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/android/openvpn',
+  setRender('dashboard/documentation/android-openvpn'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
+app.get('/documentation/android/pptp',
+  setRender('dashboard/documentation/android-pptp'),
+  setRedirect({auth: '/'}),
+  isAuthenticated,
+  dashboard.getDocumentation);
+
 
   // user api stuff
   app.post('/user',
@@ -305,41 +350,5 @@ app.post('/stripe/events',
 
     });
 
-    // ovpn login
-    app.post('/api/login', function(req, res, next) {
 
-        var header=req.headers['authorization']||'',
-        token=header.split(/\s+/).pop()||'',
-        auth=new Buffer(token, 'base64').toString(),
-        parts=auth.split(/:/),
-        username=parts[0],
-        password=parts[1];
-
-        req.body.email = username;
-        req.body.password = password;
-
-        console.log(req.body);
-
-        passport.authenticate('login', function(err, user, info) {
-
-            if (err) { return next(err) }
-
-            if (!user) {
-                return res.send('FAIL');
-            }
-
-            req.logIn(user, function(err) {
-
-                if (err) { return next(err); }
-
-                // check if user is active
-                if (user.stripe.plan != 'free') {
-                    return res.send('OK');
-                } else {
-                    return res.send('FAIL');
-                }
-            });
-        })(req, res, next);
-
-    });
 };

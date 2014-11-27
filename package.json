@@ -42,5 +42,10 @@
     "stripe": "^2.8.0",
     "stripe-webhook-middleware": "^0.1.2",
     "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-md2html": "^0.2.1",
+    "load-grunt-tasks": "^1.0.0"
   }
 }

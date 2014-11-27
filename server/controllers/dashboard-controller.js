@@ -3,6 +3,8 @@
 var User = require('../models/user'),
 plans = User.getPlans();
 
+var fs = require('fs');
+
 var thisBilling = function(req) {
 
   if (req.user.stripe.plan === 'free') {
@@ -30,6 +32,17 @@ exports.getDefault = function(req, res, next){
   res.render(req.render, {user: req.user, form: form, error: error, plans: plans});
 
 };
+
+exports.getOpenvpn = function(req, res, next){
+
+   res.setHeader('Content-Type', 'application/octet-stream');
+   res.setHeader('Content-disposition', 'attachment; filename=' + req.user.username + '.ovpn');
+   res.send(fs.readFileSync( __dirname + '/../../openvpn/template.ovpn'));
+   res.end();
+
+};
+
+
 
 exports.getBilling = function(req, res, next){
   var form = {},

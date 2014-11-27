@@ -10,20 +10,55 @@
     {% include "../../partials/flash.html" %}
 
     <div class="row documentation-list">
-        <div class="col-xs-2 col-xs-offset-1">
+
+
+        <div class="col-xs-2">
           <div class="tile">
             <img src="img/icons/svg/windows.svg" alt="Compas" class="tile-image big-illustration">
-            <h3 class="tile-title">Windows</h3>
+            <h3 class="tile-title">Windows 7</h3>
             <p></p>
-            <a class="btn btn-primary btn-large btn-block" href="/documentation/windows">View Guide</a>
+
+               <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">View Guide <span class="caret"></span></button>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="/documentation/windows/sstp">SSTP</a></li>
+                  <li><a href="/documentation/windows/openvpn">OpenVPN</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+
           </div>
         </div>
+
+        <div class="col-xs-2">
+          <div class="tile">
+            <img src="img/icons/svg/windows.svg" alt="Compas" class="tile-image big-illustration">
+            <h3 class="tile-title">Windows 8</h3>
+            <p></p>
+
+               <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">View Guide <span class="caret"></span></button>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="/documentation/windows8/sstp">SSTP</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+
+          </div>
+        </div>
+
         <div class="col-xs-2">
           <div class="tile">
             <img src="img/icons/svg/apple.svg" alt="Compas" class="tile-image big-illustration">
             <h3 class="tile-title">Mac OS X</h3>
             <p></p>
-            <a class="btn btn-primary btn-large btn-block" href="/documentation/mac">View Guide</a>
+
+            <div class="btn-group">
+             <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">View Guide <span class="caret"></span></button>
+             <ul role="menu" class="dropdown-menu">
+                <li><a href="/documentation/mac/l2tp">L2TP</a></li>
+                <li><a href="/documentation/mac/openvpn">OpenVPN</a></li>
+             </ul>
+           </div><!-- /btn-group -->
+
           </div>
         </div>
 
@@ -32,7 +67,15 @@
             <img src="img/icons/svg/apple.svg" alt="Compas" class="tile-image big-illustration">
             <h3 class="tile-title">iPhone/iPad</h3>
             <p></p>
-            <a class="btn btn-primary btn-large btn-block" href="/documentation/ios">View Guide</a>
+
+                <div class="btn-group">
+                 <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">View Guide <span class="caret"></span></button>
+                 <ul role="menu" class="dropdown-menu">
+                    <li><a href="/documentation/ios/l2tp">L2TP</a></li>
+                    <li><a href="/documentation/ios/openvpn">OpenVPN</a></li>
+                 </ul>
+                </div><!-- /btn-group -->
+
           </div>
         </div>
 
@@ -41,7 +84,15 @@
             <img src="img/icons/svg/android.svg" alt="Compas" class="tile-image big-illustration">
             <h3 class="tile-title">Android</h3>
             <p></p>
-            <a class="btn btn-primary btn-large btn-block" href="/documentation/android">View Guide</a>
+
+            <div class="btn-group">
+             <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">View Guide <span class="caret"></span></button>
+             <ul role="menu" class="dropdown-menu">
+                <li><a href="/documentation/android/l2tp">L2TP</a></li>
+                <li><a href="/documentation/android/openvpn">OpenVPN</a></li>
+             </ul>
+            </div><!-- /btn-group -->
+
           </div>
         </div>
 
@@ -50,7 +101,14 @@
             <img src="img/icons/svg/linux.svg" alt="Compas" class="tile-image big-illustration">
             <h3 class="tile-title">Linux/Debian</h3>
             <p></p>
-            <a class="btn btn-primary btn-large btn-block" href="/documentation/linux">View Guide</a>
+
+            <div class="btn-group">
+             <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">View Guide <span class="caret"></span></button>
+             <ul role="menu" class="dropdown-menu">
+                <li><a href="/documentation/linux/openvpn">OpenVPN</a></li>
+             </ul>
+            </div><!-- /btn-group -->
+
           </div>
         </div>
 
