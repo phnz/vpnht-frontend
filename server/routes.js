@@ -218,6 +218,9 @@ app.post('/stripe/events',
     app.post('/bitpay/events', function(req, res, next) {
         var obj = req.body;
 
+        console.log(req);
+        console.log(obj);
+
         // 1 year access
         if (obj.status === 'complete' && obj.price === '39.99' && obj.posData) {
 
