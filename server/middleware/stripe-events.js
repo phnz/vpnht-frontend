@@ -30,7 +30,7 @@
             return res.status(200).end();
           } else {
             t = moment(new Date(req.stripeEvent.data.object.lines.data[0].period.end * 1000));
-            expiration = t.format("YYYY/MM/DD HH:mm:ss");
+            expiration = t.format("DD MMM YYYY HH:mm:ss");
             client = restify.createStringClient({
               url: secrets.vpnht.url
             });

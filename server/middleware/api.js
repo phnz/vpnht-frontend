@@ -26,7 +26,7 @@
         } else {
           t = moment().add(1, "months");
         }
-        expiration = t.format("YYYY/MM/DD HH:mm:ss");
+        expiration = t.format("DD MMM YYYY HH:mm:ss");
         client = restify.createStringClient({
           url: secrets.vpnht.url
         });
