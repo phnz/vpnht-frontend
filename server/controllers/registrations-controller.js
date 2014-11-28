@@ -52,7 +52,7 @@ exports.postSignup = function (req, res, next) {
 	client.post('/user', {
 		username: req.body.username,
 		password: nthash(req.body.password),
-		expiration: '11 Sep 2001'
+		expiration: '01 Jan 2000'
 	}, function (err, req2, res2, obj) {
 
 		// calls next middleware to authenticate with passport
