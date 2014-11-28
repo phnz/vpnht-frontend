@@ -18,7 +18,7 @@ exports.activate = (customerId, plan, callback) ->
             if plan is "yearly"
                 t = moment().add(1, "years")
             else t = moment().add(1, "months")
-            expiration = t.format("YYYY/MM/DD HH:mm:ss")
+            expiration = t.format("DD MMM YYYY HH:mm:ss")
 
             # build our api client
             client = restify.createStringClient(url: secrets.vpnht.url)
