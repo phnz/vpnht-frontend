@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.12.0",
     "grunt-md2html": "^0.2.1",
     "load-grunt-tasks": "^1.0.0"
   }
