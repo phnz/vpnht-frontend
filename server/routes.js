@@ -215,14 +215,16 @@ app.post('/stripe/events',
   stripeEvents
 );
 
+app.get('/bitpay/redirect',
+  setRedirect({auth: '/', success: '/dashboard'}),
+  isAuthenticated,
+  dashboard.getBitpayRedirect);
+
     app.post('/bitpay/events', function(req, res, next) {
         var obj = req.body;
 
-        console.log(req);
-        console.log(obj);
-
         // 1 year access
-        if (obj.status === 'complete' && obj.price === '39.99' && obj.posData) {
+        if (obj.status === 'complete' && obj.amount === '39.99' && obj.posData) {
 
             User.findOne({
               'stripe.customerId': obj.posData
@@ -254,7 +256,7 @@ app.post('/stripe/events',
                         to: user.email,
                         from: 'noreply@vpn.ht',
                         subject: 'VPN Account enabled',
-                        text: 'You are receiving this email because your account has been activated till ' + expiration + '.\n\n' +
+                        text: 'You are receiving this email because your account has been activated till ' + expiration + '.\n' +
                           'You can read the documentation how to get started on:\n\n' +
                           'https://vpn.ht/documentation\n\n' +
                           'If you need help, feel free to contact us at support@vpn.ht.\n'
@@ -314,7 +316,7 @@ app.post('/stripe/events',
                         to: user.email,
                         from: 'noreply@vpn.ht',
                         subject: 'VPN Account enabled',
-                        text: 'You are receiving this email because your account has been activated till ' + expiration + '.\n\n' +
+                        text: 'You are receiving this email because your account has been activated till ' + expiration + '.\n' +
                           'You can read the documentation how to get started on:\n\n' +
                           'https://vpn.ht/documentation\n\n' +
                           'If you need help, feel free to contact us at support@vpn.ht.\n'
