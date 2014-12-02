@@ -204,14 +204,14 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     return app.post("/payza/events", function(req, res, next) {
-      var callback;
+      var callback, util;
       console.log(req.body);
+      util = require('util');
       return request.post('https://secure.payza.com/ipn2.ashx', req.body, callback = function(err, param) {
         if (err) {
           return res.status(200).end();
         } else {
-          param = unescape(param).split("&");
-          console.log(param);
+          console.log(util.inspect(param, false, 2, true));
           if (param === 'INVALID TOKEN') {
             return res.status(200).end();
           } else {
