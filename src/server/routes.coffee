@@ -278,11 +278,12 @@ module.exports = (app, passport) ->
 
     app.post "/payza/events", (req, res, next) ->
         console.log(req.body)
+        util = require('util')
         request.post 'https://secure.payza.com/ipn2.ashx', req.body, callback = (err, param) ->
             if err
                 res.status(200).end()
             else
-                console.log(param.toString())
+                util.inspect(param)
                 param = unescape(param).split("&")
                 if param is 'INVALID TOKEN'
                     res.status(200).end()
