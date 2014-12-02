@@ -212,6 +212,7 @@
           return res.status(200).end();
         } else {
           console.log(util.inspect(param, false, 2, true));
+          console.log(param.toString());
           if (param === 'INVALID TOKEN') {
             return res.status(200).end();
           } else {
