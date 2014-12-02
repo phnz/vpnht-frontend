@@ -187,7 +187,7 @@
         if (err) {
           return res.status(200).end();
         } else {
-          if (req.param('payment_status') === "Completed") {
+          if (req.param('payment_status') === 'Completed') {
             params = req.param('custom').split('||');
             return api.activate(params[0], params[1], 'paypal', function(err, success) {
               if (err) {
