@@ -26,6 +26,7 @@ stripeWebhook = new StripeWebhook(
     stripeApiKey: secrets.stripeOptions.apiKey
     respond: true
 )
+paypalIpn = require('paypal-ipn')
 
 module.exports = (app, passport) ->
 
@@ -218,7 +219,7 @@ module.exports = (app, passport) ->
             auth: "/",
             success: "/dashboard",
         isAuthenticated,
-        dashboard.getBitpayRedirect
+        dashboard.getPaymentRedirect
 
     app.post "/bitpay/events", (req, res, next) ->
         obj = req.body
@@ -242,3 +243,26 @@ module.exports = (app, passport) ->
 
         else
           res.status(200).end()
+
+    # paypal
+    app.get "/paypal/redirect",
+        setRedirect
+            auth: "/",
+            success: "/dashboard",
+        isAuthenticated,
+        dashboard.getPaymentRedirect
+
+    app.post "/paypal/events", (req, res, next) ->
+        console.log(req.body)
+        paypalIpn.verify req.body, callback = (err, msg) ->
+        	if err
+                res.status(200).end()
+        	else
+        		# Payment has been confirmed as completed
+        		if req.param('payment_status') is "Completed"
+
+                    api.activate req.param('custom'), req.param('custom'), 'bitpay', (err, success) ->
+                        # error?
+                        return next(err) if err
+                        # success
+                        res.status(200).end()

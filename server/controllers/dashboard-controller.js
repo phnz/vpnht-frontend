@@ -47,7 +47,7 @@ exports.getOpenvpn = function (req, res, next) {
 
 };
 
-exports.getBitpayRedirect = function (req, res, next) {
+exports.getPaymentRedirect = function (req, res, next) {
 
 	req.flash('info', {
 		msg: 'Thanks for your payment, your account is beein provisioned and you should get an email within 1 hour.'

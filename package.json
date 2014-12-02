@@ -1,54 +1,55 @@
 {
-	"name": "vpnht-frontend",
-	"description": "",
-	"version": "1.0.0",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/davidlemarier/vpnht-frontend.git"
-	},
-	"keywords": [],
-	"author": {},
-	"license": "MIT",
-	"bugs": {},
-	"scripts": {
-		"start": "node server"
-	},
-	"dependencies": {
-		"async": "^0.9.0",
-		"bcrypt-nodejs": "0.0.3",
-		"bigdecimal": "^0.6.1",
-		"body-parser": "^1.8.4",
-		"compression": "*",
-		"connect-mongo": "*",
-		"cookie-parser": "~1.3.3",
-		"cors": "*",
-		"debug": "~2.0.0",
-		"express": "^4.9.8",
-		"express-flash": "*",
-		"express-session": "*",
-		"express-subdomain": "^1.0.1",
-		"express-validator": "^2.6.0",
-		"lodash": "^2.4.1",
-		"middleware-responder": "^1.0.0",
-		"moment": "^2.8.4",
-		"mongoose": "^3.8.16",
-		"mongoose-timestamp": "^0.3.0",
-		"morgan": "~1.3.0",
-		"nodemailer": "^1.3.0",
-		"nodemailer-mailgunapi-transport": "0.0.3",
-		"passport": "^0.2.1",
-		"passport-local": "^1.0.0",
-		"restify": "^2.8.3",
-		"serve-favicon": "~2.1.3",
-		"smbhash": "0.0.1",
-		"stripe": "^2.8.0",
-		"stripe-webhook-middleware": "^0.1.2",
-		"swig": "^1.4.2"
-	},
-	"devDependencies": {
-		"grunt": "^0.4.5",
-		"grunt-contrib-coffee": "^0.12.0",
-		"grunt-md2html": "^0.2.1",
-		"load-grunt-tasks": "^1.0.0"
-	}
+  "name": "vpnht-frontend",
+  "description": "",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidlemarier/vpnht-frontend.git"
+  },
+  "keywords": [],
+  "author": {},
+  "license": "MIT",
+  "bugs": {},
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "bcrypt-nodejs": "0.0.3",
+    "bigdecimal": "^0.6.1",
+    "body-parser": "^1.8.4",
+    "compression": "*",
+    "connect-mongo": "*",
+    "cookie-parser": "~1.3.3",
+    "cors": "*",
+    "debug": "~2.0.0",
+    "express": "^4.9.8",
+    "express-flash": "*",
+    "express-session": "*",
+    "express-subdomain": "^1.0.1",
+    "express-validator": "^2.6.0",
+    "lodash": "^2.4.1",
+    "middleware-responder": "^1.0.0",
+    "moment": "^2.8.4",
+    "mongoose": "^3.8.16",
+    "mongoose-timestamp": "^0.3.0",
+    "morgan": "~1.3.0",
+    "nodemailer": "^1.3.0",
+    "nodemailer-mailgunapi-transport": "0.0.3",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "paypal-ipn": "^3.0.0",
+    "restify": "^2.8.3",
+    "serve-favicon": "~2.1.3",
+    "smbhash": "0.0.1",
+    "stripe": "^2.8.0",
+    "stripe-webhook-middleware": "^0.1.2",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-md2html": "^0.2.1",
+    "load-grunt-tasks": "^1.0.0"
+  }
 }
