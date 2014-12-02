@@ -2,6 +2,7 @@ secrets = require("../config/secrets")
 restify = require("restify")
 nodemailer = require("nodemailer")
 mailgunApiTransport = require("nodemailer-mailgunapi-transport")
+User = require("../models/user")
 
 exports.activate = (customerId, plan, billingType, callback) ->
     User.findOne
