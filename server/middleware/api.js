@@ -10,7 +10,7 @@
 
   mailgunApiTransport = require("nodemailer-mailgunapi-transport");
 
-  exports.activate = function(customerId, plan, callback) {
+  exports.activate = function(customerId, plan, billingType, callback) {
     return User.findOne({
       "stripe.customerId": customerId
     }, function(err, user) {
@@ -53,6 +53,7 @@
               return callback(err, false);
             }
             user.stripe.plan = plan;
+            user.billingType = billingType;
             return user.save(function(err) {
               if (err) {
                 return callback(err, false);

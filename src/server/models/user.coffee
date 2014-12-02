@@ -14,6 +14,7 @@ userSchema = new mongoose.Schema(
 
     password: String
     coupon: String
+    billingType: String
     username:
         type: String
         unique: true

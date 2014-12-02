@@ -3,7 +3,7 @@ restify = require("restify")
 nodemailer = require("nodemailer")
 mailgunApiTransport = require("nodemailer-mailgunapi-transport")
 
-exports.activate = (customerId, plan, callback) ->
+exports.activate = (customerId, plan, billingType, callback) ->
     User.findOne
         "stripe.customerId": customerId,
         (err, user) ->
@@ -48,6 +48,7 @@ exports.activate = (customerId, plan, callback) ->
                         return callback(err, false) if err
 
                         user.stripe.plan = plan
+                        user.billingType = billingType
                         user.save (err) ->
                             return callback(err, false) if err
                             # ok alls good...

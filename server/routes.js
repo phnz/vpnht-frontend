@@ -154,14 +154,14 @@
       var obj;
       obj = req.body;
       if (obj.status === "complete" && obj.amount === "39.99" && obj.posData) {
-        return api.activate(obj.posData, 'yearly', function(err, success) {
+        return api.activate(obj.posData, 'yearly', 'bitpay', function(err, success) {
           if (err) {
             return next(err);
           }
           return res.status(200).end();
         });
       } else if (obj.status === "complete" && obj.posData) {
-        return api.activate(obj.posData, 'monthly', function(err, success) {
+        return api.activate(obj.posData, 'monthly', 'bitpay', function(err, success) {
           if (err) {
             return next(err);
           }

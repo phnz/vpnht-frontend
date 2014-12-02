@@ -226,7 +226,7 @@ module.exports = (app, passport) ->
         # 1 year access
         if obj.status is "complete" and obj.amount is "39.99" and obj.posData
 
-            api.activate obj.posData, 'yearly', (err, success) ->
+            api.activate obj.posData, 'yearly', 'bitpay', (err, success) ->
                 # error?
                 return next(err) if err
                 # success
@@ -234,7 +234,7 @@ module.exports = (app, passport) ->
 
         else if obj.status is "complete" and obj.posData
 
-            api.activate obj.posData, 'monthly', (err, success) ->
+            api.activate obj.posData, 'monthly', 'bitpay', (err, success) ->
                 # error?
                 return next(err) if err
                 # success
