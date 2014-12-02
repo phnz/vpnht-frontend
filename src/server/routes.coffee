@@ -285,6 +285,7 @@ module.exports = (app, passport) ->
                     res.status(200).end()
                 else
                     result = {}
+                    query = unescape(query)
                     query.split("&").forEach (part) ->
                       item = part.split("=")
                       result[item[0]] = decodeURIComponent(item[1])

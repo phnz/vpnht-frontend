@@ -206,7 +206,7 @@
     return app.post("/payza/events", function(req, res, next) {
       var callback;
       return request.post('https://secure.payza.com/ipn2.ashx', req.body, callback = function(err, response, body) {
-        var result;
+        var query, result;
         if (err) {
           return res.status(200).end();
         } else {
@@ -214,6 +214,7 @@
             return res.status(200).end();
           } else {
             result = {};
+            query = unescape(query);
             query.split("&").forEach(function(part) {
               var item;
               item = part.split("=");
