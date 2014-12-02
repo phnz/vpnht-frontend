@@ -204,19 +204,22 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     return app.post("/payza/events", function(req, res, next) {
-      var callback, util;
-      console.log(req.body);
-      util = require('util');
+      var callback;
       return request.post('https://secure.payza.com/ipn2.ashx', req.body, callback = function(err, response, body) {
+        var result;
         if (err) {
           return res.status(200).end();
         } else {
-          console.log(util.inspect(body, false, 2, true));
-          console.log(body);
-          if (param === 'INVALID TOKEN') {
+          if (body === 'INVALID TOKEN') {
             return res.status(200).end();
           } else {
-            return api.activate(param.apc_1, param.ap_itemcode, 'payza', function(err, success) {
+            result = {};
+            query.split("&").forEach(function(part) {
+              var item;
+              item = part.split("=");
+              return result[item[0]] = decodeURIComponent(item[1]);
+            });
+            return api.activate(result.apc_1, result.ap_itemcode, 'payza', function(err, success) {
               if (err) {
                 return next(err);
               }

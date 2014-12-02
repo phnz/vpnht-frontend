@@ -277,18 +277,19 @@ module.exports = (app, passport) ->
         dashboard.getPaymentRedirect
 
     app.post "/payza/events", (req, res, next) ->
-        console.log(req.body)
-        util = require('util')
         request.post 'https://secure.payza.com/ipn2.ashx', req.body, callback = (err, response, body) ->
             if err
                 res.status(200).end()
             else
-                console.log(util.inspect(body, false,2,true))
-                console.log(body)
-                if param is 'INVALID TOKEN'
+                if body is 'INVALID TOKEN'
                     res.status(200).end()
                 else
-                    api.activate param.apc_1, param.ap_itemcode, 'payza', (err, success) ->
+                    result = {}
+                    query.split("&").forEach (part) ->
+                      item = part.split("=")
+                      result[item[0]] = decodeURIComponent(item[1])
+
+                    api.activate result.apc_1, result.ap_itemcode, 'payza', (err, success) ->
                         # error?
                         return next(err) if err
                         # success
