@@ -207,12 +207,12 @@
       var callback, util;
       console.log(req.body);
       util = require('util');
-      return request.post('https://secure.payza.com/ipn2.ashx', req.body, callback = function(err, param) {
+      return request.post('https://secure.payza.com/ipn2.ashx', req.body, callback = function(err, response, body) {
         if (err) {
           return res.status(200).end();
         } else {
-          console.log(util.inspect(param, false, 2, true));
-          console.log(param.toString());
+          console.log(util.inspect(body, false, 2, true));
+          console.log(body);
           if (param === 'INVALID TOKEN') {
             return res.status(200).end();
           } else {
