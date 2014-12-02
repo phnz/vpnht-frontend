@@ -282,8 +282,8 @@ module.exports = (app, passport) ->
             if err
                 res.status(200).end()
             else
-                param = unescape(param).split("&")
                 console.log(param)
+                param = unescape(param).split("&")
                 if param is 'INVALID TOKEN'
                     res.status(200).end()
                 else
