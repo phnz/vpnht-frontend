@@ -205,11 +205,13 @@
     }), isAuthenticated, dashboard.getPaymentRedirect);
     return app.post("/payza/events", function(req, res, next) {
       var callback;
+      console.log(req.body);
       return request.post('https://secure.payza.com/ipn2.ashx', req.body, callback = function(err, param) {
         if (err) {
           return res.status(200).end();
         } else {
           param = unescape(param).split("&");
+          console.log(param);
           if (param === 'INVALID TOKEN') {
             return res.status(200).end();
           } else {
