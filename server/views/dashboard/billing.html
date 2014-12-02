@@ -42,6 +42,7 @@
     <li role="presentation" class="active"><a href="#cc" aria-controls="home" role="tab" data-toggle="tab">Credit Card</a></li>
     <li role="presentation"><a href="#bitcoin" aria-controls="profile" role="tab" data-toggle="tab">Bitcoin</a></li>
     <li role="presentation"><a href="#paypal" aria-controls="messages" role="tab" data-toggle="tab">Paypal</a></li>
+    <li role="presentation"><a href="#payza" aria-controls="messages" role="tab" data-toggle="tab">Payza</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -240,7 +241,7 @@
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                 <input type="hidden" name="cmd" value="_s-xclick">
                                 <input type="hidden" name="hosted_button_id" value="TY2J2DH5W6UVG">
-                                <input type="hidden" name="custom" value="{{user.stripe.customerId}}">
+                                <input type="hidden" name="custom" value="{{user.stripe.customerId}}||monthly">
                                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                             </form>
@@ -251,7 +252,7 @@
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                  <input type="hidden" name="cmd" value="_s-xclick">
                                  <input type="hidden" name="hosted_button_id" value="V2FPJG4JZP3NY">
-                                 <input type="hidden" name="custom" value="{{user.stripe.customerId}}">
+                                 <input type="hidden" name="custom" value="{{user.stripe.customerId}}||yearly">
                                  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                              </form>
@@ -263,9 +264,56 @@
                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                 <input type="hidden" name="cmd" value="_s-xclick">
                                 <input type="hidden" name="hosted_button_id" value="H487ZNRMUFMPG">
-                                <input type="hidden" name="custom" value="{{user.stripe.customerId}}">
+                                <input type="hidden" name="custom" value="{{user.stripe.customerId}}||monthly">
                                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                            </form>
+                        </div>
+                  {% endif %}
+              </div>
+              <br style="clear:both"/>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="payza">
+
+        <div style="margin-top:50px">
+
+            {% for plan in plans %}
+            <hr/>
+              <div class="form-group">
+
+                  {%if user.coupon === 'POPCORNTIME' && plan.name === 'Monthly'%}
+                    <label class="col-sm-3 control-label">{{plan.name}} - <s>${{plan.price}}</s> $1 for the first month ({{user.coupon}})</label>
+                      <div class="col-sm-2">
+                            <form method="post" action="https://secure.payza.com/checkout" >
+                            	<input type="hidden" name="ap_productid" value="Jn4HWse+6FsNUxRRE9V30g=="/>
+                            	<input type="hidden" name="ap_quantity" value="1"/>
+                                <input type="hidden" name="apc_1" value="{{user.stripe.customerId}}">
+                            	<input type="image" name="ap_image" src="https://secure.payza.com/PayNow/7121945F905D4CE3976DC87E71FF47EEs0en.gif"/>
+                            </form>
+                        </div>
+                    {% elseif plan.name === 'Yearly' %}
+                        <label class="col-sm-3 control-label">{{plan.name}} - ${{plan.price}}</label>
+                        <div class="col-sm-2">
+                            <form method="post" action="https://secure.payza.com/checkout" >
+                            	<input type="hidden" name="ap_productid" value="VMv/S9M6YfXUSd+Jkpigsw=="/>
+                            	<input type="hidden" name="ap_quantity" value="1"/>
+                                <input type="hidden" name="apc_1" value="{{user.stripe.customerId}}">
+                            	<input type="image" name="ap_image" src="https://secure.payza.com/PayNow/7121945F905D4CE3976DC87E71FF47EEs0en.gif"/>
+                            </form>
+                        </div>
+
+                    {% elseif plan.name === 'Monthly' %}
+                        <label class="col-sm-3 control-label">{{plan.name}} - ${{plan.price}}</label>
+                        <div class="col-sm-2">
+                           <form method="post" action="https://secure.payza.com/checkout" >
+                            	<input type="hidden" name="ap_productid" value="20NvRNGMyvu9DdBdBGhMKw=="/>
+                            	<input type="hidden" name="ap_quantity" value="1"/>
+                                <input type="hidden" name="apc_1" value="{{user.stripe.customerId}}">
+                            	<input type="image" name="ap_image" src="https://secure.payza.com/PayNow/7121945F905D4CE3976DC87E71FF47EEs0en.gif"/>
                             </form>
                         </div>
                   {% endif %}

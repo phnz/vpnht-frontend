@@ -27,6 +27,7 @@ stripeWebhook = new StripeWebhook(
     respond: true
 )
 paypalIpn = require('paypal-ipn')
+request = require('request');
 
 module.exports = (app, passport) ->
 
@@ -259,9 +260,33 @@ module.exports = (app, passport) ->
                 res.status(200).end()
         	else
         		# Payment has been confirmed as completed
-        		if req.param('payment_status') is "Completed"
+        		if req.param('payment_status') is 'Completed'
+                    params = req.param('custom').split('||')
+                    api.activate params[0], params[1], 'paypal', (err, success) ->
+                        # error?
+                        return next(err) if err
+                        # success
+                        res.status(200).end()
 
-                    api.activate req.param('custom'), req.param('custom'), 'bitpay', (err, success) ->
+    # payza
+    app.get "/payza/redirect",
+        setRedirect
+            auth: "/",
+            success: "/dashboard",
+        isAuthenticated,
+        dashboard.getPaymentRedirect
+
+    app.post "/payza/events", (req, res, next) ->
+        request.post 'https://secure.payza.com/ipn2.ashx', req.body, callback = (err, param) ->
+            if err
+                res.status(200).end()
+            else
+                param = unescape(param).split("&")
+
+                if param is 'INVALID TOKEN'
+                    res.status(200).end()
+                else
+                    api.activate param.apc_1, param.ap_itemcode, 'payza', (err, success) ->
                         # error?
                         return next(err) if err
                         # success
