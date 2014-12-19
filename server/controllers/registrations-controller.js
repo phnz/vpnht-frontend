@@ -63,6 +63,7 @@ exports.postSignup = function (req, res, next) {
 		})(req, res, next);
 
 	});
+};
 
 exports.getSignupPT = function (req, res) {
 	var form = {},
