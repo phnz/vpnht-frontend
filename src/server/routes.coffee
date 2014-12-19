@@ -39,6 +39,12 @@ module.exports = (app, passport) ->
         setRender("index"),
         main.getHome
 
+    # terms
+    app.get "/terms",
+        isUnauthenticated,
+        setRender("terms"),
+        main.getHome
+
     # sessions
     app.get "/login",
         setRedirect
