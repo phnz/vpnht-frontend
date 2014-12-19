@@ -56,6 +56,10 @@ exports.getPaymentRedirect = function (req, res, next) {
 
 };
 
+exports.getRedirect = function (req, res, next) {
+	res.redirect(req.redirect.auth);
+};
+
 exports.getBilling = function (req, res, next) {
 	var form = {},
 		error = null,

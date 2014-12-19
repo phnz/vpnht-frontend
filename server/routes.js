@@ -114,9 +114,8 @@
       auth: "/"
     }), isAuthenticated, dashboard.getProfile);
     app.get("/documentation", setRedirect({
-      auth: "/documentation/all/popcorntime",
-      success: "/documentation/all/popcorntime"
-    }));
+      auth: "/documentation/all/popcorntime"
+    }), dashboard.getRedirect);
     app.get("/documentation/:os/:protocol", function(req, res, next) {
       req.render = "dashboard/documentation/" + req.params.os + "-" + req.params.protocol;
       return next();
