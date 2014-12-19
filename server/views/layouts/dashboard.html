@@ -1,58 +1,156 @@
-<!doctype html>
-<html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Dashboard Title{% endblock %}</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/flat-ui.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-  </head>
-  <body>
-    <!-- Static navbar -->
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container-fluid container-wide">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/dashboard">VPN.ht</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li {%if path == '/dashboard'%}class="active"{%endif%}><a href="/dashboard">Home</a></li>
-            <li {%if path == '/profile'%}class="active"{%endif%}><a href="/profile">Profile</a></li>
-            <li {%if path == '/billing'%}class="active"{%endif%}><a href="/billing">Billing</a></li>
-            <li {%if path == '/documentation'%}class="active"{%endif%}><a href="/documentation">Documentation</a></li>
-            <li><a href="mailto:support@vpn.ht">Support</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>VPN.ht - Anonymous VPN Service</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href="/css/hosting.css" rel="stylesheet" media="all">
+<script src="/js/vendor/modernizr.js"></script>
+
+<link rel="stylesheet" href="/css/flexslider.css" />
+<script src="/js/vendor/jquery.min.js"></script>
+<script src="/js/vendor/jquery.flexslider.js"></script>
+<script type="text/javascript">
+  $(window).load(function() {
+     $('.flexslider').flexslider({
+        animation: "slide",
+        useCSS: Modernizr.touch
+      });
+  });
+</script>
+
+<!--==============CONTACT FORM=================-->
+<script src="/js/contact_form.js"></script>
+</head>
+<body id="home" data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
+
+<!--==============Logo & Menu Bar=================-->
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="/"> <img src="/images/logo.png" alt="logo"></a> </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/billing">Billing</a></li>
+        <li><a href="/documentation">Documentation</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="mailto:support@vpn.ht" role="button" class="btn btn-success">Support</a></li>
+      </ul>
+      </li>
+      </ul>
     </div>
-    <div class="container">
+    <!-- /.navbar-collapse -->
+
+  </div>
+</nav>
+
+<!--==============Content Area=================-->
+
+<div class="container">
+
+        {% include "../partials/flash.html" %}
         {%- block content -%}{%- endblock-%}
     </div>
 
-    <hr>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!--============== Footer ==============-->
 
-     ga('create', '{{googleAnalytics}}');
-     ga('send', 'pageview');
-    </script>
+<div class="footer">
+  <div class="container">
+    <div class="row footerlinks">
+        <div class="row copyright pull-right">
+          <p>Copyright &copy; 2014. VPN.HT</p>
+        </div>
+        <div class="col-sm-4 col-md-2">
+          <p>CONTACT US</p>
+          <ul>
+            <li>support@vpn.ht</li>
+            <li>+1 888-427-5329</li>
+          </ul>
+        </div>
+
+        <div class="col-sm-4 col-md-2  ">
+          <p>LEGAL TERMS</p>
+          <ul>
+            <li><a href="/terms">Terms of use</a></li>
+          </ul>
+        </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!--===Back to top======-->
+<a href="#" class="scrollup">Scroll</a>
+
+<!--==============QUERY LIBRARY=================-->
+
+<script src="/js/vendor/jquery.easing.1.2.js"></script>
+
+<!--==============BOOTSTRAP JS=================-->
+
+<script src="/js/vendor/bootstrap.min.js"></script>
+
+<!--==========ONE PAGE SCROLLING SCRIPTS STARTS===============-->
+
+<script>
+            $(function() {
+                $('.nav li a').bind('click',function(event){
+                    var $anchor2 = $(this).parent();
+                    var $anchor = $(this);
+                    $('.nav  li').removeClass('active');
+                    $anchor2.addClass('active');
+
+                    $('html, body').stop().animate({
+                        scrollTop: $($anchor.attr('href')).offset().top - 80
+                    }, 1500,'easeInOutExpo');
+                    event.preventDefault();
+                });
+
+                $('.anchored').bind('click',function(event){
+                    var $anchor = $(this);
+
+                    $('html, body').stop().animate({
+                        scrollTop: $($anchor.attr('href')).offset().top - 80
+                    }, 1500,'easeInOutExpo');
+                    event.preventDefault();
+                });
+            });
+        </script>
+
+<!--=============ONE PAGE SCROLLING SCRIPTS ENDS============-->
+
+<!--=============BACK TO TOP STARTS============-->
+
+<script>
+    $(document).ready(function(){
+
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 800) {
+                $('.scrollup').fadeIn();
+            } else {
+                $('.scrollup').fadeOut();
+            }
+        });
+
+        $('.scrollup').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+
+    });
+</script>
 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
@@ -61,5 +159,8 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/flat-ui.min.js"></script>
     <script src="/js/app.js"></script>
+
+<!--=============BACK TO TOP ENDS============-->
+
 </body>
 </html>
