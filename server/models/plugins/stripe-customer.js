@@ -43,7 +43,15 @@ module.exports = exports = function stripeCustomer(schema, options) {
 
 			user.save(function (err) {
 				if (err) return cb(err);
-				return cb(null);
+
+				// we add this coupon to everyone for now !
+				// we are so cool =)
+				
+				user.setCoupon('POPCORNTIME', function (err) {
+					if (err) return cb(err);
+					return cb(null);
+				});
+
 			});
 		});
 	};
