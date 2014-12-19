@@ -14,7 +14,7 @@
 
 .markdown h2 {
     float:left;
-    display: block;
+    display: inline-block;
     border-radius: 50%;
     behavior: url(/pie/PIE.htc);
     width: 36px;
@@ -24,6 +24,10 @@
     color: #fff;
     text-align: center;
     font: 35px;
+    margin-right: 10px;
+    margin: 5px 14px 0 0
+
+
 }
 
 .markdown img {
