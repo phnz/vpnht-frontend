@@ -78,14 +78,23 @@ module.exports = (app, passport) ->
         setRender('signup'),
         registrations.getSignup
 
-    # registrations
+    # PT special registrations
     app.get "/popcorntime",
         setRedirect
             auth: "/dashboard",
         isUnauthenticated,
-        setRender('signup'),
-        registrations.getSignup
+        setRender('signup-popcorntime'),
+        registrations.getSignupPT
 
+    app.post "/popcorntime",
+        setRedirect
+            auth: "/dashboard",
+            success: "/dashboard",
+            failure: "/popcorntime",
+        isUnauthenticated,
+        registrations.postSignupPT
+
+    # registrations
     app.post "/signup",
         setRedirect
             auth: "/dashboard",

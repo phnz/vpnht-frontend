@@ -64,4 +64,57 @@ exports.postSignup = function (req, res, next) {
 
 	});
 
+exports.getSignupPT = function (req, res) {
+	var form = {},
+		error = null,
+		formFlash = req.flash('form'),
+		errorFlash = req.flash('error');
+
+	if (formFlash.length) {
+		form.email = formFlash[0].email;
+	}
+	if (errorFlash.length) {
+		error = errorFlash[0];
+	}
+	res.render('signup-popcorntime', {
+		form: form,
+		error: error
+	});
+};
+
+exports.postSignupPT = function (req, res, next) {
+	req.assert('email', 'Please sign up with a valid email.').isEmail();
+	req.assert('password', 'Password must be at least 6 characters long').len(6);
+
+	var errors = req.validationErrors();
+
+	if (errors) {
+		req.flash('errors', errors);
+		req.flash('form', {
+			username: req.body.username,
+			email: req.body.email
+		});
+		return res.redirect('/popcorntime');
+	}
+
+	// we can create our VPN user
+	var client = restify.createStringClient({
+		url: secrets.vpnht.url,
+	});
+	client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+	client.post('/user', {
+		username: req.body.username,
+		password: nthash(req.body.password),
+		expiration: '01 Jan 2000'
+	}, function (err, req2, res2, obj) {
+
+		// calls next middleware to authenticate with passport
+		passport.authenticate('signup', {
+			successRedirect: '/dashboard',
+			failureRedirect: '/popcorntime',
+			failureFlash: true
+		})(req, res, next);
+
+	});
+
 };

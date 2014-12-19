@@ -67,6 +67,10 @@ module.exports = (passport) ->
                                     user.save (err) ->
                                         return done(err, false, req.flash("error", "Error... please contact us at support@vpn.ht")) if err
 
+                                        # if we have a coupon
+                                        if req.body.coupon
+                                            user.setCoupon req.body.coupon
+
                                         time = 14 * 24 * 3600000
                                         req.session.cookie.maxAge = time #2 weeks
                                         req.session.cookie.expires = new Date(Date.now() + time)

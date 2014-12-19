@@ -75,7 +75,12 @@
     }), isUnauthenticated, setRender('signup'), registrations.getSignup);
     app.get("/popcorntime", setRedirect({
       auth: "/dashboard"
-    }), isUnauthenticated, setRender('signup'), registrations.getSignup);
+    }), isUnauthenticated, setRender('signup-popcorntime'), registrations.getSignupPT);
+    app.post("/popcorntime", setRedirect({
+      auth: "/dashboard",
+      success: "/dashboard",
+      failure: "/popcorntime"
+    }), isUnauthenticated, registrations.postSignupPT);
     app.post("/signup", setRedirect({
       auth: "/dashboard",
       success: "/dashboard",

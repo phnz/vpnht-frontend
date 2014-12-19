@@ -1,0 +1,89 @@
+{% extends 'layouts/application.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+
+  <div class="row mainFeatures" id="features">
+    <div class="col-sm-6 col-md-4">
+      <div class="img-thumbnail"> <img src="/images/secure_img.png" width="85" height="88" alt="secure">
+        <div class="caption">
+          <h4>Online Privacy</h4>
+          <p>Encrypt your Internet traffic and hide your IP address from hackers and spies.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="img-thumbnail"> <img src="/images/fast_img.png" width="85" height="88" alt="secure">
+        <div class="caption">
+          <h4>No Limitations</h4>
+          <p>Access any website or app without geographic restrictions or censorship..</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-0">
+      <div class="img-thumbnail"> <img src="/images/support_img.png" width="85" height="88" alt="secure">
+        <div class="caption">
+          <h4>Customer Support</h4>
+          <p>We have a dedicated team of support to help you in anytime. You can also chat with us.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--============== Other Features ==============-->
+
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>More Features</h1>
+      <h3>You will get lot of features with vpn.ht</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 features"> <img src="/images/setup_icon.png" alt="icon" class="img-responsive">
+      <h4>Instant Setup</h4>
+      <p>As soon as you make a successful payment your vpn account will be activated immediately. No waiting time whatsoever.</p>
+    </div>
+    <div class="col-sm-6 features"> <img src="/images/backup_icon.png" alt="icon" class="img-responsive">
+      <h4>Unlimited bandwidth</h4>
+      <p>Feel free to wtch torrent, download musics, nythings you want to do... you are unlimited.</p>
+    </div>
+  </div>
+
+
+
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Create your Account</h1>
+      <h3>Instant account activation !</h3>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3 vpnform">
+      <form action="/popcorntime" class="form" method="POST">
+
+        <p>
+          <input type="text" name="username" class="form-control" placeholder="Username" value="{{form.username}}" autofocus>
+        </p>
+
+        <p>
+          <input type="text" name="email" class="form-control" placeholder="Email address" value="{{form.email}}">
+        </p>
+
+        <p>
+          <input type="password" name="password" class="form-control" placeholder="Password">
+        </p>
+        
+        <p>
+            COUPON: <i><u>POPCORNTIME</u></i>
+          <input type="hidden" name="coupon" class="form-control" placeholder="Coupon Code" value="POPCORNTIME" />
+          <br/>
+        </p>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+      </form>
+      <hr>
+  </div>
+
+{% endblock %}
