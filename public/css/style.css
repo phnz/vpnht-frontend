@@ -13,12 +13,13 @@
 }
 
 .markdown h2 {
-
+    float:left;
+    display: block;
     border-radius: 50%;
     behavior: url(/pie/PIE.htc);
     width: 36px;
     height: 36px;
-    padding: 8px;
+    padding: 3px;
     background: #34495e;
     color: #fff;
     text-align: center;
