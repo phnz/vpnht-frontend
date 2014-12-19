@@ -113,9 +113,10 @@
     app.get("/profile", setRender("dashboard/profile"), setRedirect({
       auth: "/"
     }), isAuthenticated, dashboard.getProfile);
-    app.get("/documentation", setRender("dashboard/documentation/list"), setRedirect({
-      auth: "/"
-    }), isAuthenticated, dashboard.getDocumentation);
+    app.get("/documentation", setRedirect({
+      auth: "/documentation/all/popcorntime",
+      success: "/documentation/all/popcorntime"
+    }));
     app.get("/documentation/:os/:protocol", function(req, res, next) {
       req.render = "dashboard/documentation/" + req.params.os + "-" + req.params.protocol;
       return next();

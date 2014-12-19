@@ -163,10 +163,9 @@ module.exports = (app, passport) ->
 
     # documentation list
     app.get "/documentation",
-        setRender("dashboard/documentation/list"),
-        setRedirect(auth: "/"),
-        isAuthenticated,
-        dashboard.getDocumentation
+        setRedirect
+            auth: "/documentation/all/popcorntime"
+            success: "/documentation/all/popcorntime",
 
     # documentations handler
     app.get "/documentation/:os/:protocol",
