@@ -12,8 +12,6 @@
 <script src="/js/vendor/modernizr.js"></script>
 <script src="/js/vendor/jquery.min.js"></script>
 
-<!--==============CONTACT FORM=================-->
-<script src="/js/contact_form.js"></script>
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
 
@@ -80,66 +78,12 @@
   </div>
 </div>
 
-<!--===Back to top======-->
-<a href="#" class="scrollup">Scroll</a>
-
-<!--==============QUERY LIBRARY=================-->
-
-<script src="/js/vendor/jquery.easing.1.2.js"></script>
-
-<!--==============BOOTSTRAP JS=================-->
-
 <script src="/js/vendor/bootstrap.min.js"></script>
 
-<!--==========ONE PAGE SCROLLING SCRIPTS STARTS===============-->
-
-<script>
-            $(function() {
-                $('.nav li a').bind('click',function(event){
-                    var $anchor2 = $(this).parent();
-                    var $anchor = $(this);
-                    $('.nav  li').removeClass('active');
-                    $anchor2.addClass('active');
-
-                    $('html, body').stop().animate({
-                        scrollTop: $($anchor.attr('href')).offset().top - 80
-                    }, 1500,'easeInOutExpo');
-                    event.preventDefault();
-                });
-
-                $('.anchored').bind('click',function(event){
-                    var $anchor = $(this);
-
-                    $('html, body').stop().animate({
-                        scrollTop: $($anchor.attr('href')).offset().top - 80
-                    }, 1500,'easeInOutExpo');
-                    event.preventDefault();
-                });
-            });
-        </script>
-
-<!--=============ONE PAGE SCROLLING SCRIPTS ENDS============-->
-
-<!--=============BACK TO TOP STARTS============-->
 
 <script>
     $(document).ready(function(){
-
-        $(window).scroll(function(){
-            if ($(this).scrollTop() > 800) {
-                $('.scrollup').fadeIn();
-            } else {
-                $('.scrollup').fadeOut();
-            }
-        });
-
-        $('.scrollup').click(function(){
-            $("html, body").animate({ scrollTop: 0 }, 600);
-            return false;
-        });
-
         $('#tabs').tab();
-
     });
 </script>
 
