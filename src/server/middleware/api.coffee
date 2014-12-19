@@ -3,6 +3,7 @@ restify = require("restify")
 nodemailer = require("nodemailer")
 mailgunApiTransport = require("nodemailer-mailgunapi-transport")
 User = require("../models/user")
+moment = require("moment")
 
 exports.activate = (customerId, plan, billingType, callback) ->
     User.findOne
