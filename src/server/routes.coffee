@@ -41,7 +41,6 @@ module.exports = (app, passport) ->
 
     # terms
     app.get "/terms",
-        isUnauthenticated,
         setRender("terms"),
         main.getHome
 
