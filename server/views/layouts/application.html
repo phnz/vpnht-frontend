@@ -75,8 +75,10 @@
 
 <div class="container">
 
-        {% include "../partials/flash.html" %}
-        {%- block content -%}{%- endblock-%}
+
+        {%- block content -%}
+            {% include "../partials/flash.html" %}
+        {%- endblock-%}
     </div>
 
 
