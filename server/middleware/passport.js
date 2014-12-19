@@ -78,12 +78,21 @@
               }
               if (req.body.coupon) {
                 user.setCoupon(req.body.coupon);
+                return function(err) {
+                  var time;
+                  time = 14 * 24 * 3600000;
+                  req.session.cookie.maxAge = time;
+                  req.session.cookie.expires = new Date(Date.now() + time);
+                  req.session.touch();
+                  return done(null, user, req.flash("success", "Thanks for signing up. Please select your package !"));
+                };
+              } else {
+                time = 14 * 24 * 3600000;
+                req.session.cookie.maxAge = time;
+                req.session.cookie.expires = new Date(Date.now() + time);
+                req.session.touch();
+                return done(null, user, req.flash("success", "Thanks for signing up. Please select your package !"));
               }
-              time = 14 * 24 * 3600000;
-              req.session.cookie.maxAge = time;
-              req.session.cookie.expires = new Date(Date.now() + time);
-              req.session.touch();
-              return done(null, user, req.flash("success", "Thanks for signing up. Please select your package !"));
             });
           });
         });
