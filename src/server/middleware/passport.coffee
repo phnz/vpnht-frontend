@@ -69,7 +69,7 @@ module.exports = (passport) ->
 
                                         # if we have a coupon
                                         if req.body.coupon
-                                            user.setCoupon req.body.coupon
+                                            user.setCoupon req.body.coupon,
                                             (err) ->
                                                 time = 14 * 24 * 3600000
                                                 req.session.cookie.maxAge = time #2 weeks
