@@ -4,13 +4,6 @@
 
 {% block content %}
  <div class="row blog">
-    <div class="col-md-9">
-      <div class="blogpost">
-        <div class="markdown">
-            <%=document%>
-        </div>
-      </div>
-    </div>
     <div class="col-md-3 sidebar">
         <h3>Windows 7 / 8</h3>
           <ul class="bloglist">
@@ -21,6 +14,14 @@
           <ul class="bloglist">
             <li>Popcorn Time</li>
           </ul>
+    </div>
+
+    <div class="col-md-9">
+      <div class="blogpost">
+        <div class="markdown">
+            <%=document%>
+        </div>
+      </div>
     </div>
 </div>
 {% endblock %}
