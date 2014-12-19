@@ -7,6 +7,7 @@ var crypto = require('crypto');
 var User = require('../models/user');
 var secrets = require('../config/secrets');
 var restify = require('restify');
+var nthash = require('smbhash').nthash;
 
 // edit password
 
@@ -33,7 +34,7 @@ exports.postNewPassword = function (req, res, next) {
 			});
 			client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
 			client.put('/password/' + user.username, {
-				password: req.body.password
+				password: nthash(req.body.password)
 			}, function (err, req2, res2, obj) {
 
 				req.flash('success', {
