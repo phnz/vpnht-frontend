@@ -3,21 +3,37 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-    <div class="container" style="max-width: 400px;">
-      <form action="/signup" method="POST">
-        <h2>Sign Up</h2>
-        <p><a href="/">Back</a></p>
+
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Create your Account</h1>
+      <h3>Instant account activation !</h3>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3 vpnform">
+      <form action="/signup" class="form" method="POST">
+
         <p>
           <input type="text" name="username" class="form-control" placeholder="Username" value="{{form.username}}" autofocus>
         </p>
+
         <p>
           <input type="text" name="email" class="form-control" placeholder="Email address" value="{{form.email}}">
         </p>
+
         <p>
           <input type="password" name="password" class="form-control" placeholder="Password">
         </p>
+
+        <p>
+            COUPON: <i><u>POPCORNTIME</u> (First month at $1)</i>
+          <input type="hidden" name="coupon" class="form-control" placeholder="Coupon Code" value="POPCORNTIME" />
+        </p>
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
       </form>
       <hr>
-    </div>
+  </div>
+
 {% endblock %}

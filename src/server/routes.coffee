@@ -31,13 +31,6 @@ request = require('request');
 
 module.exports = (app, passport) ->
 
-    # force SSL
-    app.all "*", (req, res, next) ->
-        if req.headers["x-forwarded-proto"] isnt "https" and process.env.NODE_ENV is "production"
-          res.redirect "https://vpn.ht" + req.url
-        else
-          next()
-
     # homepage and dashboard
     app.get "/",
         setRedirect

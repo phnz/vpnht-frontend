@@ -3,17 +3,28 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-    <div class="container" style="max-width: 400px;">
-      <form action="/reset/{{token}}" method="POST">
-        <h2>Reset Password</h2>
-        <p>New Password
-          <input type="password" name="password" class="form-control" placeholder="New Password" autofocus>
-        </p>
-        <p>Confirm Password
-          <input type="password" name="confirm" class="form-control" placeholder="Confirm Password">
-        </p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
-      </form>
-    </div>
+
+        <div class="row PageHead">
+          <div class="col-md-12">
+            <h1>Members Area</h1>
+            <h3>Reset your password</h3>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-md-offset-3 vpnform">
+            <form action="/reset/{{token}}" method="POST">
+
+              <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="New Password" autofocus>
+              </div>
+              <div class="form-group">
+                <input type="password" name="confirm" class="form-control" placeholder="Confirm Password">
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+
+            </form>
+            <hr>
+        </div>
 
 {% endblock %}

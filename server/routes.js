@@ -51,13 +51,6 @@
   request = require('request');
 
   module.exports = function(app, passport) {
-    app.all("*", function(req, res, next) {
-      if (req.headers["x-forwarded-proto"] !== "https" && process.env.NODE_ENV === "production") {
-        return res.redirect("https://vpn.ht" + req.url);
-      } else {
-        return next();
-      }
-    });
     app.get("/", setRedirect({
       auth: "/dashboard"
     }), isUnauthenticated, setRender("index"), main.getHome);

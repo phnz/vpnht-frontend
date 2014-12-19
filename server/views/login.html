@@ -3,20 +3,31 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-  <div class="container" style="max-width: 400px;">
-    <h2>Members Area</h2>
-    <form accept-charset="UTF-8" action="/login" method="POST" role="form">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input class="form-control" id="username" name="username" type="text" value="{{form.username}}" placeholder="Username" autofocus>
+
+    <div class="row PageHead">
+      <div class="col-md-12">
+        <h1>Members Area</h1>
+        <h3>Manage your subscription</h3>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
-    <hr>
-    <p class="text-center"><a href="/signup">sign up here</a> or <a href="/forgot">forgot password?</a></p>
-  </div>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3 vpnform">
+        <form action="/login" class="form" method="POST">
+
+          <div class="form-group">
+            <input class="form-control" id="username" name="username" type="text" value="{{form.username}}" placeholder="Username" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+          </div>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+
+          <p class="text-center"><a href="/signup">sign up here</a> or <a href="/forgot">forgot password?</a></p>
+
+        </form>
+        <hr>
+    </div>
+
+
 {% endblock %}
