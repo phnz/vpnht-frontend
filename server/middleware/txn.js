@@ -10,7 +10,7 @@
       customerId: customerId,
       plan: plan,
       billingType: billingType,
-      data: data
+      data: JSON.stringify(data)
     });
     return transaction.save(function(err, transaction) {
       if (err) {

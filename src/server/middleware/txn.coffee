@@ -5,7 +5,7 @@ exports.add = (customerId, plan, billingType, data, callback) ->
         customerId: customerId,
         plan: plan,
         billingType: billingType,
-        data: data
+        data: JSON.stringify(data)
     )
 
     transaction.save (err, transaction) ->

@@ -6,8 +6,8 @@
 
   txnSchema = new mongoose.Schema({
     customerId: String,
-    type: String,
-    amount: String,
+    plan: String,
+    billingType: String,
     data: String
   });
 
