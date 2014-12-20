@@ -6,17 +6,19 @@ nodemailer = require("nodemailer")
 mailgunApiTransport = require("nodemailer-mailgunapi-transport")
 moment = require("moment")
 api = require("../middleware/api")
+txn = require("../middleware/txn")
 
 knownEvents =
     "invoice.payment_succeeded": (req, res, next) ->
         console.log req.stripeEvent.type + ": event processed"
         if req.stripeEvent.data and req.stripeEvent.data.object and req.stripeEvent.data.object.customer
 
-            api.activate req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[0].plan.name.toLowerCase(), 'stripe', (err, success) ->
-                # error?
-                return next(err) if err
-                # success
-                res.status(200).end()
+            txn.add req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[0].plan.name.toLowerCase(), 'stripe', req.stripeEvent.data, (transaction) ->
+                api.activate req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[0].plan.name.toLowerCase(), 'stripe', (err, success) ->
+                    # error?
+                    return next(err) if err
+                    # success
+                    res.status(200).end()
 
         else
             next new Error("stripeEvent.data.object.customer is undefined")

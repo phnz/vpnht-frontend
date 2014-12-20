@@ -9,6 +9,7 @@ setRedirect = require("middleware-responder").setRedirect
 stripeEvents = require("./middleware/stripe-events")
 secrets = require("./config/secrets")
 api = require("./middleware/api")
+txn = require("./middleware/txn")
 
 # controllers
 users = require("./controllers/users-controller")
@@ -242,19 +243,21 @@ module.exports = (app, passport) ->
         # 1 year access
         if obj.status is "complete" and obj.amount is "39.99" and obj.posData
 
-            api.activate obj.posData, 'yearly', 'bitpay', (err, success) ->
-                # error?
-                return next(err) if err
-                # success
-                res.status(200).end()
+            txn.add obj.posData, 'yearly', 'bitpay', obj, (transaction) ->
+                api.activate obj.posData, 'yearly', 'bitpay', (err, success) ->
+                    # error?
+                    return next(err) if err
+                    # success
+                    res.status(200).end()
 
         else if obj.status is "complete" and obj.posData
 
-            api.activate obj.posData, 'monthly', 'bitpay', (err, success) ->
-                # error?
-                return next(err) if err
-                # success
-                res.status(200).end()
+            txn.add obj.posData, 'monthly', 'bitpay', obj, (transaction) ->
+                api.activate obj.posData, 'monthly', 'bitpay', (err, success) ->
+                    # error?
+                    return next(err) if err
+                    # success
+                    res.status(200).end()
 
         else
           res.status(200).end()
@@ -276,11 +279,12 @@ module.exports = (app, passport) ->
         		# Payment has been confirmed as completed
         		if req.param('payment_status') is 'Completed'
                     params = req.param('custom').split('||')
-                    api.activate params[0], params[1], 'paypal', (err, success) ->
-                        # error?
-                        return next(err) if err
-                        # success
-                        res.status(200).end()
+                    txn.add params[0], params[1], 'paypal', params, (transaction) ->
+                        api.activate params[0], params[1], 'paypal', (err, success) ->
+                            # error?
+                            return next(err) if err
+                            # success
+                            res.status(200).end()
 
     # payza
     app.get "/payza/redirect",
@@ -304,8 +308,9 @@ module.exports = (app, passport) ->
                       item = part.split("=")
                       result[item[0]] = decodeURIComponent(item[1])
 
-                    api.activate result.apc_1, result.ap_itemcode, 'payza', (err, success) ->
-                        # error?
-                        return next(err) if err
-                        # success
-                        res.status(200).end()
+                    txn.add result.apc_1, result.ap_itemcode, 'payza', result, (transaction) ->
+                        api.activate result.apc_1, result.ap_itemcode, 'payza', (err, success) ->
+                            # error?
+                            return next(err) if err
+                            # success
+                            res.status(200).end()
