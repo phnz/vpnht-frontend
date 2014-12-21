@@ -54,4 +54,6 @@ Once you granted admin access, you should see this window
 
 Then, if everything went fine, you will see the main menu and the padlock will become green, meaning that you are successfully connected to the VPN.
 
+![Success](http://puu.sh/dDv44/53ad5ab66d.png)
+
 (Note that when connected to the VPN all you internet traffic is encrypted.)
