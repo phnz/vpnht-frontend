@@ -57,7 +57,7 @@ userSchema.pre "save", (next) ->
 
 # validate password
 userSchema.methods.comparePassword = (candidatePassword, cb) ->
-    return cb(err) if @password isnt nthash(candidatePassword)
+    return cb(true, null) if @password isnt nthash(candidatePassword)
     cb null, true
 
 # gravatar

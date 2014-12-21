@@ -76,7 +76,7 @@
 
   userSchema.methods.comparePassword = function(candidatePassword, cb) {
     if (this.password !== nthash(candidatePassword)) {
-      return cb(err);
+      return cb(true, null);
     }
     return cb(null, true);
   };
