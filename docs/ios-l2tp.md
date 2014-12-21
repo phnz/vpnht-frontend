@@ -1,4 +1,4 @@
-# iOS L2TP `/views/dashboard/docs`
+# iOS L2TP
 
 ## 1
 ### Open Settings
