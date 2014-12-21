@@ -19,13 +19,6 @@ Download latest [Popcorn Time](https://popcorntime.io) version
 
 ![Install Client](http://puu.sh/dDus0/0db471d689.png)
 
-***
-
-## 3
-### Install VPN Client
-
-![Install Client](http://puu.sh/dDus0/0db471d689.png)
-
 You will see a 'notice' showing the client is installing.
 
 ![Notice](http://puu.sh/dDutQ/f2420886fa.png)
