@@ -213,7 +213,7 @@
       auth: "/",
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
-    return app.post("/payza/events", function(req, res, next) {
+    app.post("/payza/events", function(req, res, next) {
       var callback;
       return request.post('https://secure.payza.com/ipn2.ashx', req.body, callback = function(err, response, body) {
         var query, result;
@@ -232,6 +232,32 @@
             });
             return txn.add(result.apc_1, result.ap_itemcode, 'payza', result, function(transaction) {
               return api.activate(result.apc_1, result.ap_itemcode, 'payza', function(err, success) {
+                if (err) {
+                  return next(err);
+                }
+                return res.status(200).end();
+              });
+            });
+          }
+        }
+      });
+    });
+    app.get("/okpay/redirect", setRedirect({
+      auth: "/",
+      success: "/dashboard"
+    }), isAuthenticated, dashboard.getPaymentRedirect);
+    return app.post("/okpay/events", function(req, res, next) {
+      var callback;
+      req.body.ok_verify = true;
+      return request.post('https://www.okpay.com/ipn-verify.html', req.body, callback = function(err, response, body) {
+        if (err) {
+          return res.status(200).end();
+        } else {
+          if (body === 'INVALID') {
+            return res.status(200).end();
+          } else {
+            return txn.add(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, function(transaction) {
+              return api.activate(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', function(err, success) {
                 if (err) {
                   return next(err);
                 }

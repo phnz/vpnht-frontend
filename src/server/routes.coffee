@@ -314,3 +314,28 @@ module.exports = (app, passport) ->
                             return next(err) if err
                             # success
                             res.status(200).end()
+
+    # okpay
+    app.get "/okpay/redirect",
+        setRedirect
+            auth: "/",
+            success: "/dashboard",
+        isAuthenticated,
+        dashboard.getPaymentRedirect
+
+    app.post "/okpay/events", (req, res, next) ->
+        # add our verify flag
+        req.body.ok_verify = true;
+        request.post 'https://www.okpay.com/ipn-verify.html', req.body, callback = (err, response, body) ->
+            if err
+                res.status(200).end()
+            else
+                if body is 'INVALID'
+                    res.status(200).end()
+                else
+                    txn.add req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, (transaction) ->
+                        api.activate req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', (err, success) ->
+                            # error?
+                            return next(err) if err
+                            # success
+                            res.status(200).end()

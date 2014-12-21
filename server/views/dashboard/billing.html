@@ -40,6 +40,7 @@
   <!-- Nav tabs -->
   <ul id="tabs" class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#cc" aria-controls="home" role="tab" data-toggle="tab">Credit Card</a></li>
+    <li role="presentation"><a href="#okpay" aria-controls="profile" role="tab" data-toggle="tab">OKPAY</a></li>
     <li role="presentation"><a href="#bitcoin" aria-controls="profile" role="tab" data-toggle="tab">Bitcoin</a></li>
     <li role="presentation"><a href="#paypal" aria-controls="messages" role="tab" data-toggle="tab">Paypal</a></li>
     <li role="presentation"><a href="#payza" aria-controls="messages" role="tab" data-toggle="tab">Payza</a></li>
@@ -315,6 +316,86 @@
                                 <input type="hidden" name="apc_1" value="{{user.stripe.customerId}}">
                             	<input type="image" name="ap_image" src="https://secure.payza.com/PayNow/7121945F905D4CE3976DC87E71FF47EEs0en.gif"/>
                             </form>
+                        </div>
+                  {% endif %}
+              </div>
+              <br style="clear:both"/>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane" id="okpay">
+
+        <div style="margin-top:50px">
+
+            {% for plan in plans %}
+            <hr/>
+              <div class="form-group">
+
+                  {%if user.coupon === 'POPCORNTIME' && plan.name === 'Monthly'%}
+                    <label class="col-sm-3 control-label">{{plan.name}} - <s>${{plan.price}}</s> $1 for the first month ({{user.coupon}})</label>
+                      <div class="col-sm-2">
+                            <form  method="post" action="https://www.okpay.com/process.html">
+                                <input type="hidden" name="ok_receiver" value="OK498477289"/>
+                                <input type="hidden" name="ok_kind" value="subscription"/>
+                                <input type="hidden" name="ok_currency" value="USD"/>
+                                <input type="hidden" name="ok_s_title" value="Monthly"/>
+                                <input type="hidden" name="ok_s_regular_price" value="4.99"/>
+                                <input type="hidden" name="ok_s_regular_cycle" value="1 M"/>
+                                <input type="hidden" name="ok_s_trial_count" value="0"/>
+                                <input type="hidden" name="ok_s_trial_cycle" value="1 M"/>
+                                <input type="hidden" name="ok_s_trial_price" value="0.99"/>
+                                <input type="hidden" name="ok_s_reattempt_days" value="-1"/>
+                                <input type="hidden" name="ok_s_reattempt_accum" value="0"/>
+                                <input type="hidden" name="ok_s_type" value="service"/>
+                                <input type="hidden" name="ok_invoice" value="{{user.stripe.customerId}}"/>
+                                <input type="hidden" name="ok_ipn" value="https://vpn.ht/okpay/events"/>
+                                <input type="hidden" name="ok_return_success" value="https://vpn.ht/okpay/redirect"/>
+                                <input type="image" name="submit" alt="OKPAY Payment" src="https://www.okpay.com/img/buttons/en/subscribe/s08o186x54en.png"/>
+                            </form>
+                        </div>
+                    {% elseif plan.name === 'Yearly' %}
+                        <label class="col-sm-3 control-label">{{plan.name}} - ${{plan.price}}</label>
+                        <div class="col-sm-2">
+                            <form  method="post" action="https://www.okpay.com/process.html">
+                                <input type="hidden" name="ok_receiver" value="OK498477289"/>
+                                <input type="hidden" name="ok_kind" value="subscription"/>
+                                <input type="hidden" name="ok_currency" value="USD"/>
+                                <input type="hidden" name="ok_s_title" value="Yearly"/>
+                                <input type="hidden" name="ok_s_regular_price" value="39.99"/>
+                                <input type="hidden" name="ok_s_regular_cycle" value="1 Y"/>
+                                <input type="hidden" name="ok_s_trial_count" value="0"/>
+                                <input type="hidden" name="ok_s_reattempt_days" value="-1"/>
+                                <input type="hidden" name="ok_s_reattempt_accum" value="0"/>
+                                <input type="hidden" name="ok_s_type" value="service"/>
+                                <input type="hidden" name="ok_invoice" value="{{user.stripe.customerId}}"/>
+                                <input type="hidden" name="ok_ipn" value="https://vpn.ht/okpay/events"/>
+                                <input type="hidden" name="ok_return_success" value="https://vpn.ht/okpay/redirect"/>
+                                <input type="image" name="submit" alt="OKPAY Payment" src="https://www.okpay.com/img/buttons/en/subscribe/s08o186x54en.png"/>
+                            </form>
+                        </div>
+
+                    {% elseif plan.name === 'Monthly' %}
+                        <label class="col-sm-3 control-label">{{plan.name}} - ${{plan.price}}</label>
+                        <div class="col-sm-2">
+                           <form  method="post" action="https://www.okpay.com/process.html">
+                               <input type="hidden" name="ok_receiver" value="OK498477289"/>
+                               <input type="hidden" name="ok_kind" value="subscription"/>
+                               <input type="hidden" name="ok_currency" value="USD"/>
+                               <input type="hidden" name="ok_s_title" value="Monthly"/>
+                               <input type="hidden" name="ok_s_regular_price" value="4.99"/>
+                               <input type="hidden" name="ok_s_regular_cycle" value="1 M"/>
+                               <input type="hidden" name="ok_s_trial_count" value="0"/>
+                               <input type="hidden" name="ok_s_reattempt_days" value="-1"/>
+                               <input type="hidden" name="ok_s_reattempt_accum" value="0"/>
+                               <input type="hidden" name="ok_s_type" value="service"/>
+                               <input type="hidden" name="ok_invoice" value="{{user.stripe.customerId}}"/>
+                               <input type="hidden" name="ok_ipn" value="https://vpn.ht/okpay/events"/>
+                               <input type="hidden" name="ok_return_success" value="https://vpn.ht/okpay/redirect"/>
+                               <input type="image" name="submit" alt="OKPAY Payment" src="https://www.okpay.com/img/buttons/en/subscribe/s08o186x54en.png"/>
+                           </form>
                         </div>
                   {% endif %}
               </div>
