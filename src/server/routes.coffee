@@ -333,6 +333,7 @@ module.exports = (app, passport) ->
                 if body is 'INVALID'
                     res.status(200).end()
                 else
+                    console.log(req.body)
                     txn.add req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, (transaction) ->
                         api.activate req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', (err, success) ->
                             # error?

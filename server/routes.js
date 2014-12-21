@@ -256,6 +256,7 @@
           if (body === 'INVALID') {
             return res.status(200).end();
           } else {
+            console.log(req.body);
             return txn.add(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, function(transaction) {
               return api.activate(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', function(err, success) {
                 if (err) {
