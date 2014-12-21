@@ -326,6 +326,7 @@ module.exports = (app, passport) ->
     app.post "/okpay/events", (req, res, next) ->
         # add our verify flag
         req.body.ok_verify = true;
+        console.log(req.body)
         request.post 'https://www.okpay.com/ipn-verify.html', req.body, callback = (err, response, body) ->
             if err
                 res.status(200).end()
