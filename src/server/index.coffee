@@ -25,6 +25,8 @@ cors = require("cors")
 corsOptions = origin: "*"
 staticDir = undefined
 
+console.log(secrets)
+
 # setup db
 mongoose.connect secrets.db
 mongoose.connection.on "error", ->
