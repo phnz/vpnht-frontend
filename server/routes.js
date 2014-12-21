@@ -247,27 +247,13 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     return app.post("/okpay/events", function(req, res, next) {
-      var callback;
-      req.body.ok_verify = true;
-      console.log(req.body);
-      return request.post('https://www.okpay.com/ipn-verify.html', req.body, callback = function(err, response, body) {
-        if (err) {
-          return res.status(200).end();
-        } else {
-          if (body === 'INVALID') {
-            return res.status(200).end();
-          } else {
-            console.log(req.body);
-            return txn.add(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, function(transaction) {
-              return api.activate(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', function(err, success) {
-                if (err) {
-                  return next(err);
-                }
-                return res.status(200).end();
-              });
-            });
+      return txn.add(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, function(transaction) {
+        return api.activate(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', function(err, success) {
+          if (err) {
+            return next(err);
           }
-        }
+          return res.status(200).end();
+        });
       });
     });
   };
