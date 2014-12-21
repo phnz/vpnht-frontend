@@ -37,7 +37,7 @@ Once completed you will see a 'green notice'.
 
 Once installed, you will be able to enter your username & password to log-in
 
-![Install Client](http://puu.sh/dDus0/0db471d689.png)
+![Install Client](http://puu.sh/dDuWU/773645e67d.png)
 
 Use the same username and password you used to register your account here.
 
@@ -46,9 +46,7 @@ If you changed your password in the member area, your VPN password is automatica
 ***
 
 ## 5
-### Connexion
-
-![Grant access](http://puu.sh/dDus0/0db471d689.png)
+### Grant Admin Access
 
 Once you granted admin access, you should see this window
 
