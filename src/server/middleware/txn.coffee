@@ -49,6 +49,9 @@ module.exports =
                         else if txn.billingType == 'paymentwall'
                             callback 'payments/paymentwall_monthly_pt';
 
+                        else if txn.billingType == 'payza'
+                            callback 'payments/payza_monthly_pt';
+
                     else
 
                         if txn.billingType == 'paypal'
@@ -62,3 +65,6 @@ module.exports =
 
                         else if txn.billingType == 'paymentwall'
                             callback 'payments/paymentwall_yearly';
+
+                        else if txn.billingType == 'payza'
+                            callback 'payments/payza_yearly';

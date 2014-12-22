@@ -1,0 +1,19 @@
+<html>
+<head>Please wait...</head>
+<body>
+
+<form id="order_form" method="post" action="https://secure.payza.com/checkout" >
+    <input type="hidden" name="ap_productid" value="VMv/S9M6YfXUSd+Jkpigsw=="/>
+    <input type="hidden" name="ap_quantity" value="1"/>
+    <input type="hidden" name="apc_1" value="{{ invoice.id }}">
+</form>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+   $('#order_form').submit();
+});
+</script>
+</body>
+</html>

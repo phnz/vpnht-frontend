@@ -61,6 +61,8 @@
               return callback('payments/okpay_monthly_pt');
             } else if (txn.billingType === 'paymentwall') {
               return callback('payments/paymentwall_monthly_pt');
+            } else if (txn.billingType === 'payza') {
+              return callback('payments/payza_monthly_pt');
             }
           } else {
             if (txn.billingType === 'paypal') {
@@ -71,6 +73,8 @@
               return callback('payments/okpay_yearly');
             } else if (txn.billingType === 'paymentwall') {
               return callback('payments/paymentwall_yearly');
+            } else if (txn.billingType === 'payza') {
+              return callback('payments/payza_yearly');
             }
           }
         }
