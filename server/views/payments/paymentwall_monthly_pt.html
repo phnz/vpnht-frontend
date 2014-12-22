@@ -1,0 +1,21 @@
+
+<html>
+<head>Please wait...</head>
+<body>
+
+<form id="order_form" action="https://api.paymentwall.com/api/subscription/" method="get" target="_top">
+    <input type="hidden" name="key" value="45fb3987c252c50cd90a1ade89676c3d">
+    <input type="hidden" name="uid" value="{{ invoice.id }}">
+    <input type="hidden" name="widget" value="p1_1">
+
+</form>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+   $('#order_form').submit();
+});
+</script>
+</body>
+</html>

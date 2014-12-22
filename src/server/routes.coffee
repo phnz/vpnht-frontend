@@ -329,3 +329,20 @@ module.exports = (app, passport) ->
                 return next(err) if err
                 # success
                 res.status(200).end()
+
+    # paymentwall
+    app.get "/paymentwall/redirect",
+        setRedirect
+            auth: "/",
+            success: "/dashboard",
+        isAuthenticated,
+        dashboard.getPaymentRedirect
+
+    # todo add more security
+    app.post "/paymentwall/events", (req, res, next) ->
+        txn.update req.body.uid, 'paid', req.body, (invoice) ->
+            api.activate invoice.customerId, invoice.plan, 'paymentwall', (err, success) ->
+                # error?
+                return next(err) if err
+                # success
+                res.status(200).end()

@@ -52,13 +52,15 @@
         if (!txn) {
           return callback(false);
         } else {
-          if (txn.billingType === 'monthly') {
+          if (txn.plan === 'monthly') {
             if (txn.billingType === 'paypal') {
               return callback('payments/paypal_monthly_pt');
             } else if (txn.billingType === 'bitpay') {
               return callback('payments/bitpay_monthly_pt');
             } else if (txn.billingType === 'okpay') {
               return callback('payments/okpay_monthly_pt');
+            } else if (txn.billingType === 'paymentwall') {
+              return callback('payments/paymentwall_monthly_pt');
             }
           } else {
             if (txn.billingType === 'paypal') {

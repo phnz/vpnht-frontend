@@ -242,9 +242,23 @@
       auth: "/",
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
-    return app.post("/okpay/events", function(req, res, next) {
+    app.post("/okpay/events", function(req, res, next) {
       return txn.update(req.body.ok_invoice, 'paid', req.body, function(invoice) {
         return api.activate(invoice.customerId, invoice.plan, 'okpay', function(err, success) {
+          if (err) {
+            return next(err);
+          }
+          return res.status(200).end();
+        });
+      });
+    });
+    app.get("/paymentwall/redirect", setRedirect({
+      auth: "/",
+      success: "/dashboard"
+    }), isAuthenticated, dashboard.getPaymentRedirect);
+    return app.post("/paymentwall/events", function(req, res, next) {
+      return txn.update(req.body.uid, 'paid', req.body, function(invoice) {
+        return api.activate(invoice.customerId, invoice.plan, 'paymentwall', function(err, success) {
           if (err) {
             return next(err);
           }

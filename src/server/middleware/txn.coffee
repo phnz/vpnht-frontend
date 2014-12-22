@@ -35,7 +35,7 @@ module.exports =
                     callback false
                 else
 
-                    if txn.billingType == 'monthly'
+                    if txn.plan == 'monthly'
 
                         if txn.billingType == 'paypal'
                             callback 'payments/paypal_monthly_pt';
@@ -45,6 +45,9 @@ module.exports =
 
                         else if txn.billingType == 'okpay'
                             callback 'payments/okpay_monthly_pt';
+
+                        else if txn.billingType == 'paymentwall'
+                            callback 'payments/paymentwall_monthly_pt';
 
                     else
 
