@@ -340,7 +340,7 @@ module.exports = (app, passport) ->
 
     # todo add more security
     app.get "/paymentwall/events", (req, res, next) ->
-        txn.update req.body.uid, 'paid', req.body, (invoice) ->
+        txn.update req.query.uid, 'paid', req.query, (invoice) ->
             api.activate invoice.customerId, invoice.plan, 'paymentwall', (err, success) ->
                 # error?
                 return next(err) if err
