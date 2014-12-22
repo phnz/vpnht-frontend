@@ -256,7 +256,7 @@
       auth: "/",
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
-    return app.post("/paymentwall/events", function(req, res, next) {
+    return app.get("/paymentwall/events", function(req, res, next) {
       return txn.update(req.body.uid, 'paid', req.body, function(invoice) {
         return api.activate(invoice.customerId, invoice.plan, 'paymentwall', function(err, success) {
           if (err) {

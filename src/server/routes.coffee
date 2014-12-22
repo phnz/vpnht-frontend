@@ -339,7 +339,7 @@ module.exports = (app, passport) ->
         dashboard.getPaymentRedirect
 
     # todo add more security
-    app.post "/paymentwall/events", (req, res, next) ->
+    app.get "/paymentwall/events", (req, res, next) ->
         txn.update req.body.uid, 'paid', req.body, (invoice) ->
             api.activate invoice.customerId, invoice.plan, 'paymentwall', (err, success) ->
                 # error?
