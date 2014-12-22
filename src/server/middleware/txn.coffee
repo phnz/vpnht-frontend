@@ -59,3 +59,6 @@ module.exports =
 
                         else if txn.billingType == 'okpay'
                             callback 'payments/okpay_yearly';
+
+                        else if txn.billingType == 'paymentwall'
+                            callback 'payments/paymentwall_yearly';

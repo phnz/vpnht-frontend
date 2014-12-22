@@ -69,6 +69,8 @@
               return callback('payments/bitpay_yearly');
             } else if (txn.billingType === 'okpay') {
               return callback('payments/okpay_yearly');
+            } else if (txn.billingType === 'paymentwall') {
+              return callback('payments/paymentwall_yearly');
             }
           }
         }
