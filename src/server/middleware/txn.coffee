@@ -16,15 +16,15 @@ module.exports =
         Txn.findOne
             "_id": txnId,
             (err, txn) ->
-                return callback err, false if err
+                return callback false if err
                 unless txn
-                    callback false, false
+                    callback false
                 else
                     txn.status = status
                     txn.data = data
                     txn.save (err, txn) ->
-                        return callback err, false if err
-                        callback false, txn
+                        return callback false if err
+                        callback txn
 
     prepare: (txnId, callback) ->
         Txn.findOne

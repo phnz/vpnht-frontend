@@ -26,18 +26,18 @@
         "_id": txnId
       }, function(err, txn) {
         if (err) {
-          return callback(err, false);
+          return callback(false);
         }
         if (!txn) {
-          return callback(false, false);
+          return callback(false);
         } else {
           txn.status = status;
           txn.data = data;
           return txn.save(function(err, txn) {
             if (err) {
-              return callback(err, false);
+              return callback(false);
             }
-            return callback(false, txn);
+            return callback(txn);
           });
         }
       });
