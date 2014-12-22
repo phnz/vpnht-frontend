@@ -35,6 +35,9 @@ If you having trouble in editing css. please send a mail to support@surjithctly.
 
 /*==========0. GLOBAL STYLES==============*/
 
+li {
+	list-style:none !important;
+}
 
 body {
 	font-family:"Montserrat", Arial, Helvetica, sans-serif;
