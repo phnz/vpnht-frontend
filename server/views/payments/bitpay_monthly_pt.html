@@ -1,0 +1,19 @@
+<html>
+<head>Please wait...</head>
+<body>
+
+<form id="order_form" action="https://bitpay.com/checkout" method="post" >
+  <input type="hidden" name="action" value="checkout" />
+  <input type="hidden" name="posData" value="{{ invoice.id }}" />
+  <input type="hidden" name="data" value="+5H7X1M1Xobof2NYIWtz6YKAuvjvMG8XhpuOkdKq61P2EbEmF4IawvuMTNGg6coDrO7dPEL+3RWWfaXj18EbRXfTIiCoU92vn2COsJhoYI1dyEMO++S7GF0XgAloa1Z2rqcAFWWGNFOihEHLMaANWzkco+HKFcNxme/8tEri3pb26zhE6Dx4ZY6QxMbkX1Y0z4+QcFhovJTi9pJyiU7V44wsOX/0Ub23QdlOlMdI0iDv2OXdJT4TZmFpytXCKa3LF5wV3kf2iLyp81YuScouxPBpHpjvhBy2j6uGs/XPQGEgM8ob8T15H+1l8uQRAn8u" />
+</form>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+   $('#order_form').submit();
+});
+</script>
+</body>
+</html>

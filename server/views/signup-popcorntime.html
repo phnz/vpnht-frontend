@@ -3,8 +3,8 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-
-
+<form action="/popcorntime" class="form" method="POST">
+<div class="order_page">
   <div class="row mainFeatures" id="features">
     <div class="col-sm-6 col-md-4">
       <div class="img-thumbnail"> <img src="/images/secure_img.png" width="85" height="88" alt="secure">
@@ -32,18 +32,71 @@
     </div>
   </div>
 
-
-
+  {% include "./partials/flash-signup.html" %}
 
   <div class="row PageHead">
     <div class="col-md-12">
-      <h1>Create your Account</h1>
-      <h3>Instant account activation !</h3>
+      <h1>Select a plan that works for you</h1>
+      <h3>100% Money-Back Guarantee for your first 30 days of service</h3>
+    </div>
+  </div>
+
+<div class='row plan-selector col-md-offset-3' style="margin-top:20px">
+	<div class='col-sm-4'>
+		<div class='plan' data-package='{"cost":"0.99", "plan":"monthly", "special":"POPCORNTIME"}' id='package_1'>
+			<div class='plan-box'>
+				<div class='checkmark'>
+					<div class='glyphicon glyphicon-ok'></div>
+				</div>
+				<div class='plan-name'>1 Month</div>
+				<div class='plan-amount'>
+					<div class='price'>
+						<div class='sup'>$</div>
+						<div class='monthly-amount'>4.99</div>
+					</div>
+					<div class='per-month'>per month</div>
+				</div>
+				<div class='divider'></div>
+				<div class='billing-info'>Billed monthly.</div>
+                <div class='savings'>First month at $1</div>
+			</div>
+		</div>
+	</div>
+	<div class='col-sm-4'>
+		<div class='best-deal plan selected' data-package='{"cost":"36.00", "plan":"yearly", "special":false}' id='package_2'>
+			<div class='plan-box'>
+				<div class='checkmark'>
+					<div class='glyphicon glyphicon-ok'></div>
+				</div>
+				<div class='plan-name'>12 Months</div>
+				<div class='best-deal-sticker'>
+					<span>Most Popular</span>
+				</div>
+				<div class='plan-amount'>
+					<div class='price'>
+						<div class='sup'>$</div>
+						<div class='monthly-amount'>3</div>
+					</div>
+					<div class='per-month'>per month</div>
+				</div>
+				<div class='divider'></div>
+				<div class='billing-info'>Billed every 12 months.</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+  <br style="clear:both"/>
+  <hr>
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Account Details</h1>
     </div>
   </div>
 
   <div class="col-md-6 col-md-offset-3 vpnform">
-      <form action="/popcorntime" class="form" method="POST">
+
 
         <p>
           <input type="text" name="username" class="form-control" placeholder="Username" value="{{form.username}}" >
@@ -57,15 +110,337 @@
           <input type="password" name="password" class="form-control" placeholder="Password">
         </p>
 
-        <p>
-            COUPON: <i><u>POPCORNTIME</u></i>
-          <input type="hidden" name="coupon" class="form-control" placeholder="Coupon Code" value="POPCORNTIME" />
-          <br/>
-        </p>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-      </form>
-      <hr>
   </div>
 
+  <br style="clear:both"/>
+  <hr>
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Method of Payment</h1>
+    </div>
+  </div>
+
+<div class='row'>
+	<div class='col-md-6 col-md-offset-3'>
+		<div class='payment-methods'>
+			<div class='panel-group' id='accordion'>
+				<div class='panel panel-default' data-payment-method='cc'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseOne'>
+							<h4>
+                            Credit Card
+                            <div class='paymethod paymethod-visa'></div>
+                            <div class='paymethod paymethod-mastercard'></div>
+                            <div class='paymethod paymethod-amex'></div>
+                            <div class='paymethod paymethod-discover'></div>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse credit-card-form panel-collapse' id='collapseOne'>
+						<div class='panel-body'>
+							<div class='row'>
+								<div class='col-sm-10 col-md-9'>
+									<div class='form-section'>
+										<div class='row'>
+											<div class='col-sm-12'>
+												<h6>Your Details</h6>
+											</div>
+										</div>
+										<div class='row'>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label for="signup_first_name">First name</label>
+													<input class="required form-control" id="signup_first_name" name="cc_first_name" size="30" type="text" />
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label for="signup_last_name">Last name</label>
+													<input class="required form-control" id="signup_last_name" name="cc_last_name" size="30" type="text" />
+												</div>
+											</div>
+										</div>
+										<div class='row'>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label for="signup_zip">ZIP/Postal Code
+														<span>(leave blank if none)</span>
+													</label>
+													<input class="is optional form-control" id="cc_zip" name="cc_zip" size="30" type="text" />
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class='form-section'>
+										<div class='row'>
+											<div class='col-sm-12'>
+												<h6>Your Credit Card Details</h6>
+											</div>
+										</div>
+										<div class='row'>
+											<div class='col-sm-9'>
+												<div class='form-group'>
+													<label for="signup_cc_no">Credit Card Number
+													</label>
+													<input id="signup_cc_number_is_pasted" name="signup[cc_number_is_pasted]" type="hidden" value="0" />
+													<input autocomplete="off" class="required form-control" id="signup_cc_no" maxlength="24" name="cc_no" size="24" type="text" value="" />
+												</div>
+											</div>
+										</div>
+										<div class='row'>
+											<div class='col-md-6 col-sm-9'>
+												<div class='form-group'>
+													<label>Expiry Date</label>
+													<div class='row'>
+														<div class='col-sm-6'>
+															<div class='month-select'>
+																<select class="form-control required" id="signup_expiry_month" name="cc_expiry_month">
+																	<option value="">Select month</option>
+																	<option value="1">01</option>
+																	<option value="2">02</option>
+																	<option value="3">03</option>
+																	<option value="4">04</option>
+																	<option value="5">05</option>
+																	<option value="6">06</option>
+																	<option value="7">07</option>
+																	<option value="8">08</option>
+																	<option value="9">09</option>
+																	<option value="10">10</option>
+																	<option value="11">11</option>
+																	<option value="12">12</option>
+																</select>
+
+															</div>
+														</div>
+														<div class='col-sm-6'>
+															<div class='year-select'>
+																<select class="form-control required" id="signup_expiry_year" name="cc_expiry_year">
+																	<option value="">Select year</option>
+																	<option value="2014">2014</option>
+																	<option value="2015">2015</option>
+																	<option value="2016">2016</option>
+																	<option value="2017">2017</option>
+																	<option value="2018">2018</option>
+																	<option value="2019">2019</option>
+																	<option value="2020">2020</option>
+																	<option value="2021">2021</option>
+																	<option value="2022">2022</option>
+																	<option value="2023">2023</option>
+																	<option value="2024">2024</option>
+																	<option value="2025">2025</option>
+																	<option value="2026">2026</option>
+																	<option value="2027">2027</option>
+																	<option value="2028">2028</option>
+																	<option value="2029">2029</option>
+																	<option value="2030">2030</option>
+																	<option value="2031">2031</option>
+																	<option value="2032">2032</option>
+																	<option value="2033">2033</option>
+																	<option value="2034">2034</option>
+																</select>
+
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class='col-md-3 col-sm-9'>
+												<div class='form-group'>
+													<label class="cc_info_cv" for="signup_ccv">CVC</label>
+													<input autocomplete="off" class="required form-control" id="signup_ccv" maxlength="4" name="cc_ccv" size="4" type="text" />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+									<span class='billing-cycle-value'>
+
+                                    </span>
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Join Now" />
+								<div class='secure-checkout'>
+									<img alt="Secure Server" height="13" src="//d3le5couulzh2r.cloudfront.net/assets/public/lock-icon-4d6cf6e88287e03e65c739c6468c7466.png" width="10" /> Secure checkout with Stripe.
+								</div>
+							</p>
+							<p class='tos'>By submitting this form you agree to our <a href="/terms" target="_blank">Terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class='panel panel-default' data-payment-method='paypal'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseTwo'>
+							<h4>
+                            PayPal
+                            <div class='paymethod paymethod-paypal'></div>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseTwo'>
+						<div class='panel-body'>
+							<p>To finish sign-up, click on the “Continue to PayPal” button. If you don’t have a PayPal account, select “Sign Up” or “Buy as Guest” on the next screen.</p>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+									<span class='billing-cycle-value'>
+
+                                    </span>
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Paypal" />
+							</p>
+							<p class='tos'>By continuing to PayPal, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class='panel panel-default' data-payment-method='bitpay'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseThree'>
+							<h4>
+                            Bitcoin
+                            <div class='paymethod paymethod-bitcoin'></div>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseThree'>
+						<div class='panel-body'>
+							<p>Continue below to pay with the following methods using BitPay:</p>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to BitPay" />
+							</p>
+							<p class='tos'>By continuing to BitPay, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+                <!--
+                <div class='panel panel-default' data-payment-method='paymentwall'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseFour'>
+							<h4>
+                            Other
+                            <div class='paymethod paymethod-webmoney'></div>
+                            <div class='paymethod paymethod-paysafe'></div>
+                            <div class='paymethod paymethod-alipay'></div>
+                            <div class='paymethod paymethod-unionpay'></div>
+                            <div class='paymethod paymethod-cashu'></div>
+                            <span class='and-more'>
+                            and more!
+                            </span>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseFour'>
+						<div class='panel-body'>
+							<p>Continue below to pay with the following methods using Paymentwall:</p>
+							<div class='paymentwall-methods'>
+								<div class='paymethod paymethod-webmoney'></div>
+								<div class='paymethod paymethod-paysafe'></div>
+								<div class='paymethod paymethod-alipay'></div>
+								<div class='paymethod paymethod-unionpay'></div>
+								<div class='paymethod paymethod-cashu'></div>
+								<div class='paymethod paymethod-yamoney'></div>
+								<div class='paymethod paymethod-ukash'></div>
+								<div class='paymethod paymethod-giropay'></div>
+								<div class='paymethod paymethod-ideal'></div>
+								<div class='paymethod paymethod-sofort'></div>
+								<div class='paymethod paymethod-cartebleue'></div>
+								<div class='paymethod paymethod-maestro'></div>
+								<div class='paymethod paymethod-interac'></div>
+								<div class='paymethod paymethod-mint'></div>
+								<div class='paymethod paymethod-fanapay'></div>
+								<div class='paymethod paymethod-onecard'></div>
+							</div>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Paymentwall" />
+							</p>
+							<p class='tos'>By continuing to Paymentwall, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+                -->
+
+                <div class='panel panel-default' data-payment-method='okpay'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseFive'>
+							<h4>
+                            Okpay
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseFive'>
+						<div class='panel-body'>
+							<p>Continue below to pay with the following methods using Okpay:</p>
+
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Okpay" />
+							</p>
+							<p class='tos'>By continuing to Okpay, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</div>
+<input id="plan" type="hidden" name="plan" value="" />
+<input id="payment_method" type="hidden" name="payment_method" value="" />
+<input type="hidden" name="coupon"value="POPCORNTIME" />
+</form>
 {% endblock %}

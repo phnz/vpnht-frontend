@@ -23,13 +23,11 @@
     "invoice.payment_succeeded": function(req, res, next) {
       console.log(req.stripeEvent.type + ": event processed");
       if (req.stripeEvent.data && req.stripeEvent.data.object && req.stripeEvent.data.object.customer) {
-        return txn.add(req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[0].plan.name.toLowerCase(), 'stripe', req.stripeEvent.data, function(transaction) {
-          return api.activate(req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[0].plan.name.toLowerCase(), 'stripe', function(err, success) {
-            if (err) {
-              return next(err);
-            }
-            return res.status(200).end();
-          });
+        return api.activate(req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[0].plan.name.toLowerCase(), 'stripe', function(err, success) {
+          if (err) {
+            return next(err);
+          }
+          return res.status(200).end();
         });
       } else {
         return next(new Error("stripeEvent.data.object.customer is undefined"));

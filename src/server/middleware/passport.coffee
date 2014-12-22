@@ -75,14 +75,14 @@ module.exports = (passport) ->
                                                 req.session.cookie.maxAge = time #2 weeks
                                                 req.session.cookie.expires = new Date(Date.now() + time)
                                                 req.session.touch()
-                                                done null, user, req.flash("success", "Thanks for signing up. Please select your package !")
+                                                done null, user
 
                                         else
                                             time = 14 * 24 * 3600000
                                             req.session.cookie.maxAge = time #2 weeks
                                             req.session.cookie.expires = new Date(Date.now() + time)
                                             req.session.touch()
-                                            done null, user, req.flash("success", "Thanks for signing up. Please select your package !")
+                                            done null, user
 
                 process.nextTick findOrCreateUser
         )

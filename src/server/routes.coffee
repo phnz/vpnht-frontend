@@ -241,19 +241,10 @@ module.exports = (app, passport) ->
         obj = req.body
 
         # 1 year access
-        if obj.status is "complete" and obj.amount is "39.99" and obj.posData
+        if obj.status is "complete" and obj.posData
 
-            txn.add obj.posData, 'yearly', 'bitpay', obj, (transaction) ->
-                api.activate obj.posData, 'yearly', 'bitpay', (err, success) ->
-                    # error?
-                    return next(err) if err
-                    # success
-                    res.status(200).end()
-
-        else if obj.status is "complete" and obj.posData
-
-            txn.add obj.posData, 'monthly', 'bitpay', obj, (transaction) ->
-                api.activate obj.posData, 'monthly', 'bitpay', (err, success) ->
+            txn.update obj.posData, 'paid', obj, (invoice) ->
+                api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
                     # error?
                     return next(err) if err
                     # success
@@ -278,9 +269,9 @@ module.exports = (app, passport) ->
         	else
         		# Payment has been confirmed as completed
         		if req.param('payment_status') is 'Completed'
-                    params = req.param('custom').split('||')
-                    txn.add params[0], params[1], 'paypal', params, (transaction) ->
-                        api.activate params[0], params[1], 'paypal', (err, success) ->
+                    invoiceId = req.param('custom');
+                    txn.update invoiceId, 'paid', req.body, (invoice) ->
+                        api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
                             # error?
                             return next(err) if err
                             # success
@@ -308,8 +299,8 @@ module.exports = (app, passport) ->
                       item = part.split("=")
                       result[item[0]] = decodeURIComponent(item[1])
 
-                    txn.add result.apc_1, result.ap_itemcode, 'payza', result, (transaction) ->
-                        api.activate result.apc_1, result.ap_itemcode, 'payza', (err, success) ->
+                    txn.update result.apc_1, 'paid', result, (invoice) ->
+                        api.activate invoice.customerId, invoice.plan, 'payza', (err, success) ->
                             # error?
                             return next(err) if err
                             # success
@@ -325,8 +316,8 @@ module.exports = (app, passport) ->
 
     # todo add more security
     app.post "/okpay/events", (req, res, next) ->
-        txn.add req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, (transaction) ->
-            api.activate req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', (err, success) ->
+        txn.update req.body.ok_invoice, 'paid', req.body, (invoice) ->
+            api.activate invoice.customerId, invoice.plan, 'okpay', (err, success) ->
                 # error?
                 return next(err) if err
                 # success

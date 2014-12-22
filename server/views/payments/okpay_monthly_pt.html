@@ -1,0 +1,31 @@
+<html>
+<head>Please wait...</head>
+<body>
+
+<form id="order_form" method="post" action="https://www.okpay.com/process.html">
+    <input type="hidden" name="ok_receiver" value="OK498477289"/>
+    <input type="hidden" name="ok_kind" value="subscription"/>
+    <input type="hidden" name="ok_currency" value="USD"/>
+    <input type="hidden" name="ok_s_title" value="Monthly"/>
+    <input type="hidden" name="ok_s_regular_price" value="4.99"/>
+    <input type="hidden" name="ok_s_regular_cycle" value="1 M"/>
+    <input type="hidden" name="ok_s_trial_count" value="0"/>
+    <input type="hidden" name="ok_s_trial_cycle" value="1 M"/>
+    <input type="hidden" name="ok_s_trial_price" value="0.99"/>
+    <input type="hidden" name="ok_s_reattempt_days" value="-1"/>
+    <input type="hidden" name="ok_s_reattempt_accum" value="0"/>
+    <input type="hidden" name="ok_s_type" value="service"/>
+    <input type="hidden" name="ok_invoice" value="{{ invoice.id }}"/>
+    <input type="hidden" name="ok_ipn" value="https://vpn.ht/okpay/events"/>
+    <input type="hidden" name="ok_return_success" value="https://vpn.ht/okpay/redirect"/>
+</form>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+   $('#order_form').submit();
+});
+</script>
+</body>
+</html>

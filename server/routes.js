@@ -161,18 +161,9 @@
     app.post("/bitpay/events", function(req, res, next) {
       var obj;
       obj = req.body;
-      if (obj.status === "complete" && obj.amount === "39.99" && obj.posData) {
-        return txn.add(obj.posData, 'yearly', 'bitpay', obj, function(transaction) {
-          return api.activate(obj.posData, 'yearly', 'bitpay', function(err, success) {
-            if (err) {
-              return next(err);
-            }
-            return res.status(200).end();
-          });
-        });
-      } else if (obj.status === "complete" && obj.posData) {
-        return txn.add(obj.posData, 'monthly', 'bitpay', obj, function(transaction) {
-          return api.activate(obj.posData, 'monthly', 'bitpay', function(err, success) {
+      if (obj.status === "complete" && obj.posData) {
+        return txn.update(obj.posData, 'paid', obj, function(invoice) {
+          return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
             if (err) {
               return next(err);
             }
@@ -191,14 +182,14 @@
       var callback;
       console.log(req.body);
       return paypalIpn.verify(req.body, callback = function(err, msg) {
-        var params;
+        var invoiceId;
         if (err) {
           return res.status(200).end();
         } else {
           if (req.param('payment_status') === 'Completed') {
-            params = req.param('custom').split('||');
-            return txn.add(params[0], params[1], 'paypal', params, function(transaction) {
-              return api.activate(params[0], params[1], 'paypal', function(err, success) {
+            invoiceId = req.param('custom');
+            return txn.update(invoiceId, 'paid', req.body, function(invoice) {
+              return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
                 if (err) {
                   return next(err);
                 }
@@ -230,8 +221,8 @@
               item = part.split("=");
               return result[item[0]] = decodeURIComponent(item[1]);
             });
-            return txn.add(result.apc_1, result.ap_itemcode, 'payza', result, function(transaction) {
-              return api.activate(result.apc_1, result.ap_itemcode, 'payza', function(err, success) {
+            return txn.update(result.apc_1, 'paid', result, function(invoice) {
+              return api.activate(invoice.customerId, invoice.plan, 'payza', function(err, success) {
                 if (err) {
                   return next(err);
                 }
@@ -247,8 +238,8 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     return app.post("/okpay/events", function(req, res, next) {
-      return txn.add(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', req.body, function(transaction) {
-        return api.activate(req.body.ok_invoice, req.body.ok_s_title.toLowerCase(), 'okpay', function(err, success) {
+      return txn.update(req.body.ok_invoice, 'paid', req.body, function(invoice) {
+        return api.activate(invoice.customerId, invoice.plan, 'okpay', function(err, success) {
           if (err) {
             return next(err);
           }

@@ -9,6 +9,8 @@ var secrets = require('../config/secrets');
 var restify = require('restify');
 var nthash = require('smbhash').nthash;
 
+var txn = require("../middleware/txn");
+
 // Show Registration Page
 
 exports.getSignup = function (req, res) {
@@ -111,10 +113,91 @@ exports.postSignupPT = function (req, res, next) {
 
 		// calls next middleware to authenticate with passport
 		passport.authenticate('signup', {
-			successRedirect: '/dashboard',
-			failureRedirect: '/popcorntime',
+			successRedirect: '/billing',
+			failureRedirect: '/billing',
 			failureFlash: true
-		})(req, res, next);
+		}, function(err, user, info) {
+
+			// something wrong
+    		if (err) { return next(err); }
+			// something wrong
+		    if (!user) { return res.redirect('/login'); }
+
+			// we log our user
+			req.logIn(user, function(err) {
+
+      			if (err) { return next(err); }
+
+
+				// ok the user is created,
+				// we can process the payment...
+				txn.add(user.stripe.customerId, req.body.plan, req.body.payment_method, function(err, invoice) {
+					if (err) {
+						return next(err);
+					}
+					// we have our invoice._id
+					// so we can generate our link with the good payment platform
+
+					if (invoice.billingType === 'cc') {
+						// process stripe subscription...
+
+						var card = {
+							number: req.body.cc_no,
+							exp_month: req.body.cc_expiry_month,
+							exp_year: req.body.cc_expiry_year,
+							cvc: req.body.cc_ccv,
+							name: req.body.cc_first_name + ' ' + req.body.cc_last_name,
+							address_zip: req.body.cc_zip
+						};
+
+						user.createCard(card, function(err) {
+							if (err) {
+								console.log(err);
+								req.flash("error", err.message);
+								return res.redirect('/billing');
+							}
+
+							// ok our new customer have adefault card on his account !
+							// we can set the plan and charge it =)
+							user.setPlan(req.body.plan, false, function(err) {
+
+								// ok we try to charge the card....
+								if (err) {
+									console.log(err);
+									req.flash("error", err.message);
+									return res.redirect('/billing');
+								}
+
+								// we mark our invoice as paid
+								txn.update(invoice._id, 'paid', 'approved by stripe', function(user) {
+									// ok plan has been charged successfully!
+									req.flash("success", 'Congrats ! Your account is now active !');
+									return res.redirect(req.redirect.success);
+								});
+							})
+
+						})
+
+
+					} else {
+
+						// if its another payment method, we need to send to another
+						// link to process the payment
+						txn.prepare(invoice._id, function(template) {
+							// fix can't use _id as it print object
+							invoice.id = invoice._id.toString();
+							console.log(template);
+							// render our hidden form and submot to process
+							// payment on the external payment processor
+							res.render(template, {invoice: invoice});
+						});
+					}
+
+				});
+
+			});
+
+  		})(req, res, next);
 
 	});
 

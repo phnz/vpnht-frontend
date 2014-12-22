@@ -53,6 +53,8 @@
 
   staticDir = void 0;
 
+  console.log(secrets);
+
   mongoose.connect(secrets.db);
 
   mongoose.connection.on("error", function() {

@@ -49,6 +49,20 @@ module.exports = exports = function stripeCustomer(schema, options) {
 		});
 	};
 
+	schema.methods.createCard = function (card, cb) {
+		var user = this;
+		stripe.customers.createCard(user.stripe.customerId, {
+			card: card
+		}, function (err, card) {
+			if (err) return cb(err);
+			user.stripe.last4 = card.last4;
+			user.save(function (err) {
+				if (err) return cb(err);
+				return cb(null);
+			});
+		});
+	};
+
 	schema.methods.setCard = function (stripe_token, cb) {
 		var user = this;
 
