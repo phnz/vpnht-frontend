@@ -139,6 +139,11 @@
       success: "/billing",
       failure: "/billing"
     }), isAuthenticated, users.postPlan);
+    app.post("/user/pay", setRedirect({
+      auth: "/",
+      success: "/billing",
+      failure: "/billing"
+    }), isAuthenticated, users.postPayment);
     app.post("/user/coupon", setRedirect({
       auth: "/",
       success: "/billing",
