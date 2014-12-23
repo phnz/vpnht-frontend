@@ -51,7 +51,6 @@
 <h3>Transactions</h3>
 <table class="table">
     <tr>
-        <td>Id</td>
         <td>Type</td>
         <td>Plan</td>
         <td>Status</td>
@@ -60,9 +59,9 @@
 {% for txn in txns %}
     <tr>
         <td>{{ txn.billingType }}</td>
-        <td>{{ txn.plan }}</td>
-        <td>{{ tx.status || 'not paid' }}</td>
-        <td>{{ tx.data || 'nothing received yet' }}</td>
+        <td>{{ txn.plan || 'no plan' }}</td>
+        <td>{{ txn.status || 'not paid' }}</td>
+        <td>{{ txn.data || 'nothing received yet' }}</td>
     </tr>
 {% endfor %}
 </table>

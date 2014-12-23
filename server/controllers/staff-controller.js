@@ -58,14 +58,13 @@ exports.getDetails = function (req, res, next) {
 	User.findOne({'stripe.customerId': req.params.customerId}, function(err, user) {
 
 		Txn
-		.find({'customerId' : user.stripe.customerId})
+		.find({'customerId' : req.params.customerId})
 		.exec(function(err, txns) {
 
 			user.createdAtFormat = user.createdAt.toDateString();
 			if (user.expiration) {
 				user.expirationFormat = user.expiration.toDateString();
 			}
-			console.log(txns)
 			res.render(req.render, {
 				user: user,
 				txns: txns
