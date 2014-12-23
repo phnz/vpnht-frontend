@@ -37,13 +37,14 @@ module.exports =
         Txn.findOne
             "_id": txnId,
             (err, txn) ->
+                console.log(txn)
                 return callback false if err
                 unless txn
                     callback false
                 else
                     txn.status = status
                     txn.data = data
-                    txn.save (err, txn) ->
+                    txn.save (err, txns) ->
                         return callback false if err
                         console.log(txn.customerId)
                         User.findOne
