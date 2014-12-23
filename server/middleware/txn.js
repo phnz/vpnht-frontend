@@ -51,6 +51,7 @@
       return Txn.findOne({
         "_id": txnId
       }, function(err, txn) {
+        console.log(txn);
         if (err) {
           return callback(false);
         }
@@ -59,7 +60,7 @@
         } else {
           txn.status = status;
           txn.data = data;
-          return txn.save(function(err, txn) {
+          return txn.save(function(err, txns) {
             if (err) {
               return callback(false);
             }
