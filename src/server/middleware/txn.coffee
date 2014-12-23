@@ -1,8 +1,6 @@
 Txn = require("../models/txn")
 User = require("../models/user")
 secrets = require("../config/secrets")
-Xero = require("xero-extended")
-xero = new Xero(secrets.xero.key, secrets.xero.secret, secrets.xero.rsa)
 
 module.exports =
     add: (customerId, plan, billingType, req, callback) ->
@@ -27,7 +25,6 @@ module.exports =
                         price = 39.99
 
                     transaction.amount = price
-
                     transaction.save (err, transaction) ->
                         return callback err, false if err
                         callback false, transaction
@@ -37,7 +34,6 @@ module.exports =
         Txn.findOne
             "_id": txnId,
             (err, txn) ->
-                console.log(txn)
                 return callback false if err
                 unless txn
                     callback false
@@ -46,40 +42,8 @@ module.exports =
                     txn.data = data
                     txn.save (err, txns) ->
                         return callback false if err
-                        console.log(txn.customerId)
-                        User.findOne
-                            "stripe.customerId": txn.customerId,
-                            (err, user) ->
-                                console.log(user)
-                                return callback err, false if err
-                                unless user
-                                    callback false, false
-                                else
-                                    # create xero invoice
-                                    invoiceData =
-                                        Type: xero.Invoices.SALE
-                                        Status: 'AUTHORISED'
-                                        Contact:
-                                            Name: user.username
-                                            AccountNumber: txn.customerId
+                        callback txn
 
-                                        Date: new Date()
-                                        DueDate: new Date()
-                                        LineAmountTypes: xero.Invoices.EXCLUSIVE
-                                        LineItems: [
-                                            Description: txn.plan
-                                            Quantity: 1
-                                            UnitAmount: txn.amount
-                                            DiscountRate: 0
-                                            AccountCode: txn.billingType
-                                        ]
-
-                                    xero.Invoices.create invoiceData,
-                                        (err, invoice) ->
-                                            # record payment
-                                            console.log(invoice)
-                                            console.log(txn)
-                                            callback txn
 
     prepare: (txnId, special, callback) ->
         Txn.findOne
