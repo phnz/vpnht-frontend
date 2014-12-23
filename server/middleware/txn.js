@@ -96,15 +96,19 @@
                 return xero.Invoices.create(invoiceData, function(err, invoice) {
                   var paymentData;
                   paymentData = {
-                    Invoice: {
-                      InvoiceID: invoice.InvoiceID
-                    },
-                    Account: {
-                      Code: txn.billingType
-                    },
-                    Amount: txn.amount
+                    Payments: {
+                      Payment: {
+                        Invoice: {
+                          InvoiceID: invoice.InvoiceID
+                        },
+                        Account: {
+                          Code: txn.billingType
+                        },
+                        Amount: txn.amount
+                      }
+                    }
                   };
-                  return xero.Payments.create(paymentData, function(err, payment) {
+                  return xero.put('/Payments', paymentData, function(err, payment) {
                     console.log(err);
                     console.log(payment);
                     if (err) {
