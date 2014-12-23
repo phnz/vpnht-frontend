@@ -91,11 +91,8 @@
                       DiscountRate: 0,
                       AccountCode: txn.billingType
                     }
-                  ]
-                };
-                return xero.Invoices.create(invoiceData, function(err, invoice) {
-                  var paymentData;
-                  paymentData = [
+                  ],
+                  Payments: [
                     {
                       Invoice: {
                         InvoiceID: invoice.InvoiceID
@@ -105,14 +102,13 @@
                       },
                       Amount: txn.amount
                     }
-                  ];
-                  return xero.Payments.create(paymentData, function(err, payment) {
-                    console.log(payment);
-                    if (err) {
-                      return callback(false);
-                    }
-                    return callback(txn);
-                  });
+                  ]
+                };
+                return xero.Invoices.create(invoiceData, function(err, invoice) {
+                  if (err) {
+                    return callback(false);
+                  }
+                  return callback(txn);
                 });
               }
             });
