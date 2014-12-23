@@ -5,6 +5,8 @@ txnSchema = new mongoose.Schema(
     status: String
     billingType: String
     data: String
+    xeroId: String
+    amount: String
 )
 
 module.exports = mongoose.model("Txn", txnSchema)

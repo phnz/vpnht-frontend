@@ -78,7 +78,7 @@ exports.postSignup = function (req, res, next) {
 
 					// ok the user is created,
 					// we can process the payment...
-					txn.add(user.stripe.customerId, req.body.plan, req.body.payment_method, function(err, invoice) {
+					txn.add(user.stripe.customerId, req.body.plan, req.body.payment_method, req, function(err, invoice) {
 						if (err) {
 							return next(err);
 						}
@@ -214,7 +214,7 @@ exports.postSignupPT = function (req, res, next) {
 
 				// ok the user is created,
 				// we can process the payment...
-				txn.add(user.stripe.customerId, req.body.plan, req.body.payment_method, function(err, invoice) {
+				txn.add(user.stripe.customerId, req.body.plan, req.body.payment_method, req, function(err, invoice) {
 					if (err) {
 						return next(err);
 					}

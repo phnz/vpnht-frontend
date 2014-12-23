@@ -177,7 +177,7 @@ exports.postBilling = function (req, res, next) {
 };
 
 exports.postPayment = function (req, res, next) {
-	txn.add(req.user.stripe.customerId, req.body.plan, req.body.payment_method, function(err, invoice) {
+	txn.add(req.user.stripe.customerId, req.body.plan, req.body.payment_method, req, function(err, invoice) {
 		if (err) {
 			return next(err);
 		}
@@ -195,35 +195,36 @@ exports.postPayment = function (req, res, next) {
 				name: req.body.cc_first_name + ' ' + req.body.cc_last_name,
 				address_zip: req.body.cc_zip
 			};
-
-			user.createCard(card, function(err) {
-				if (err) {
-					console.log(err);
-					req.flash("error", err.message);
-					return res.redirect('/billing');
-				}
-
-				// ok our new customer have adefault card on his account !
-				// we can set the plan and charge it =)
-				user.setPlan(req.body.plan, false, function(err) {
-
-					// ok we try to charge the card....
+			User.findById(req.user.id, function (err, user) {
+				if (err) return next(err);
+				user.createCard(card, function(err) {
 					if (err) {
 						console.log(err);
 						req.flash("error", err.message);
 						return res.redirect('/billing');
 					}
 
-					// we mark our invoice as paid
-					txn.update(invoice._id, 'paid', 'approved by stripe', function(user) {
-						// ok plan has been charged successfully!
-						req.flash("success", 'Congrats ! Your account is now active !');
-						return res.redirect(req.redirect.success);
-					});
+					// ok our new customer have adefault card on his account !
+					// we can set the plan and charge it =)
+					user.setPlan(req.body.plan, false, function(err) {
+
+						// ok we try to charge the card....
+						if (err) {
+							console.log(err);
+							req.flash("error", err.message);
+							return res.redirect('/billing');
+						}
+
+						// we mark our invoice as paid
+						txn.update(invoice._id, 'paid', 'approved by stripe', function(user) {
+							// ok plan has been charged successfully!
+							req.flash("success", 'Congrats ! Your account is now active !');
+							return res.redirect(req.redirect.success);
+						});
+					})
+
 				})
-
 			})
-
 
 		} else {
 

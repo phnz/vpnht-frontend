@@ -1,16 +1,58 @@
 Txn = require("../models/txn")
 User = require("../models/user")
+secrets = require("../config/secrets")
+Xero = require("xero-extended")
+xero = new Xero(secrets.xero.key, secrets.xero.secret, secrets.xero.rsa)
+
 module.exports =
-    add: (customerId, plan, billingType, callback) ->
+    add: (customerId, plan, billingType, req, callback) ->
         transaction = new Txn(
             customerId: customerId
             plan: plan
             billingType: billingType
         )
+        User.findOne
+            "stripe.customerId": customerId,
+            (err, user) ->
+                return callback err, false if err
+                unless user
+                    callback false, false
+                else
 
-        transaction.save (err, transaction) ->
-            return callback err, false if err
-            callback false, transaction
+                    if req.body.coupon == 'POPCORNTIME' and plan = 'monthly'
+                        price = 1
+                    else if plan is 'monthly'
+                        price = 4.99
+                    else
+                        price = 39.99
+
+                    # create xero invoice
+                    invoiceData =
+                        Type: xero.Invoices.SALE
+                        Status: 'AUTHORISED'
+                        Contact:
+                            Name: user.username
+                            AccountNumber: customerId
+
+                        Date: new Date()
+                        DueDate: new Date()
+                        LineAmountTypes: xero.Invoices.EXCLUSIVE
+                        LineItems: [
+                            Description: plan
+                            Quantity: 1
+                            UnitAmount: price
+                            DiscountRate: 0
+                            AccountCode: billingType
+                        ]
+                    xero.Invoices.create invoiceData,
+                        (err, invoice) ->
+                            return callback err, false if err
+                            transaction.xeroId = invoice.InvoiceID
+                            transaction.amount = price
+
+                            transaction.save (err, transaction) ->
+                                return callback err, false if err
+                                callback false, transaction
 
     update: (txnId, status, data, callback) ->
         Txn.findOne
@@ -24,7 +66,19 @@ module.exports =
                     txn.data = data
                     txn.save (err, txn) ->
                         return callback false if err
-                        callback txn
+                        paymentData =
+                            Payment:
+                                Invoice:
+                                    InvoiceID: txn.xeroId
+                                Account:
+                                    Code: txn.billingType
+                                Amount: txn.amount
+
+                        # we add our txn on xero
+                        xero.Payments.create paymentData,
+                            (err, payment) ->
+                                return callback false if err
+                                callback txn
 
     prepare: (txnId, special, callback) ->
         Txn.findOne
