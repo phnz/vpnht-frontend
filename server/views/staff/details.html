@@ -59,7 +59,7 @@
     </tr>
 {% for txn in txns %}
     <tr>
-        <td>{{ txn.billingType }}</td>
+        <td>{{ txn._id }}</td>
         <td>{{ txn.billingType }}</td>
         <td>{{ txn.plan }}</td>
         <td>{{ tx.status || 'not paid' }}</td>
