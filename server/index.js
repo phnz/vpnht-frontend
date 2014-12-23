@@ -109,6 +109,8 @@
     app.use("/styles", express["static"](__dirname + "/../.tmp/styles"));
   }
 
+  app.disable('etag');
+
   app.use(session({
     resave: true,
     saveUninitialized: true,

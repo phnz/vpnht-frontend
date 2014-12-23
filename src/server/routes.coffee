@@ -146,12 +146,6 @@ module.exports = (app, passport) ->
 
     #dashboard
     app.get "/dashboard",
-        setRender("dashboard/index"),
-        setRedirect(auth: "/"),
-        isAuthenticated,
-        dashboard.getDefault
-
-    app.get "/billing",
         setRender("dashboard/billing"),
         setRedirect(auth: "/"),
         isAuthenticated,
@@ -191,30 +185,30 @@ module.exports = (app, passport) ->
     app.post "/user/billing",
         setRedirect
             auth: "/",
-            success: "/billing",
-            failure: "/billing",
+            success: "/dashboard",
+            failure: "/dashboard",
         isAuthenticated,
         users.postBilling
 
     app.post "/user/plan",
         setRedirect
             auth: "/",
-            success: "/billing",
-            failure: "/billing",
+            success: "/dashboard",
+            failure: "/dashboard",
         isAuthenticated, users.postPlan
 
     app.post "/user/pay",
         setRedirect
             auth: "/",
-            success: "/billing",
-            failure: "/billing",
+            success: "/dashboard",
+            failure: "/dashboard",
         isAuthenticated, users.postPayment
 
     app.post "/user/coupon",
         setRedirect
             auth: "/",
-            success: "/billing",
-            failure: "/billing",
+            success: "/dashboard",
+            failure: "/dashboard",
         isAuthenticated,
         users.postCoupon
 

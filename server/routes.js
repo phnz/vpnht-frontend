@@ -110,10 +110,7 @@
       success: "/dashboard",
       failure: "back"
     }), isUnauthenticated, passwords.postToken);
-    app.get("/dashboard", setRender("dashboard/index"), setRedirect({
-      auth: "/"
-    }), isAuthenticated, dashboard.getDefault);
-    app.get("/billing", setRender("dashboard/billing"), setRedirect({
+    app.get("/dashboard", setRender("dashboard/billing"), setRedirect({
       auth: "/"
     }), isAuthenticated, dashboard.getBilling);
     app.get("/profile", setRender("dashboard/profile"), setRedirect({
@@ -135,23 +132,23 @@
     }), isAuthenticated, users.postProfile);
     app.post("/user/billing", setRedirect({
       auth: "/",
-      success: "/billing",
-      failure: "/billing"
+      success: "/dashboard",
+      failure: "/dashboard"
     }), isAuthenticated, users.postBilling);
     app.post("/user/plan", setRedirect({
       auth: "/",
-      success: "/billing",
-      failure: "/billing"
+      success: "/dashboard",
+      failure: "/dashboard"
     }), isAuthenticated, users.postPlan);
     app.post("/user/pay", setRedirect({
       auth: "/",
-      success: "/billing",
-      failure: "/billing"
+      success: "/dashboard",
+      failure: "/dashboard"
     }), isAuthenticated, users.postPayment);
     app.post("/user/coupon", setRedirect({
       auth: "/",
-      success: "/billing",
-      failure: "/billing"
+      success: "/dashboard",
+      failure: "/dashboard"
     }), isAuthenticated, users.postCoupon);
     app.post("/user/password", setRedirect({
       auth: "/",
