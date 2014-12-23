@@ -146,16 +146,17 @@ module.exports = (app, passport) ->
 
     #dashboard
     app.get "/dashboard",
+        setRender("dashboard/profile"),
+        setRedirect(auth: "/"),
+        isAuthenticated,
+        dashboard.getProfile
+
+    app.get "/billing",
         setRender("dashboard/billing"),
         setRedirect(auth: "/"),
         isAuthenticated,
         dashboard.getBilling
 
-    app.get "/profile",
-        setRender("dashboard/profile"),
-        setRedirect(auth: "/"),
-        isAuthenticated,
-        dashboard.getProfile
 
     # documentation list
     app.get "/documentation",
@@ -177,46 +178,46 @@ module.exports = (app, passport) ->
     app.post "/user",
         setRedirect
             auth: "/",
-            success: "/profile",
-            failure: "/profile",
+            success: "/dashboard",
+            failure: "/dashboard",
         isAuthenticated,
         users.postProfile
 
     app.post "/user/billing",
         setRedirect
             auth: "/",
-            success: "/dashboard",
-            failure: "/dashboard",
+            success: "/billing",
+            failure: "/billing",
         isAuthenticated,
         users.postBilling
 
     app.post "/user/plan",
         setRedirect
             auth: "/",
-            success: "/dashboard",
-            failure: "/dashboard",
+            success: "/billing",
+            failure: "/billing",
         isAuthenticated, users.postPlan
 
     app.post "/user/pay",
         setRedirect
             auth: "/",
-            success: "/dashboard",
-            failure: "/dashboard",
+            success: "/billing",
+            failure: "/billing",
         isAuthenticated, users.postPayment
 
     app.post "/user/coupon",
         setRedirect
             auth: "/",
-            success: "/dashboard",
-            failure: "/dashboard",
+            success: "/billing",
+            failure: "/billing",
         isAuthenticated,
         users.postCoupon
 
     app.post "/user/password",
         setRedirect
             auth: "/",
-            success: "/profile",
-            failure: "/profile",
+            success: "/dashboard",
+            failure: "/dashboard",
         isAuthenticated,
         passwords.postNewPassword
 
