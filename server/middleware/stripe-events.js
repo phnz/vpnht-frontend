@@ -20,7 +20,7 @@
   txn = require("../middleware/txn");
 
   knownEvents = {
-    "invoice.payment_succeeded": function(req, res, next) {
+    "customer.subscription.created": function(req, res, next) {
       var invoiceId;
       invoiceId = req.stripeEvent.data.object.metadata.invoiceId;
       console.log("Update invoice ", invoiceId);

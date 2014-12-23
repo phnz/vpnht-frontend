@@ -9,7 +9,7 @@ api = require("../middleware/api")
 txn = require("../middleware/txn")
 
 knownEvents =
-    "invoice.payment_succeeded": (req, res, next) ->
+    "customer.subscription.created": (req, res, next) ->
         invoiceId = req.stripeEvent.data.object.metadata.invoiceId
         console.log("Update invoice ", invoiceId)
         txn.update invoiceId, 'paid', req.query, (invoice) ->
