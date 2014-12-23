@@ -41,7 +41,7 @@ exports.activate = (customerId, plan, billingType, callback) ->
                         to: user.email
                         from: "noreply@vpn.ht"
                         subject: "VPN Account enabled"
-                        text: "You are receiving this email because your account has been activated till " + expiration + ".\n" +
+                        text: "You are receiving this email because your account has been activated and expire " + expiration + ".\n" +
                             "You can read the documentation how to get started on:\n\n" +
                             "https://vpn.ht/documentation\n\n" +
                             "If you need help, feel free to contact us at support@vpn.ht.\n"
@@ -49,8 +49,11 @@ exports.activate = (customerId, plan, billingType, callback) ->
                     transporter.sendMail mailOptions, (err) ->
                         return callback(err, false) if err
 
+                        user.pendingPayment = '';
                         user.stripe.plan = plan
                         user.billingType = billingType
+                        user.expiration = t.toDate()
+
                         user.save (err) ->
                             return callback(err, false) if err
                             # ok alls good...

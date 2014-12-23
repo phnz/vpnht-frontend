@@ -1,0 +1,24 @@
+{% extends '../layouts/limited_dashboard.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  <div class="container-fluid container-max" style="min-height:500px">
+
+    {% include "../partials/flash.html" %}
+
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Your account is still being provisioned</h1>
+      <h3>We are waiting the confirmation from the payment processor.</h3>
+      <p class="lead" style="text-align:center">
+          If you don't get news from us in the next hour, please send<br/> an email to <a href="mailto:support@vpn.ht">support@vpn.ht</a> with your username.
+      </p>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

@@ -7,7 +7,9 @@ var fs = require('fs');
 
 var thisBilling = function (req) {
 
-	if (req.user.stripe.plan === 'free') {
+	if (req.user.pendingPayment === 'true') {
+		req.render = 'dashboard/pendingPayment'
+	} else if (req.user.stripe.plan === 'free') {
 		req.render = 'dashboard/billing'
 	}
 
@@ -49,14 +51,32 @@ exports.getOpenvpn = function (req, res, next) {
 
 exports.getPaymentRedirect = function (req, res, next) {
 
-	req.flash('info', {
-		msg: 'Thanks for your payment, your account is beein provisioned and you should get an email within 1 hour.'
+	// we update our user with a flag
+	// saying we have a pending payment
+	User.findById(req.user.id, function (err, user) {
+		if (err) return next(err);
+
+		// set the flag
+		user.pendingPayment = 'true';
+
+		// save
+		user.save(function (err) {
+			// set a flash
+			req.flash('info', {
+				msg: 'Thanks for your payment, your account is beeing provisioned and you should get an email within 1 hour.'
+			});
+
+			// redirect
+			res.redirect(req.redirect.success);
+		});
+
 	});
-	res.redirect(req.redirect.success);
+
 
 };
 
 exports.getRedirect = function (req, res, next) {
+
 	res.redirect(req.redirect.auth);
 };
 

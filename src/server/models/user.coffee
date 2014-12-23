@@ -14,6 +14,8 @@ userSchema = new mongoose.Schema(
 
     password: String
     coupon: String
+    pendingPayment: String
+    expiration: Date
     billingType: String
     username:
         type: String

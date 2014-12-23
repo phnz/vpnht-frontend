@@ -50,14 +50,16 @@
             to: user.email,
             from: "noreply@vpn.ht",
             subject: "VPN Account enabled",
-            text: "You are receiving this email because your account has been activated till " + expiration + ".\n" + "You can read the documentation how to get started on:\n\n" + "https://vpn.ht/documentation\n\n" + "If you need help, feel free to contact us at support@vpn.ht.\n"
+            text: "You are receiving this email because your account has been activated and expire " + expiration + ".\n" + "You can read the documentation how to get started on:\n\n" + "https://vpn.ht/documentation\n\n" + "If you need help, feel free to contact us at support@vpn.ht.\n"
           };
           return transporter.sendMail(mailOptions, function(err) {
             if (err) {
               return callback(err, false);
             }
+            user.pendingPayment = '';
             user.stripe.plan = plan;
             user.billingType = billingType;
+            user.expiration = t.toDate();
             return user.save(function(err) {
               if (err) {
                 return callback(err, false);
