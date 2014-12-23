@@ -45,10 +45,11 @@ module.exports =
                     txn.data = data
                     txn.save (err, txn) ->
                         return callback false if err
-
+                        console.log(txn.customerId)
                         User.findOne
                             "stripe.customerId": txn.customerId,
                             (err, user) ->
+                                console.log(user)
                                 return callback err, false if err
                                 unless user
                                     callback false, false

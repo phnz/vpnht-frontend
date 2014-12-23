@@ -63,10 +63,12 @@
             if (err) {
               return callback(false);
             }
+            console.log(txn.customerId);
             return User.findOne({
               "stripe.customerId": txn.customerId
             }, function(err, user) {
               var invoiceData;
+              console.log(user);
               if (err) {
                 return callback(err, false);
               }
