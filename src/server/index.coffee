@@ -60,6 +60,7 @@ app.use expressValidator()
 app.use cookieParser()
 app.use express.static(staticDir)
 app.use "/styles", express.static(__dirname + "/../.tmp/styles")  if app.get("env") isnt "production"
+app.disable('etag')
 
 # app.use('/', routes.styleguide);
 app.use session(
