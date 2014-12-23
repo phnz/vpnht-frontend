@@ -61,7 +61,7 @@
     <tr>
         <td>{{ txn.billingType }}</td>
         <td>{{ txn.plan }}</td>
-        <td>{{ tx.status }}</td>
+        <td>{{ tx.status || 'not paid' }}</td>
         <td>{{ tx.data || 'nothing received yet' }}</td>
     </tr>
 {% endfor %}
