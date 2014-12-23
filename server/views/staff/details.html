@@ -11,6 +11,10 @@
         <td>{{ user.username }}</td>
     </tr>
     <tr>
+        <td>Customer ID</td>
+        <td>{{ user.stripe.customerId }}</td>
+    </tr>
+    <tr>
         <td>Email</td>
         <td>{{ user.email }}</td>
     </tr>
@@ -47,6 +51,7 @@
 <h3>Transactions</h3>
 <table class="table">
     <tr>
+        <td>Id</td>
         <td>Type</td>
         <td>Plan</td>
         <td>Status</td>
@@ -54,6 +59,7 @@
     </tr>
 {% for txn in txns %}
     <tr>
+        <td>{{ txn.billingType }}</td>
         <td>{{ txn.billingType }}</td>
         <td>{{ txn.plan }}</td>
         <td>{{ tx.status || 'not paid' }}</td>
