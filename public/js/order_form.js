@@ -32,7 +32,8 @@ $(document).ready(function() {
         }
 
     }
-
-    checkSelectedPlan($('.selected'));
+    if ($('.selected').length > 0) {
+        checkSelectedPlan($('.selected'));
+    };
 
 });

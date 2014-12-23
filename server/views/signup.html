@@ -3,19 +3,33 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
+<form action="/signup" class="form" method="POST">
+<div class="order_page">
+
+
 
   <div class="row PageHead">
     <div class="col-md-12">
-      <h1>Create your Account</h1>
-      <h3>Instant account activation !</h3>
+      <h1>Select a plan that works for you</h1>
+      <h3>100% Money-Back Guarantee for your first 30 days of service</h3>
+    </div>
+  </div>
+
+  {% include "./partials/plan-selector.html" %}
+
+  <br style="clear:both"/>
+  <hr>
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Account Details</h1>
     </div>
   </div>
 
   <div class="col-md-6 col-md-offset-3 vpnform">
-      <form action="/signup" class="form" method="POST">
+
 
         <p>
-          <input type="text" name="username" class="form-control" placeholder="Username" value="{{form.username}}" autofocus>
+          <input type="text" name="username" class="form-control" placeholder="Username" value="{{form.username}}" >
         </p>
 
         <p>
@@ -26,9 +40,21 @@
           <input type="password" name="password" class="form-control" placeholder="Password">
         </p>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-      </form>
-      <hr>
   </div>
 
+  <br style="clear:both"/>
+  <hr>
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Method of Payment</h1>
+    </div>
+  </div>
+
+  {% include "./partials/method-of-payment.html" %}
+
+</div>
+<input id="plan" type="hidden" name="plan" value="" />
+<input id="payment_method" type="hidden" name="payment_method" value="" />
+<input type="hidden" name="coupon"value="" />
+</form>
 {% endblock %}

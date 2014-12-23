@@ -26,7 +26,7 @@ module.exports =
                         return callback false if err
                         callback txn
 
-    prepare: (txnId, callback) ->
+    prepare: (txnId, special, callback) ->
         Txn.findOne
             "_id": txnId,
             (err, txn) ->
@@ -35,7 +35,7 @@ module.exports =
                     callback false
                 else
 
-                    if txn.plan == 'monthly'
+                    if txn.plan == 'monthly' and special
 
                         if txn.billingType == 'paypal'
                             callback 'payments/paypal_monthly_pt';
@@ -51,6 +51,23 @@ module.exports =
 
                         else if txn.billingType == 'payza'
                             callback 'payments/payza_monthly_pt';
+
+                    else if txn.plan == 'monthly'
+
+                        if txn.billingType == 'paypal'
+                            callback 'payments/paypal_monthly';
+
+                        else if txn.billingType == 'bitpay'
+                            callback 'payments/bitpay_monthly';
+
+                        else if txn.billingType == 'okpay'
+                            callback 'payments/okpay_monthly';
+
+                        else if txn.billingType == 'paymentwall'
+                            callback 'payments/paymentwall_monthly';
+
+                        else if txn.billingType == 'payza'
+                            callback 'payments/payza_monthly';
 
                     else
 

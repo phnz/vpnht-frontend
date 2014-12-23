@@ -42,7 +42,7 @@
         }
       });
     },
-    prepare: function(txnId, callback) {
+    prepare: function(txnId, special, callback) {
       return Txn.findOne({
         "_id": txnId
       }, function(err, txn) {
@@ -52,7 +52,7 @@
         if (!txn) {
           return callback(false);
         } else {
-          if (txn.plan === 'monthly') {
+          if (txn.plan === 'monthly' && special) {
             if (txn.billingType === 'paypal') {
               return callback('payments/paypal_monthly_pt');
             } else if (txn.billingType === 'bitpay') {
@@ -63,6 +63,18 @@
               return callback('payments/paymentwall_monthly_pt');
             } else if (txn.billingType === 'payza') {
               return callback('payments/payza_monthly_pt');
+            }
+          } else if (txn.plan === 'monthly') {
+            if (txn.billingType === 'paypal') {
+              return callback('payments/paypal_monthly');
+            } else if (txn.billingType === 'bitpay') {
+              return callback('payments/bitpay_monthly');
+            } else if (txn.billingType === 'okpay') {
+              return callback('payments/okpay_monthly');
+            } else if (txn.billingType === 'paymentwall') {
+              return callback('payments/paymentwall_monthly');
+            } else if (txn.billingType === 'payza') {
+              return callback('payments/payza_monthly');
             }
           } else {
             if (txn.billingType === 'paypal') {

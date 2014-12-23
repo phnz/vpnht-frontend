@@ -229,7 +229,10 @@ exports.postPayment = function (req, res, next) {
 
 			// if its another payment method, we need to send to another
 			// link to process the payment
-			txn.prepare(invoice._id, function(template) {
+
+			var deal = req.body.coupon === 'POPCORNTIME' ? true : false;
+
+			txn.prepare(invoice._id, deal, function(template) {
 				// fix can't use _id as it print object
 				invoice.id = invoice._id.toString();
 				console.log(template);

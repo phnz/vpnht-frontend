@@ -33,7 +33,11 @@
 
     <form action="/user/pay" method="POST" class="form-horizontal">
         <div class="order_page" style="margin-top:40px;">
-            {% include "../partials/plan-selector.html" %}
+            {%if !user.coupon%}
+                {% include "../partials/plan-selector.html" %}
+            {% else %}
+                {% include "../partials/plan-selector-popcorntime.html" %}
+            {% endif %}
             {% include "../partials/method-of-payment.html" %}
             <input id="plan" type="hidden" name="plan" value="" />
             <input id="payment_method" type="hidden" name="payment_method" value="" />
