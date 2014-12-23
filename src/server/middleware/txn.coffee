@@ -71,28 +71,13 @@ module.exports =
                                             DiscountRate: 0
                                             AccountCode: txn.billingType
                                         ]
+
                                     xero.Invoices.create invoiceData,
                                         (err, invoice) ->
                                             # record payment
                                             console.log(invoice)
                                             console.log(txn)
-
-                                            paymentData =
-                                                Payments:
-                                                    Payment:
-                                                        Invoice:
-                                                            InvoiceID: invoice.InvoiceID
-                                                        Account:
-                                                            Code: txn.billingType
-                                                        Amount: txn.amount
-
-                                            # we add our txn on xero
-                                            xero.put '/Payments', paymentData,
-                                                (err, payment) ->
-                                                    console.log(err)
-                                                    console.log(payment)
-                                                    return callback false if err
-                                                    callback txn
+                                            callback txn
 
     prepare: (txnId, special, callback) ->
         Txn.findOne

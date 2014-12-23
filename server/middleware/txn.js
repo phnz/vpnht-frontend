@@ -94,30 +94,9 @@
                   ]
                 };
                 return xero.Invoices.create(invoiceData, function(err, invoice) {
-                  var paymentData;
                   console.log(invoice);
                   console.log(txn);
-                  paymentData = {
-                    Payments: {
-                      Payment: {
-                        Invoice: {
-                          InvoiceID: invoice.InvoiceID
-                        },
-                        Account: {
-                          Code: txn.billingType
-                        },
-                        Amount: txn.amount
-                      }
-                    }
-                  };
-                  return xero.put('/Payments', paymentData, function(err, payment) {
-                    console.log(err);
-                    console.log(payment);
-                    if (err) {
-                      return callback(false);
-                    }
-                    return callback(txn);
-                  });
+                  return callback(txn);
                 });
               }
             });
