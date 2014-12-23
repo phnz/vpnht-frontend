@@ -1875,3 +1875,7 @@ a.cvv-tip:hover {
     float: none;
     margin-right: 0
 }
+
+.help-block {
+	color:red;
+}

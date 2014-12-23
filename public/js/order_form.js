@@ -32,6 +32,13 @@ $(document).ready(function() {
         }
 
     }
+
+
+    if ($('#signupFormCheck').length > 0) {
+        $('#signupFormCheck').bootstrapValidator();
+    };
+
+
     if ($('.selected').length > 0) {
         checkSelectedPlan($('.selected'));
     };

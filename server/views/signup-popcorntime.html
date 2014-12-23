@@ -3,7 +3,7 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-<form action="/popcorntime" class="form" method="POST">
+<form id="signupFormCheck" action="/popcorntime" class="form" method="POST">
 <div class="order_page">
   <div class="row mainFeatures" id="features">
     <div class="col-sm-6 col-md-4">
@@ -55,15 +55,28 @@
 
 
         <p>
-          <input type="text" name="username" class="form-control" placeholder="Username" value="{{form.username}}" >
+          <input type="text" name="username" class="form-control" placeholder="Username" value="{{form.username}}" data-bv-message="The username is not valid"
+                   required data-bv-notempty-message="The username is required and cannot be empty"
+                   pattern="^[a-zA-Z0-9]+$" data-bv-regexp-message="The username can only consist of alphabetical, number"
+                   maxlength="10" minlength="5" data-bv-stringlength-message="The username must be more than 5 characters and less than 10" />
         </p>
 
         <p>
-          <input type="text" name="email" class="form-control" placeholder="Email address" value="{{form.email}}">
+          <input type="email" name="email" class="form-control" placeholder="Email address" value="{{form.email}}" data-bv-emailaddress-message="The input is not a valid email address" />
         </p>
 
         <p>
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty"
+                   data-bv-identical="true" data-bv-identical-field="confirmPassword" data-bv-identical-message="The password and its confirm are not the same"
+                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username"
+                   maxlength="15" minlength="6" data-bv-stringlength-message="The password must be more than 6 characters and less than 15" />
+        </p>
+
+        <p>
+          <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
+                   data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="The password and its confirm are not the same"
+                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username"
+                   maxlength="15" minlength="6" data-bv-stringlength-message="The password must be more than 6 characters and less than 15" />
         </p>
 
   </div>
