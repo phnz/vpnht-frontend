@@ -1,0 +1,66 @@
+{% extends '../layouts/dashboard.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<h3>Account details</h3>
+<table class="table">
+    <tr>
+        <td>Username</td>
+        <td>{{ user.username }}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+        <td>Coupon</td>
+        <td>{{ user.coupon || 'none' }}</td>
+    </tr>
+    <tr>
+        <td>Plan</td>
+        <td>{{ user.stripe.plan }}</td>
+    </tr>
+    <tr>
+        <td>Pending Payment</td>
+        <td>{{ user.pendingPayment || 'no callback waited' }}</td>
+    </tr>
+    <tr>
+        <td>Expiration</td>
+        <td>{{ user.expirationFormat || 'not active' }}</td>
+    </tr>
+    <tr>
+        <td>Billing Type</td>
+        <td>{{ user.billingType || 'no invoice paid' }}</td>
+    </tr>
+    <tr>
+        <td>Staff</td>
+        <td>{{ user.isStaff || 'no' }}</td>
+    </tr>
+    <tr>
+        <td>Created At</td>
+        <td>{{ user.createdAtFormat }}</td>
+    </tr>
+</table>
+
+<h3>Transactions</h3>
+<table class="table">
+    <tr>
+        <td>Type</td>
+        <td>Plan</td>
+        <td>Status</td>
+        <td>Data</td>
+    </tr>
+{% for txn in txns %}
+    <tr>
+        <td>{{ txn.billingType }}</td>
+        <td>{{ txn.plan }}</td>
+        <td>{{ tx.status || 'not paid' }}</td>
+        <td>{{ tx.data || 'nothing received yet' }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

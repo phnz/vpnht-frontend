@@ -8,6 +8,15 @@
     return res.redirect(req.redirect.auth);
   };
 
+  exports.isStaff = function(req, res, next) {
+    if (req.isAuthenticated()) {
+      if (req.user.isStaff === 'true') {
+        return next();
+      }
+    }
+    return res.redirect(req.redirect.auth);
+  };
+
   exports.isUnauthenticated = function(req, res, next) {
     if (!req.isAuthenticated()) {
       return next();

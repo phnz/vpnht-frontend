@@ -29,6 +29,7 @@
     pendingPayment: String,
     expiration: Date,
     billingType: String,
+    isStaff: String,
     username: {
       type: String,
       unique: true,

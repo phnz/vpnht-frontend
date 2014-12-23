@@ -1,0 +1,27 @@
+{% extends '../layouts/dashboard.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<form method="get" style="margin-bottom:50px;">
+    <input type="text" name="searchValue" class="form-control" placeholder="Enter username or email and press enter" value="{{ searchValue }}" / >
+</form>
+
+<table class="table">
+    <tr>
+        <td>Email</td>
+        <td>Username</td>
+        <td></td>
+    </tr>
+{% for user in users %}
+    <tr>
+        <td>{{ user.email }}</td>
+        <td>{{ user.username }}</td>
+        <td><a href="/staff/view/{{ user.stripe.customerId }}">Manage</a></td>
+    </tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

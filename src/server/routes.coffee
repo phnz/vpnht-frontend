@@ -3,6 +3,7 @@
 # middleware
 StripeWebhook = require("stripe-webhook-middleware")
 isAuthenticated = require("./middleware/auth").isAuthenticated
+isStaff = require("./middleware/auth").isStaff
 isUnauthenticated = require("./middleware/auth").isUnauthenticated
 setRender = require("middleware-responder").setRender
 setRedirect = require("middleware-responder").setRedirect
@@ -15,6 +16,7 @@ txn = require("./middleware/txn")
 users = require("./controllers/users-controller")
 main = require("./controllers/main-controller")
 dashboard = require("./controllers/dashboard-controller")
+staff = require("./controllers/staff-controller")
 passwords = require("./controllers/passwords-controller")
 registrations = require("./controllers/registrations-controller")
 sessions = require("./controllers/sessions-controller")
@@ -344,3 +346,16 @@ module.exports = (app, passport) ->
             api.activate invoice.customerId, invoice.plan, 'paymentwall', (err, success) ->
                 # need to return "OK" string on both, pingback and negative pingback
                 res.status(200).send('OK')
+
+    # staff
+    app.get "/staff",
+        setRender("staff/index"),
+        setRedirect(auth: "/login"),
+        isStaff,
+        staff.getDefault
+
+    app.get "/staff/view/:customerId",
+        setRender("staff/details"),
+        setRedirect(auth: "/login"),
+        isStaff,
+        staff.getDetails
