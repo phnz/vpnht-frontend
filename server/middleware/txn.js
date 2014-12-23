@@ -105,6 +105,7 @@
                     Amount: txn.amount
                   };
                   return xero.Payments.create(paymentData, function(err, payment) {
+                    console.log(err);
                     console.log(payment);
                     if (err) {
                       return callback(false);

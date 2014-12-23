@@ -84,6 +84,7 @@ module.exports =
                                             # we add our txn on xero
                                             xero.Payments.create paymentData,
                                                 (err, payment) ->
+                                                    console.log(err)
                                                     console.log(payment)
                                                     return callback false if err
                                                     callback txn
