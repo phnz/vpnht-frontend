@@ -54,14 +54,14 @@
         <td>Type</td>
         <td>Plan</td>
         <td>Status</td>
-        <td>Data</td>
+        <td>Amount</td>
     </tr>
 {% for txn in txns %}
     <tr>
         <td>{{ txn.billingType }}</td>
         <td>{{ txn.plan || 'no plan' }}</td>
         <td>{{ txn.status || 'not paid' }}</td>
-        <td>{{ txn.amount || 'nothing received yet' }}</td>
+        <td>${{ txn.amount}}</td>
     </tr>
 {% endfor %}
 </table>
