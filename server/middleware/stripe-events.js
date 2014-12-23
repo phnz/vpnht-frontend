@@ -21,10 +21,11 @@
 
   knownEvents = {
     "invoice.payment_succeeded": function(req, res, next) {
+      var lastLine;
       console.log(req.stripeEvent.type + ": event processed");
-      console.log(req.stripeEvent.data.object.lines);
+      lastLine = req.stripeEvent.data.object.lines.length - 1;
       if (req.stripeEvent.data && req.stripeEvent.data.object && req.stripeEvent.data.object.customer) {
-        return api.activate(req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[0].plan.name.toLowerCase(), 'stripe', function(err, success) {
+        return api.activate(req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[lastLine].plan.name.toLowerCase(), 'stripe', function(err, success) {
           if (err) {
             return next(err);
           }
