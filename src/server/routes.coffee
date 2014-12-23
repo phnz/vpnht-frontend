@@ -342,7 +342,5 @@ module.exports = (app, passport) ->
     app.get "/paymentwall/events", (req, res, next) ->
         txn.update req.query.uid, 'paid', req.query, (invoice) ->
             api.activate invoice.customerId, invoice.plan, 'paymentwall', (err, success) ->
-                # error?
-                return next(err) if err
-                # success
-                res.status(200).end()
+                # need to return "OK" string on both, pingback and negative pingback
+                res.status(200).send('OK')

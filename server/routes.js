@@ -259,10 +259,7 @@
     return app.get("/paymentwall/events", function(req, res, next) {
       return txn.update(req.query.uid, 'paid', req.query, function(invoice) {
         return api.activate(invoice.customerId, invoice.plan, 'paymentwall', function(err, success) {
-          if (err) {
-            return next(err);
-          }
-          return res.status(200).end();
+          return res.status(200).send('OK');
         });
       });
     });
