@@ -74,17 +74,17 @@ module.exports =
                                     xero.Invoices.create invoiceData,
                                         (err, invoice) ->
                                             # record payment
-                                            paymentData =
-                                                Payment:
-                                                    Invoice:
-                                                        InvoiceID: invoice.InvoiceID
-                                                    Account:
-                                                        Code: txn.billingType
-                                                    Amount: txn.amount
-
+                                            paymentData = [
+                                                Invoice:
+                                                    InvoiceID: invoice.InvoiceID
+                                                Account:
+                                                    Code: txn.billingType
+                                                Amount: txn.amount
+                                            ]
                                             # we add our txn on xero
                                             xero.Payments.create paymentData,
                                                 (err, payment) ->
+                                                    console.log(payment)
                                                     return callback false if err
                                                     callback txn
 
