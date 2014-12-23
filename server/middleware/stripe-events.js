@@ -21,21 +21,17 @@
 
   knownEvents = {
     "invoice.payment_succeeded": function(req, res, next) {
-      var lastLine;
-      console.log(req.stripeEvent.type + ": event processed");
-      lastLine = req.stripeEvent.data.object.lines.data.length - 1;
-      console.log(lastLine);
-      console.log(req.stripeEvent.data.object.lines.data[lastLine]);
-      if (req.stripeEvent.data && req.stripeEvent.data.object && req.stripeEvent.data.object.customer) {
-        return api.activate(req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[lastLine].plan.name.toLowerCase(), 'stripe', function(err, success) {
+      var invoiceId;
+      invoiceId = req.stripeEvent.data.object.metadata.invoiceId;
+      console.log("Update invoice ", invoiceId);
+      return txn.update(invoiceId, 'paid', req.query, function(invoice) {
+        return api.activate(invoice.customerId, invoice.plan, 'stripe', function(err, success) {
           if (err) {
             return next(err);
           }
           return res.status(200).end();
         });
-      } else {
-        return next(new Error("stripeEvent.data.object.customer is undefined"));
-      }
+      });
     },
     "customer.subscription.deleted": function(req, res, next) {
       console.log(req.stripeEvent.type + ": event processed");

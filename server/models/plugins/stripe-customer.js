@@ -93,7 +93,7 @@ module.exports = exports = function stripeCustomer(schema, options) {
 		}
 	};
 
-	schema.methods.setPlan = function (plan, stripe_token, cb) {
+	schema.methods.setPlan = function (invoiceId, plan, stripe_token, cb) {
 		var user = this,
 			customerData = {
 				plan: plan
@@ -113,7 +113,10 @@ module.exports = exports = function stripeCustomer(schema, options) {
 		var createSubscription = function () {
 			stripe.customers.createSubscription(
 				user.stripe.customerId, {
-					plan: plan
+					plan: plan,
+					metadata: {
+						invoiceId: invoiceId
+					}
 				},
 				subscriptionHandler
 			);
@@ -131,7 +134,10 @@ module.exports = exports = function stripeCustomer(schema, options) {
 				stripe.customers.updateSubscription(
 					user.stripe.customerId,
 					user.stripe.subscriptionId, {
-						plan: plan
+						plan: plan,
+						metadata: {
+							invoiceId: invoiceId
+						}
 					},
 					subscriptionHandler
 				);

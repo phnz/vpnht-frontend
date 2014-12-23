@@ -206,7 +206,7 @@ exports.postPayment = function (req, res, next) {
 
 					// ok our new customer have adefault card on his account !
 					// we can set the plan and charge it =)
-					user.setPlan(req.body.plan, false, function(err) {
+					user.setPlan(invoice._id, req.body.plan, false, function(err) {
 
 						// ok we try to charge the card....
 						if (err) {

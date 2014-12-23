@@ -10,19 +10,14 @@ txn = require("../middleware/txn")
 
 knownEvents =
     "invoice.payment_succeeded": (req, res, next) ->
-        console.log req.stripeEvent.type + ": event processed"
-        lastLine = req.stripeEvent.data.object.lines.data.length-1;
-        console.log(lastLine);
-        console.log(req.stripeEvent.data.object.lines.data[lastLine]);
-        if req.stripeEvent.data and req.stripeEvent.data.object and req.stripeEvent.data.object.customer
-            api.activate req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[lastLine].plan.name.toLowerCase(), 'stripe', (err, success) ->
+        invoiceId = req.stripeEvent.data.object.metadata.invoiceId
+        console.log("Update invoice ", invoiceId)
+        txn.update invoiceId, 'paid', req.query, (invoice) ->
+            api.activate invoice.customerId, invoice.plan, 'stripe', (err, success) ->
                 # error?
                 return next(err) if err
                 # success
                 res.status(200).end()
-
-        else
-            next new Error("stripeEvent.data.object.customer is undefined")
 
     "customer.subscription.deleted": (req, res, next) ->
         console.log req.stripeEvent.type + ": event processed"
