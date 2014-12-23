@@ -7,6 +7,10 @@
 						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseOne'>
 							<h4>
                             Credit Card
+							<div class='paymethod paymethod-visa'></div>
+							<div class='paymethod paymethod-mastercard'></div>
+							<div class='paymethod paymethod-amex'></div>
+							<div class='paymethod paymethod-discover'></div>
                             </h4>
 						</a>
 					</div>
@@ -158,6 +162,7 @@
 						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseTwo'>
 							<h4>
                             PayPal
+							<div class='paymethod paymethod-paypal'></div>
                             </h4>
 						</a>
 					</div>
@@ -190,6 +195,7 @@
 						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseThree'>
 							<h4>
                             Bitcoin
+							<div class='paymethod paymethod-bitcoin'></div>
                             </h4>
 						</a>
 					</div>
@@ -216,42 +222,12 @@
 				</div>
 
 
-                <div class='panel panel-default' data-payment-method='paymentwall'>
-					<div class='panel-heading'>
-						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseFour'>
-							<h4>
-                            Paymentwall
-                            </h4>
-						</a>
-					</div>
-					<div class='collapse panel-collapse' id='collapseFour'>
-						<div class='panel-body'>
-							<p>Continue below to pay with the following methods using Paymentwall:</p>
-							<div class='order-summary'>
-								<div class='total'>
-									Order Total:
-									<span class='order-total-value'></span>
-								</div>
-								<div class='billing-cycle'>
-
-								</div>
-							</div>
-
-							<p>
-								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Paymentwall" />
-							</p>
-							<p class='tos'>By continuing to Paymentwall, you agree to our <a href="/terms" target="_blank">terms of service</a>
-							</p>
-						</div>
-					</div>
-				</div>
-
-
                 <div class='panel panel-default' data-payment-method='okpay'>
 					<div class='panel-heading'>
 						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseFive'>
 							<h4>
                             Okpay
+							<div class='paymethod paymethod-okpay'></div>
                             </h4>
 						</a>
 					</div>
@@ -283,6 +259,7 @@
 						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseSix'>
 							<h4>
                             Payza
+							<div class='paymethod paymethod-payza'></div>
                             </h4>
 						</a>
 					</div>
@@ -304,6 +281,44 @@
 								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Payza" />
 							</p>
 							<p class='tos'>By continuing to Payza, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class='panel panel-default' data-payment-method='paymentwall'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseFour'>
+							<h4>
+                            Paymentwall
+							<div class='paymethod paymethod-webmoney'></div>
+							<div class='paymethod paymethod-paysafe'></div>
+							<div class='paymethod paymethod-alipay'></div>
+							<div class='paymethod paymethod-unionpay'></div>
+							<div class='paymethod paymethod-cashu'></div>
+							<span class='and-more'>
+							and more!
+							</span>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseFour'>
+						<div class='panel-body'>
+							<p>Continue below to pay with the following methods using Paymentwall:</p>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Paymentwall" />
+							</p>
+							<p class='tos'>By continuing to Paymentwall, you agree to our <a href="/terms" target="_blank">terms of service</a>
 							</p>
 						</div>
 					</div>

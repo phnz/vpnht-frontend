@@ -1850,6 +1850,25 @@ a.cvv-tip:hover {
     }
 }
 
+.paymethod.paymethod-okpay {
+    background-image: url(/images/okpay.png);
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: block;
+    height: 30px;
+    width: 70px
+}
+
+.paymethod.paymethod-payza {
+    background-image: url(/images/payza.png);
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: block;
+    height: 26px;
+    width: 75px
+}
+
+
 .order_page .panel-heading .paymethod {
     display: inline-block;
     vertical-align: middle;
