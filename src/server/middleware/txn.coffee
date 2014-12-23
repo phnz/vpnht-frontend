@@ -74,6 +74,9 @@ module.exports =
                                     xero.Invoices.create invoiceData,
                                         (err, invoice) ->
                                             # record payment
+                                            console.log(invoice)
+                                            console.log(txn)
+
                                             paymentData =
                                                 Payments:
                                                     Payment:

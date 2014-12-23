@@ -95,6 +95,8 @@
                 };
                 return xero.Invoices.create(invoiceData, function(err, invoice) {
                   var paymentData;
+                  console.log(invoice);
+                  console.log(txn);
                   paymentData = {
                     Payments: {
                       Payment: {
