@@ -3,12 +3,17 @@
   module.exports = {
     db: process.env.MONGODB || process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || "mongodb://localhost:27017/membership",
     sessionSecret: process.env.SESSION_SECRET || "vpn",
+    xero: {
+      key: process.env.XERO_KEY || "",
+      secret: process.env.XERO_SECRET || "",
+      rsa: process.env.XERO_RSA || ""
+    },
     mailgun: {
       user: process.env.MAILGUN_USER || "vpn.ht",
       password: process.env.MAILGUN_PASSWORD || ""
     },
     vpnht: {
-      url: process.env.VPNHT_URL || "",
+      url: process.env.VPNHT_URL || "http://fr01.vpn.ht:8080",
       key: process.env.VPNHT_APIKEY || "",
       secret: process.env.VPNHT_APISECRET || ""
     },
