@@ -11,7 +11,9 @@ txn = require("../middleware/txn")
 knownEvents =
     "invoice.payment_succeeded": (req, res, next) ->
         console.log req.stripeEvent.type + ": event processed"
-        lastLine = req.stripeEvent.data.object.lines.length-1;
+        lastLine = req.stripeEvent.data.object.lines.data.length-1;
+        console.log(lastLine);
+        console.log(req.stripeEvent.data.object.lines.data[lastLine]);
         if req.stripeEvent.data and req.stripeEvent.data.object and req.stripeEvent.data.object.customer
             api.activate req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[lastLine].plan.name.toLowerCase(), 'stripe', (err, success) ->
                 # error?

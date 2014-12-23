@@ -23,7 +23,9 @@
     "invoice.payment_succeeded": function(req, res, next) {
       var lastLine;
       console.log(req.stripeEvent.type + ": event processed");
-      lastLine = req.stripeEvent.data.object.lines.length - 1;
+      lastLine = req.stripeEvent.data.object.lines.data.length - 1;
+      console.log(lastLine);
+      console.log(req.stripeEvent.data.object.lines.data[lastLine]);
       if (req.stripeEvent.data && req.stripeEvent.data.object && req.stripeEvent.data.object.customer) {
         return api.activate(req.stripeEvent.data.object.customer, req.stripeEvent.data.object.lines.data[lastLine].plan.name.toLowerCase(), 'stripe', function(err, success) {
           if (err) {
