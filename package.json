@@ -45,8 +45,7 @@
     "smbhash": "0.0.1",
     "stripe": "^2.8.0",
     "stripe-webhook-middleware": "^0.1.2",
-    "swig": "^1.4.2",
-    "xero-extended": "git+https://github.com/phnz/xero-extended.git"
+    "swig": "^1.4.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
