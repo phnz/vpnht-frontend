@@ -242,20 +242,12 @@ module.exports = (app, passport) ->
         dashboard.getPaymentRedirect
 
     app.post "/bitpay/events", (req, res, next) ->
-        obj = req.body
-
-        # 1 year access
-        if obj.status is "complete" and obj.posData
-
-            txn.update obj.posData, 'paid', obj, (invoice) ->
-                api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
-                    # error?
-                    return next(err) if err
-                    # success
-                    res.status(200).end()
-
-        else
-          res.status(200).end()
+        txn.update req.body.posData, 'paid', obj, (invoice) ->
+            api.activate invoice.customerId, invoice.plan, 'bitpay', (err, success) ->
+                # error?
+                return next(err) if err
+                # success
+                res.status(200).end()
 
     # paypal
     app.get "/paypal/redirect",

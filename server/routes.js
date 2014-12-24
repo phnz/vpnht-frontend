@@ -165,20 +165,14 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     app.post("/bitpay/events", function(req, res, next) {
-      var obj;
-      obj = req.body;
-      if (obj.status === "complete" && obj.posData) {
-        return txn.update(obj.posData, 'paid', obj, function(invoice) {
-          return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
-            if (err) {
-              return next(err);
-            }
-            return res.status(200).end();
-          });
+      return txn.update(req.body.posData, 'paid', obj, function(invoice) {
+        return api.activate(invoice.customerId, invoice.plan, 'bitpay', function(err, success) {
+          if (err) {
+            return next(err);
+          }
+          return res.status(200).end();
         });
-      } else {
-        return res.status(200).end();
-      }
+      });
     });
     app.get("/paypal/redirect", setRedirect({
       auth: "/",
