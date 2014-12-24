@@ -329,10 +329,16 @@ module.exports = (app, passport) ->
 
     # todo add more security
     app.get "/paymentwall/events", (req, res, next) ->
-        txn.update req.query.uid, 'paid', req.query, (invoice) ->
-            api.activate invoice.customerId, invoice.plan, 'paymentwall', (err, success) ->
-                # need to return "OK" string on both, pingback and negative pingback
-                res.status(200).send('OK')
+        if req.query.type == '2'
+            txn.update req.query.uid, 'cancelled', req.query, (invoice) ->
+                api.remove invoice.customerId, (err, success) ->
+                    # need to return "OK" string on both, pingback and negative pingback
+                    res.status(200).send('OK')
+        else
+            txn.update req.query.uid, 'paid', req.query, (invoice) ->
+                api.activate invoice.customerId, invoice.plan, 'paymentwall', (err, success) ->
+                    # need to return "OK" string on both, pingback and negative pingback
+                    res.status(200).send('OK')
 
     # staff
     app.get "/staff",

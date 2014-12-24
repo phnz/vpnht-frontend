@@ -5,6 +5,26 @@ mailgunApiTransport = require("nodemailer-mailgunapi-transport")
 User = require("../models/user")
 moment = require("moment")
 
+exports.remove = (customerId, callback) ->
+    User.findOne
+        "stripe.customerId": customerId,
+        (err, user) ->
+
+            return callback(err, false) if err
+
+            unless user
+                # user does not exist, no need to process
+                return callback(false, true)
+            else
+                user.stripe.plan = 'free'
+                user.expiration = new Date()
+
+                user.save (err) ->
+                    return callback(err, false) if err
+                    # ok alls good...
+                    console.log "user: " + user.username + " subscription was successfully cancelled"
+                    return callback(false, true)
+
 exports.activate = (customerId, plan, billingType, callback) ->
     User.findOne
         "stripe.customerId": customerId,

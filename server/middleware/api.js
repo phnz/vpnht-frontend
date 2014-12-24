@@ -14,6 +14,29 @@
 
   moment = require("moment");
 
+  exports.remove = function(customerId, callback) {
+    return User.findOne({
+      "stripe.customerId": customerId
+    }, function(err, user) {
+      if (err) {
+        return callback(err, false);
+      }
+      if (!user) {
+        return callback(false, true);
+      } else {
+        user.stripe.plan = 'free';
+        user.expiration = new Date();
+        return user.save(function(err) {
+          if (err) {
+            return callback(err, false);
+          }
+          console.log("user: " + user.username + " subscription was successfully cancelled");
+          return callback(false, true);
+        });
+      }
+    });
+  };
+
   exports.activate = function(customerId, plan, billingType, callback) {
     return User.findOne({
       "stripe.customerId": customerId

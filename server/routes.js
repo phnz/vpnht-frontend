@@ -252,11 +252,19 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     app.get("/paymentwall/events", function(req, res, next) {
-      return txn.update(req.query.uid, 'paid', req.query, function(invoice) {
-        return api.activate(invoice.customerId, invoice.plan, 'paymentwall', function(err, success) {
-          return res.status(200).send('OK');
+      if (req.query.type === '2') {
+        return txn.update(req.query.uid, 'cancelled', req.query, function(invoice) {
+          return api.remove(invoice.customerId, function(err, success) {
+            return res.status(200).send('OK');
+          });
         });
-      });
+      } else {
+        return txn.update(req.query.uid, 'paid', req.query, function(invoice) {
+          return api.activate(invoice.customerId, invoice.plan, 'paymentwall', function(err, success) {
+            return res.status(200).send('OK');
+          });
+        });
+      }
     });
     app.get("/staff", setRender("staff/index"), setRedirect({
       auth: "/login"
