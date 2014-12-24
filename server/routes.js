@@ -165,7 +165,7 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     app.post("/bitpay/events", function(req, res, next) {
-      return txn.update(req.body.posData, 'paid', obj, function(invoice) {
+      return txn.update(req.body.posData, 'paid', req.body, function(invoice) {
         return api.activate(invoice.customerId, invoice.plan, 'bitpay', function(err, success) {
           if (err) {
             return next(err);

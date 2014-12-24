@@ -242,7 +242,7 @@ module.exports = (app, passport) ->
         dashboard.getPaymentRedirect
 
     app.post "/bitpay/events", (req, res, next) ->
-        txn.update req.body.posData, 'paid', obj, (invoice) ->
+        txn.update req.body.posData, 'paid', req.body, (invoice) ->
             api.activate invoice.customerId, invoice.plan, 'bitpay', (err, success) ->
                 # error?
                 return next(err) if err
