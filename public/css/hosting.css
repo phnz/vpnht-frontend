@@ -35,10 +35,6 @@ If you having trouble in editing css. please send a mail to support@surjithctly.
 
 /*==========0. GLOBAL STYLES==============*/
 
-li {
-	list-style:none !important;
-}
-
 body {
 	font-family:"Montserrat", Arial, Helvetica, sans-serif;
 	background:#FFF;
@@ -1878,4 +1874,49 @@ a.cvv-tip:hover {
 
 .help-block {
 	color:red;
+}
+
+.markdown h1 {
+    padding-bottom: 14px;
+    border-bottom: 2px solid #e7e9ec
+}
+
+.markdown h1 code {
+    color: #e7e9ec !important;
+    font-size:40px !important;
+    background:none !important;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    line-height:39px;
+}
+
+.markdown h2 {
+    float:left;
+    display: inline-block;
+    border-radius: 50%;
+    behavior: url(/pie/PIE.htc);
+    width: 36px;
+    height: 36px;
+    padding: 3px;
+    background: #34495e;
+    color: #fff;
+    text-align: center;
+    font: 35px;
+    margin-right: 10px;
+    margin: 5px 14px 0 0
+
+
+}
+
+.markdown img {
+    clear:both !important;
+    max-width:
+}
+
+.markdown p {
+    margin-left: 60px
+}
+
+li {
+    list-style:none !important;
 }
