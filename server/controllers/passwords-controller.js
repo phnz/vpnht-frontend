@@ -32,7 +32,6 @@ exports.postNewPassword = function (req, res, next) {
 			var client = restify.createStringClient({
 				url: secrets.vpnht.url,
 			});
-			
 			client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
 			client.put('/password/' + user.username, {
 				password: nthash(req.body.password)
@@ -210,7 +209,7 @@ exports.postToken = function (req, res, next) {
 					});
 					client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
 					client.put('/password/' + user.username, {
-						password: req.body.password
+						password: nthash(req.body.password)
 					}, function (err, req2, res2, obj) {
 
 						user.password = req.body.password;
