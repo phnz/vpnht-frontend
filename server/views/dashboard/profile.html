@@ -8,43 +8,69 @@
       <h1>Profile <small>/views/dashboard/profile</small></h1>
     </div>
     {% include "../partials/flash.html" %}
-    <form action="/user" method="POST" class="form-horizontal">
-      <div class="form-group">
-        <label for="email" class="col-sm-3 control-label">Username</label>
-        <div class="col-sm-4" style="font-size:14px;margin-top:8px;font-weight:bold">{{user.username}}</div>
-      </div>
-      <div class="form-group">
-        <label for="email" class="col-sm-3 control-label">Email</label>
-        <div class="col-sm-4"><input type="email" name="email" id="email" value="{{user.email}}" class="form-control"></div>
-      </div>
-      <div class="form-group">
-        <label for="name" class="col-sm-3 control-label">Name</label>
-        <div class="col-sm-4"><input type="text" name="name" id="name" value="{{user.profile.name}}" class="form-control"></div>
-      </div>
-      <div class="form-group">
-        <label for="name" class="col-sm-3 control-label">Customer ID</label>
-        <div class="col-sm-4">
-          <div class="form-control-static">
-            {{user.stripe.customerId}}
-          </div>
+
+	<div class='row'>
+        <div class="col-sm-8">
+            <form action="/user" method="POST" class="form-horizontal">
+              <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-4" style="font-size:14px;margin-top:8px;font-weight:bold">{{user.username}}</div>
+              </div>
+              <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-4"><input type="email" name="email" id="email" value="{{user.email}}" class="form-control"></div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-4"><input type="text" name="name" id="name" value="{{user.profile.name}}" class="form-control"></div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Customer ID</label>
+                <div class="col-sm-4">
+                  <div class="form-control-static">
+                    {{user.stripe.customerId}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Plan</label>
+                <div class="col-sm-4">
+                  <p class="form-control-static">{{plans[user.stripe.plan].name}} - ${{plans[user.stripe.plan].price}}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Expiration</label>
+                <div class="col-sm-4">
+                  <p class="form-control-static">{{user.expiration.toString() || 'Not-Available'}}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-4"><button type="submit" class="btn btn-primary"><span class="ion-edit"></span>Update Profile</button></div>
+              </div>
+            </form>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="name" class="col-sm-3 control-label">Plan</label>
         <div class="col-sm-4">
-          <p class="form-control-static">{{plans[user.stripe.plan].name}} - ${{plans[user.stripe.plan].price}}</p>
+
+            <table class="table table-stripped">
+                <tr>
+                    <td>OpenVPN</td>
+                    <td><a href="/openvpn/config">Download config</a></td>
+                </tr>
+                <tr>
+                    <td>L2TP</td>
+                    <td>hub1.vpn.ht / hub2.vpn.ht / hub3.vpn.ht<br/>
+                        secret key : vpnvpnvpn</td>
+                </tr>
+                <tr>
+                    <td>PPTP</td>
+                    <td>hub1.vpn.ht / hub2.vpn.ht / hub3.vpn.ht</td>
+                </tr>
+            </table>
+
         </div>
-      </div>
-      <div class="form-group">
-        <label for="name" class="col-sm-3 control-label">Expiration</label>
-        <div class="col-sm-4">
-          <p class="form-control-static">{{user.expiration.toString() || 'Not-Available'}}</p>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-4"><button type="submit" class="btn btn-primary"><span class="ion-edit"></span>Update Profile</button></div>
-      </div>
-    </form>
+    </div>
+
+
 
     <div class="page-header">
       <h3>Password</h3>
