@@ -269,9 +269,12 @@
     app.get("/staff", setRender("staff/index"), setRedirect({
       auth: "/login"
     }), isStaff, staff.getDefault);
-    return app.get("/staff/view/:customerId", setRender("staff/details"), setRedirect({
+    app.get("/staff/view/:customerId", setRender("staff/details"), setRedirect({
       auth: "/login"
     }), isStaff, staff.getDetails);
+    return app.get("/staff/markpaid/:invoiceId", setRedirect({
+      auth: "/login"
+    }), isStaff, staff.markPaid);
   };
 
 }).call(this);

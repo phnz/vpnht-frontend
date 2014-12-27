@@ -62,6 +62,7 @@
         <td>{{ txn.plan || 'no plan' }}</td>
         <td>{{ txn.status || 'not paid' }}</td>
         <td>${{ txn.amount}}</td>
+        <td><a href="/staff/markpaid/{{ txn._id.valueOf() }}" class='btn btn-primary'>mark paid</a></td>
     </tr>
 {% endfor %}
 </table>

@@ -3,6 +3,9 @@
 var User = require('../models/user');
 var Txn = require('../models/txn');
 
+var api = require("../middleware/api")
+var txn = require("../middleware/txn")
+
 exports.getDefault = function (req, res, next) {
 	var form = {},
 		error = null,
@@ -72,7 +75,12 @@ exports.getDetails = function (req, res, next) {
 		});
 
 	})
+};
 
-
-
+exports.markPaid = function (req, res, next) {
+	return txn.update(req.params.invoiceId, 'paid', '', function(invoice) {
+		return api.activate(invoice.customerId, invoice.plan, 'staff', function(err, success) {
+			return res.redirect('/staff/view/' + invoice.customerId);
+		});
+	});
 };

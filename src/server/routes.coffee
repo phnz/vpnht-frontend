@@ -352,3 +352,8 @@ module.exports = (app, passport) ->
         setRedirect(auth: "/login"),
         isStaff,
         staff.getDetails
+
+    app.get "/staff/markpaid/:invoiceId",
+        setRedirect(auth: "/login"),
+        isStaff,
+        staff.markPaid
