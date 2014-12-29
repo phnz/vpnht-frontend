@@ -1,0 +1,27 @@
+{% extends '../layouts/dashboard.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<h1>{{ stats.totalLive }} users connected on {{ stats.stats.length }} servers</h1>
+
+<br><br>
+
+<table class="table">
+    <tr>
+        <td>Server</td>
+        <td>Connected</td>
+        <td>Total Connexions</td>
+    </tr>
+{% for server in stats.stats %}
+    <tr>
+        <td>{{ server.server }}</td>
+        <td>{{ server.connected }}</td>
+        <td>{{ server.connexions }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

@@ -5,6 +5,8 @@ var Txn = require('../models/txn');
 
 var api = require("../middleware/api")
 var txn = require("../middleware/txn")
+var secrets = require("../config/secrets")
+var restify = require("restify")
 
 exports.getDefault = function (req, res, next) {
 	var form = {},
@@ -75,6 +77,100 @@ exports.getDetails = function (req, res, next) {
 		});
 
 	})
+};
+
+exports.getServers = function (req, res, next) {
+
+	console.log(secrets);
+	var client = restify.createStringClient({url: secrets.vpnht.url})
+	client.basicAuth(secrets.vpnht.key, secrets.vpnht.secret);
+	client.get('/stats', function(err, req2, res2, obj) {
+
+		obj = JSON.parse(obj);
+
+		res.render(req.render, {
+			stats: obj
+		});
+
+	})
+
+};
+
+exports.getComptability = function (req, res, next) {
+
+	Txn.count({'status' : 'paid'}, function(err, txnsPaid) {
+
+		Txn.count({'status' : 'paid', 'plan': 'monthly'}, function(err, monthlyPaid) {
+
+			Txn.count({'status' : 'paid', 'plan': 'yearly'}, function(err, yearlyPaid) {
+
+				Txn.count({'status' : 'paid', 'plan': 'monthly', 'billingType': 'cc'}, function(err, monthlyCC) {
+
+					Txn.count({'status' : 'paid', 'plan': 'monthly', 'billingType': 'paypal'}, function(err, monthlyPP) {
+
+						Txn.count({'status' : 'paid', 'plan': 'monthly', 'billingType': 'bitpay'}, function(err, monthlyBP) {
+
+							Txn.count({'status' : 'paid', 'plan': 'monthly', 'billingType': 'paymentwall'}, function(err, monthlyPW) {
+
+								Txn.count({'status' : 'paid', 'plan': 'monthly', 'billingType': 'okpay'}, function(err, monthlyOP) {
+
+									Txn.count({'status' : 'paid', 'plan': 'yearly', 'billingType': 'cc'}, function(err, yearlyCC) {
+
+										Txn.count({'status' : 'paid', 'plan': 'yearly', 'billingType': 'paypal'}, function(err, yearlyPP) {
+
+											Txn.count({'status' : 'paid', 'plan': 'yearly', 'billingType': 'bitpay'}, function(err, yearlyBP) {
+
+												Txn.count({'status' : 'paid', 'plan': 'yearly', 'billingType': 'paymentwall'}, function(err, yearlyPW) {
+
+													Txn.count({'status' : 'paid', 'plan': 'yearly', 'billingType': 'okpay'}, function(err, yearlyOP) {
+
+														Txn.count({}, function(err, totalTxns) {
+
+															res.render(req.render, {
+																totalTxns: totalTxns,
+																txnsPaid: txnsPaid,
+																monthlyPaid: monthlyPaid,
+																yearlyPaid: yearlyPaid,
+																monthlyCC: monthlyCC,
+																monthlyPP: monthlyPP,
+																monthlyBP: monthlyBP,
+																monthlyPW: monthlyPW,
+																monthlyOP: monthlyOP,
+																yearlyCC: yearlyCC,
+																yearlyPP: yearlyPP,
+																yearlyBP: yearlyBP,
+																yearlyPW: yearlyPW,
+																yearlyOP: yearlyOP
+															});
+
+														})
+
+													})
+
+												})
+
+											})
+
+										})
+
+									})
+
+								})
+
+							})
+
+						})
+
+					})
+
+				})
+
+			})
+
+		})
+
+	})
+
 };
 
 exports.markPaid = function (req, res, next) {

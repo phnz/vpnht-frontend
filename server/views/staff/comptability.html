@@ -1,0 +1,101 @@
+{% extends '../layouts/dashboard.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<h1>{{ txnsPaid }} invoices paid on {{ totalTxns }} invoices generated</h1>
+
+<br><br>
+
+<table class="table">
+    <tr>
+        <td>Monthly</td>
+        <td>{{ monthlyPaid }}</td>
+        <td>~ ${{ monthlyPaid * 0.66 }} collected</td>
+        <td>~ ${{ monthlyPaid * 4.50 }} / month</td>
+    </tr>
+    <tr>
+        <td>Yearly</td>
+        <td>{{ yearlyPaid }}</td>
+        <td>~ ${{ yearlyPaid * 34 }} collected</td>
+        <td>~ ${{ (yearlyPaid * 34) / 12 }} can be used / month </td>
+    </tr>
+</table>
+
+<hr/>
+
+<h3>Credit Card</h3>
+
+<table class="table">
+    <tr>
+        <td>Monthly</td>
+        <td>{{ monthlyCC }}</td>
+    </tr>
+    <tr>
+        <td>Yearly</td>
+        <td>{{ yearlyCC }}</td>
+    </tr>
+</table>
+
+<hr/>
+
+<h3>Paypal</h3>
+
+<table class="table">
+    <tr>
+        <td>Monthly</td>
+        <td>{{ monthlyPP }}</td>
+    </tr>
+    <tr>
+        <td>Yearly</td>
+        <td>{{ yearlyPP }}</td>
+    </tr>
+</table>
+
+<hr/>
+
+<h3>BitPay</h3>
+
+<table class="table">
+    <tr>
+        <td>Monthly</td>
+        <td>{{ monthlyBP }}</td>
+    </tr>
+    <tr>
+        <td>Yearly</td>
+        <td>{{ yearlyBP }}</td>
+    </tr>
+</table>
+
+<hr/>
+
+<h3>PaymentWall</h3>
+
+<table class="table">
+    <tr>
+        <td>Monthly</td>
+        <td>{{ monthlyPW }}</td>
+    </tr>
+    <tr>
+        <td>Yearly</td>
+        <td>{{ yearlyPW }}</td>
+    </tr>
+</table>
+
+<hr/>
+
+<h3>OKPAY</h3>
+
+<table class="table">
+    <tr>
+        <td>Monthly</td>
+        <td>{{ monthlyOP }}</td>
+    </tr>
+    <tr>
+        <td>Yearly</td>
+        <td>{{ yearlyOP }}</td>
+    </tr>
+</table>
+
+{% endblock %}

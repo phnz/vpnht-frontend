@@ -347,6 +347,18 @@ module.exports = (app, passport) ->
         isStaff,
         staff.getDefault
 
+    app.get "/staff/servers",
+        setRender("staff/servers"),
+        setRedirect(auth: "/login"),
+        isStaff,
+        staff.getServers
+
+    app.get "/staff/comptability",
+        setRender("staff/comptability"),
+        setRedirect(auth: "/login"),
+        isStaff,
+        staff.getComptability
+
     app.get "/staff/view/:customerId",
         setRender("staff/details"),
         setRedirect(auth: "/login"),
