@@ -181,15 +181,13 @@
     }), isAuthenticated, dashboard.getPaymentRedirect);
     app.post("/paypal/events", function(req, res, next) {
       var callback;
+      console.log(req.body);
       if (req.body.txn_type === 'subscr_signup') {
-        console.log(req.body);
         return paypalIpn.verify(req.body, callback = function(err, msg) {
-          var invoiceId;
           if (err) {
             return res.status(200).end();
           } else {
-            invoiceId = req.param('custom');
-            return txn.update(invoiceId, 'paid', req.body, function(invoice) {
+            return txn.update(req.body.custom, 'paid', req.body, function(invoice) {
               return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
                 if (err) {
                   return next(err);

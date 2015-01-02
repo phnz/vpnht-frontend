@@ -263,14 +263,13 @@ module.exports = (app, passport) ->
         dashboard.getPaymentRedirect
 
     app.post "/paypal/events", (req, res, next) ->
+        console.log(req.body)
         if req.body.txn_type == 'subscr_signup'
-            console.log(req.body)
             paypalIpn.verify req.body, callback = (err, msg) ->
             	if err
                     res.status(200).end()
             	else
-                    invoiceId = req.param('custom')
-                    txn.update invoiceId, 'paid', req.body, (invoice) ->
+                    txn.update req.body.custom, 'paid', req.body, (invoice) ->
                         api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
                             # error?
                             return next(err) if err

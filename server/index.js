@@ -120,7 +120,7 @@
     secret: secrets.sessionSecret,
     store: new MongoStore({
       url: secrets.db,
-      auto_reconnect: true
+      autoReconnect: true
     })
   }));
 
