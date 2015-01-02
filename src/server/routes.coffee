@@ -260,7 +260,7 @@ module.exports = (app, passport) ->
 
     app.post "/paypal/events", (req, res, next) ->
         console.log(req.body)
-        if req.body.txn_type == 'subscr_payment'
+        if req.body.txn_type == 'subscr_signup'
             paypalIpn.verify req.body, callback = (err, msg) ->
             	if err
                     res.status(200).end()

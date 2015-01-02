@@ -179,7 +179,7 @@
     app.post("/paypal/events", function(req, res, next) {
       var callback;
       console.log(req.body);
-      if (req.body.txn_type === 'subscr_payment') {
+      if (req.body.txn_type === 'subscr_signup') {
         return paypalIpn.verify(req.body, callback = function(err, msg) {
           if (err) {
             return res.status(200).end();
