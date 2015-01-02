@@ -269,15 +269,14 @@ module.exports = (app, passport) ->
             	if err
                     res.status(200).end()
             	else
-            		# Payment has been confirmed as completed
-            		if req.param('payment_status') is 'Completed'
-                        invoiceId = req.param('custom');
-                        txn.update invoiceId, 'paid', req.body, (invoice) ->
-                            api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
-                                # error?
-                                return next(err) if err
-                                # success
-                                res.status(200).end()
+                    invoiceId = req.param('custom')
+                    txn.update invoiceId, 'paid', req.body, (invoice) ->
+                        api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
+                            # error?
+                            return next(err) if err
+                            # success
+                            res.status(200).end()
+
         else
             console.log('PAYPAL: unknown call')
             res.status(200).end()

@@ -188,17 +188,15 @@
           if (err) {
             return res.status(200).end();
           } else {
-            if (req.param('payment_status') === 'Completed') {
-              invoiceId = req.param('custom');
-              return txn.update(invoiceId, 'paid', req.body, function(invoice) {
-                return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
-                  if (err) {
-                    return next(err);
-                  }
-                  return res.status(200).end();
-                });
+            invoiceId = req.param('custom');
+            return txn.update(invoiceId, 'paid', req.body, function(invoice) {
+              return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
+                if (err) {
+                  return next(err);
+                }
+                return res.status(200).end();
               });
-            }
+            });
           }
         });
       } else {
