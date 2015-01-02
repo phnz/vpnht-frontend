@@ -118,14 +118,11 @@
       auth: "/"
     }), isAuthenticated, dashboard.getBilling);
     app.get("/documentation", setRedirect({
-      auth: "/documentation/all/popcorntime"
+      auth: "https://vpnht.zendesk.com/hc/en-us"
     }), dashboard.getRedirect);
-    app.get("/documentation/:os/:protocol", function(req, res, next) {
-      req.render = "dashboard/documentation/" + req.params.os + "-" + req.params.protocol;
-      return next();
-    }, setRedirect({
-      auth: '/login'
-    }), isAuthenticated, dashboard.getDocumentation);
+    app.get("/documentation/:os/:protocol", setRedirect({
+      auth: "https://vpnht.zendesk.com/hc/en-us"
+    }), dashboard.getRedirect);
     app.post("/user", setRedirect({
       auth: "/",
       success: "/dashboard",

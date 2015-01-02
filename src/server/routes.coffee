@@ -166,18 +166,14 @@ module.exports = (app, passport) ->
     # documentation list
     app.get "/documentation",
         setRedirect
-            auth: "/documentation/all/popcorntime"
+            auth: "https://vpnht.zendesk.com/hc/en-us"
         dashboard.getRedirect
 
     # documentations handler
     app.get "/documentation/:os/:protocol",
-        (req, res, next) ->
-            req.render = "dashboard/documentation/" +
-                req.params.os + "-" + req.params.protocol;
-            next()
-        setRedirect({auth: '/login'} ),
-        isAuthenticated,
-        dashboard.getDocumentation
+        setRedirect
+            auth: "https://vpnht.zendesk.com/hc/en-us"
+        dashboard.getRedirect
 
     # user actions (POST)
     app.post "/user",
