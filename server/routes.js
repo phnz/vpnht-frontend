@@ -61,6 +61,7 @@
       auth: "/dashboard"
     }), isUnauthenticated, setRender("index"), main.getHome);
     app.get("/terms", setRender("terms"), main.getHome);
+    app.get("/dmca", setRender("dmca"), main.getHome);
     app.get("/login", setRedirect({
       auth: "/dashboard"
     }), isUnauthenticated, setRender("login"), main.getHome);

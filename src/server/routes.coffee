@@ -47,6 +47,11 @@ module.exports = (app, passport) ->
         setRender("terms"),
         main.getHome
 
+    # terms
+    app.get "/dmca",
+        setRender("dmca"),
+        main.getHome
+
     # sessions
     app.get "/login",
         setRedirect
