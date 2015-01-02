@@ -49,7 +49,7 @@ Download Openvpn configuration and open it with Tunnelblick
 ## 7
 ### Enter your credentials
 
-![](http://puu.sh/dY2St/c90a891a9c.png)
+![](http://puu.sh/dY3W7/8de9cbd7aa.png)
 
 ***
 
