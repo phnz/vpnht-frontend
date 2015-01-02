@@ -263,20 +263,24 @@ module.exports = (app, passport) ->
         dashboard.getPaymentRedirect
 
     app.post "/paypal/events", (req, res, next) ->
-        console.log(req.body)
-        paypalIpn.verify req.body, callback = (err, msg) ->
-        	if err
-                res.status(200).end()
-        	else
-        		# Payment has been confirmed as completed
-        		if req.param('payment_status') is 'Completed'
-                    invoiceId = req.param('custom');
-                    txn.update invoiceId, 'paid', req.body, (invoice) ->
-                        api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
-                            # error?
-                            return next(err) if err
-                            # success
-                            res.status(200).end()
+        if req.body.txn_type == 'subscr_signup'
+            console.log(req.body)
+            paypalIpn.verify req.body, callback = (err, msg) ->
+            	if err
+                    res.status(200).end()
+            	else
+            		# Payment has been confirmed as completed
+            		if req.param('payment_status') is 'Completed'
+                        invoiceId = req.param('custom');
+                        txn.update invoiceId, 'paid', req.body, (invoice) ->
+                            api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
+                                # error?
+                                return next(err) if err
+                                # success
+                                res.status(200).end()
+        else
+            console.log('PAYPAL: unknown call')
+            res.status(200).end()
 
     # payza
     app.get "/payza/redirect",
