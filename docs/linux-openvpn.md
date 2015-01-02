@@ -1,15 +1,28 @@
-# Linux OpenVPN `/views/dashboard/docs`
+# Linux OpenVPN
 
 ## 1
-### Download OpenVPN
+### Install OpenVPN
 
-To use your VPN you need to download and install OpenVPN client.
+Open the terminal and login as root and run the following command:
 
-![Download OpenVPN](http://puu.sh/d7CZo/2f0d52d2c2.png)
+`apt-get install openvpn`
 
 ***
 
 ## 2
-### blabalbaa
+### Download configuration file
 
-![Download OpenVPN](http://puu.sh/d7CZo/2f0d52d2c2.png)
+[OpenVPN config](/openvpn/config)
+
+Once you have the config file, move it to `/etc/openvpn/vpnht.ovpn`
+
+***
+
+## 3
+### Run OpenVPN
+
+Now run openvpn as root:
+
+`openvpn /etc/openvpn/vpnht.ovpn`
+
+Enter your credentials and you should be connected

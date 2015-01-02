@@ -8,6 +8,7 @@
         <h3>Windows 7 / 8</h3>
           <ul class="bloglist">
             <li><a href="/documentation/all/popcorntime">Popcorn Time</a></li>
+            <li><a href="/documentation/windows/openvpn">OpenVPN</a></li>
             <li><a href="/documentation/windows/pptp">PPTP</a></li>
           </ul>
 
@@ -20,6 +21,7 @@
         <h3>Linux</h3>
           <ul class="bloglist">
             <li><a href="/documentation/all/popcorntime">Popcorn Time</a></li>
+            <li><a href="/documentation/linux/openvpn">OpenVPN</a></li>
           </ul>
 
         <h3>Android</h3>
@@ -37,15 +39,22 @@
     <div class="col-md-9">
       <div class="blogpost">
         <div class="markdown">
-            <h1 id="linux-openvpn-views-dashboard-docs-">Linux OpenVPN <code>/views/dashboard/docs</code></h1>
+            <h1 id="linux-openvpn">Linux OpenVPN</h1>
 <h2 id="1">1</h2>
-<h3 id="download-openvpn">Download OpenVPN</h3>
-<p>To use your VPN you need to download and install OpenVPN client.</p>
-<p><img src="http://puu.sh/d7CZo/2f0d52d2c2.png" alt="Download OpenVPN"></p>
+<h3 id="install-openvpn">Install OpenVPN</h3>
+<p>Open the terminal and login as root and run the following command:</p>
+<p><code>apt-get install openvpn</code></p>
 <hr>
 <h2 id="2">2</h2>
-<h3 id="blabalbaa">blabalbaa</h3>
-<p><img src="http://puu.sh/d7CZo/2f0d52d2c2.png" alt="Download OpenVPN"></p>
+<h3 id="download-configuration-file">Download configuration file</h3>
+<p><a href="/openvpn/config">OpenVPN config</a></p>
+<p>Once you have the config file, move it to <code>/etc/openvpn/vpnht.ovpn</code></p>
+<hr>
+<h2 id="3">3</h2>
+<h3 id="run-openvpn">Run OpenVPN</h3>
+<p>Now run openvpn as root:</p>
+<p><code>openvpn /etc/openvpn/vpnht.ovpn</code></p>
+<p>Enter your credentials and you should be connected</p>
 
         </div>
       </div>
