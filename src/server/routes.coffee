@@ -261,17 +261,12 @@ module.exports = (app, passport) ->
     app.post "/paypal/events", (req, res, next) ->
         console.log(req.body)
         if req.body.txn_type == 'subscr_signup'
-            paypalIpn.verify req.body, callback = (err, msg) ->
-            	if err
+            txn.update req.body.custom, 'paid', req.body, (invoice) ->
+                api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
+                    # error?
+                    return next(err) if err
+                    # success
                     res.status(200).end()
-            	else
-                    txn.update req.body.custom, 'paid', req.body, (invoice) ->
-                        api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
-                            # error?
-                            return next(err) if err
-                            # success
-                            res.status(200).end()
-
         else
             console.log('PAYPAL: unknown call')
             res.status(200).end()

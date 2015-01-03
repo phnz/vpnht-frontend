@@ -177,22 +177,15 @@
       success: "/dashboard"
     }), isAuthenticated, dashboard.getPaymentRedirect);
     app.post("/paypal/events", function(req, res, next) {
-      var callback;
       console.log(req.body);
       if (req.body.txn_type === 'subscr_signup') {
-        return paypalIpn.verify(req.body, callback = function(err, msg) {
-          if (err) {
+        return txn.update(req.body.custom, 'paid', req.body, function(invoice) {
+          return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
+            if (err) {
+              return next(err);
+            }
             return res.status(200).end();
-          } else {
-            return txn.update(req.body.custom, 'paid', req.body, function(invoice) {
-              return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
-                if (err) {
-                  return next(err);
-                }
-                return res.status(200).end();
-              });
-            });
-          }
+          });
         });
       } else {
         console.log('PAYPAL: unknown call');
