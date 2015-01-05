@@ -32,6 +32,25 @@ stripeWebhook = new StripeWebhook(
 paypalIpn = require('paypal-ipn')
 request = require('request');
 
+basic_api = (req, res, next) ->
+  if req.headers.authorization and req.headers.authorization.search("Basic ") is 0
+
+    loginDetail = new Buffer(req.headers.authorization.split(" ")[1], "base64").toString().split(":");
+    User.findOne
+        username: loginDetail[0],
+        (err, user) ->
+            return res.status(401).json({"user": false, "servers": false}) if err
+            return res.status(401).json({"user": false, "servers": false}) unless user
+            console.log(user);
+            # compare password
+            user.comparePassword loginDetail[1], (err, isMatch) ->
+                if isMatch
+                    return res.json({"user": user, "servers": ["eu": "eu.vpn.ht", "us": "us.vpn.ht"]});
+                else
+                    return res.status(401).json({"user": false, "servers": false})
+
+  res.status(401).json({"user": false, "servers": false})
+
 module.exports = (app, passport) ->
 
     # homepage and dashboard
@@ -56,6 +75,10 @@ module.exports = (app, passport) ->
     app.get "/dmca",
         setRender("dmca"),
         main.getHome
+
+    # servers
+    app.get "/servers",
+        basic_api
 
     # sessions
     app.get "/login",
