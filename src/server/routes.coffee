@@ -48,6 +48,11 @@ module.exports = (app, passport) ->
         main.getHome
 
     # terms
+    app.get "/status",
+        setRender("status"),
+        main.getStatus
+
+    # terms
     app.get "/dmca",
         setRender("dmca"),
         main.getHome
