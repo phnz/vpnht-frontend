@@ -60,7 +60,7 @@
     var loginDetail;
     if (req.headers.authorization && req.headers.authorization.search("Basic ") === 0) {
       loginDetail = new Buffer(req.headers.authorization.split(" ")[1], "base64").toString().split(":");
-      User.findOne({
+      return User.findOne({
         username: loginDetail[0]
       }, function(err, user) {
         if (err) {
@@ -75,7 +75,6 @@
             "servers": false
           });
         }
-        console.log(user);
         return user.comparePassword(loginDetail[1], function(err, isMatch) {
           if (isMatch) {
             return res.json({
@@ -86,7 +85,7 @@
                   "us": "us.vpn.ht"
                 }
               ]
-            });
+            }).end();
           } else {
             return res.status(401).json({
               "user": false,
@@ -95,11 +94,12 @@
           }
         });
       });
+    } else {
+      return res.status(401).json({
+        "user": false,
+        "servers": false
+      });
     }
-    return res.status(401).json({
-      "user": false,
-      "servers": false
-    });
   };
 
   module.exports = function(app, passport) {
