@@ -76,8 +76,9 @@
       success: "/"
     }), isAuthenticated, sessions.logout);
     app.get("/openvpn/config", setRedirect({
-      auth: "/",
-      success: "/"
+      auth: "/login",
+      success: "/login",
+      failure: "/login"
     }), isAuthenticated, dashboard.getOpenvpn);
     app.get("/signup", setRedirect({
       auth: "/dashboard"

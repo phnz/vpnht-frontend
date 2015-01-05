@@ -83,8 +83,9 @@ module.exports = (app, passport) ->
     # open vpn
     app.get "/openvpn/config",
         setRedirect
-            auth: "/",
-            success: "/",
+            auth: "/login",
+            success: "/login",
+            failure: "/login",
         isAuthenticated,
         dashboard.getOpenvpn
 
