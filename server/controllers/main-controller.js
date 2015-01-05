@@ -37,10 +37,8 @@ exports.getStatus = function (req, res, next) {
 		error = errorFlash[0];
 	}
 	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	console.log(req.headers);
-	console.log(ip);
 
-	request('http://ipinfo.io/json', function (error, response, body) {
+	request('http://ipinfo.io/' + ip + '/json', function (error, response, body) {
 		if (!error && response.statusCode === 200) {
 			body = JSON.parse(body);
 			VPN.isConnected(body.ip, function(connected) {
@@ -60,7 +58,13 @@ exports.getStatus = function (req, res, next) {
 			})
 
 		} else {
-
+			res.render(req.render, {
+				status: false,
+				ipInfo: {},
+				form: form,
+				error: error,
+				plans: plans
+			});
 		}
 	});
 
