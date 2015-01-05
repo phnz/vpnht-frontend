@@ -23,7 +23,7 @@ VPN.prototype.isInstalled = function() {
 	if (haveBinaries()) {
 		// we'll fallback to check if it's been installed
 		// form the app ?
-		var installed = AdvSettings.get('vpn');
+		var installed = App.AdvSettings.get('vpn');
 		if (installed) {
 			return true;
 		} else {
@@ -36,7 +36,7 @@ VPN.prototype.isInstalled = function() {
 
 VPN.prototype.isDisabled = function() {
 	//disabled on demand
-	var disabled = AdvSettings.get('vpnDisabledPerm');
+	var disabled = App.AdvSettings.get('vpnDisabledPerm');
 	if (disabled) {
 		return true;
 	} else {
@@ -153,7 +153,7 @@ VPN.prototype.install = function() {
 			.then(self.downloadConfig)
 			.then(function() {
 				// we told pt we have vpn enabled..
-				AdvSettings.set('vpn', true);
+				App.AdvSettings.set('vpn', true);
 			});
 
 	} else if (process.platform === 'linux') {
@@ -164,7 +164,7 @@ VPN.prototype.install = function() {
 				// ok we are almost done !
 
 				// we told pt we have vpn enabled..
-				AdvSettings.set('vpn', true);
+				App.AdvSettings.set('vpn', true);
 			});
 
 	} else if (process.platform === 'win32') {
@@ -176,7 +176,7 @@ VPN.prototype.install = function() {
 				// ok we are almost done !
 
 				// we told pt we have vpn enabled..
-				AdvSettings.set('vpn', true);
+				App.AdvSettings.set('vpn', true);
 			});
 	}
 
@@ -361,7 +361,7 @@ VPN.prototype.connect = function() {
 	fs = require('fs');
 	var tempPath = temp.mkdirSync('popcorntime-vpnht');
 	tempPath = path.join(tempPath, 'o1');
-	fs.writeFile(tempPath, Settings.vpnUsername + '\n' + Settings.vpnPassword, function(err) {
+	fs.writeFile(tempPath, App.Settings.vpnUsername + '\n' + App.Settings.vpnPassword, function(err) {
 		if (err) {
 
 			defer.reject(err);
