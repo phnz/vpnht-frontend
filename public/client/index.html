@@ -4,8 +4,15 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-
     <script src="client.js"></script>
+    <script type="text/javascript">
+        var gui = require('nw.gui');
+        var win = gui.Window.get();
+
+        function imReady(App){
+            App.setVPNClient(new VPN());
+        }
+    </script>
 
 </body>
 </html>
