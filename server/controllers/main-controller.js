@@ -36,6 +36,9 @@ exports.getStatus = function (req, res, next) {
 	if (errorFlash.length) {
 		error = errorFlash[0];
 	}
+	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	console.log(req.headers);
+	console.log(ip);
 
 	request('http://ipinfo.io/json', function (error, response, body) {
 		if (!error && response.statusCode === 200) {
