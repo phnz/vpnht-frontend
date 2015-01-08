@@ -38,13 +38,18 @@ exports.getStatus = function (req, res, next) {
 	}
 	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-	request('http://ipinfo.io/' + ip + '/json', function (error, response, body) {
-		if (!error && response.statusCode === 200) {
-			body = JSON.parse(body);
-			VPN.isConnected(body.ip, function(connected) {
-				if (req.query.json === '') {
-					res.json({"connected": connected,"ipinfo": body});
-				} else {
+	if (req.query.json === '') {
+
+		VPN.isConnected(ip, function(connected) {
+			res.json({"connected": connected});
+		});
+
+	} else {
+
+		request('http://ipinfo.io/' + ip + '/json', function (error, response, body) {
+			if (!error && response.statusCode === 200) {
+				body = JSON.parse(body);
+				VPN.isConnected(body.ip, function(connected) {
 					res.render(req.render, {
 						status: connected,
 						ipInfo: body,
@@ -52,21 +57,16 @@ exports.getStatus = function (req, res, next) {
 						error: error,
 						plans: plans
 					});
-				}
+				})
+
+			} else {
+				res.json({"status": 'ping-server-offline',"connected": 'not-available'});
+			}
+
+		});
+	}
 
 
-			})
-
-		} else {
-			res.render(req.render, {
-				status: false,
-				ipInfo: {},
-				form: form,
-				error: error,
-				plans: plans
-			});
-		}
-	});
 
 
 
