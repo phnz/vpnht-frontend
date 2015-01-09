@@ -9,7 +9,7 @@
     </div>
     {% include "../partials/flash.html" %}
 
-	<div class='row'>
+	<div class='row' style="min-height:450px">
         <div class="col-sm-8">
             <form action="/user" method="POST" class="form-horizontal">
               <div class="form-group">
@@ -41,7 +41,7 @@
               <div class="form-group">
                 <label for="name" class="col-sm-3 control-label">Expiration</label>
                 <div class="col-sm-4">
-                  <p class="form-control-static">{{user.expiration.toString() || 'Not-Available'}}</p>
+                  <p class="form-control-static">{{user.expiration.toString() || 'Not-Available'}} (<a href="/billing">manage</a>)</p>
                 </div>
               </div>
               <div class="form-group">
@@ -50,60 +50,85 @@
             </form>
         </div>
         <div class="col-sm-4">
-
-            <table class="table table-stripped">
-                <tr>
-                    <td>OpenVPN</td>
-                    <td><a href="/openvpn/config">Download config</a></td>
-                </tr>
-                <tr>
-                    <td>L2TP</td>
-                    <td>hub1.vpn.ht / hub2.vpn.ht / hub3.vpn.ht<br/>
-                        shared key : vpnvpnvpn</td>
-                </tr>
-                <tr>
-                    <td>PPTP</td>
-                    <td>hub1.vpn.ht / hub2.vpn.ht / hub3.vpn.ht</td>
-                </tr>
-            </table>
+            <div class="list-group">
+            <a href="/documentation" class="list-group-item">
+              <h4 class="list-group-item-heading">Documentation</h4>
+            </a>
+            <a href="/openvpn/config" class="list-group-item">
+              <h4 class="list-group-item-heading">OpenVPN Configuration</h4>
+              <p class="list-group-item-text">If you need help please refer to the documentation.</p>
+            </a>
+            <a href="#" data-toggle="modal" data-target="#changePassword" class="list-group-item">
+              <h4 class="list-group-item-heading">Change my password</h4>
+              <p class="list-group-item-text">Change your VPN and member area password.</p>
+            </a>
+            <a href="#" data-toggle="modal" data-target="#deleteAccount" class="list-group-item">
+              <h4 class="list-group-item-heading">Delete my account</h4>
+            </a>
+          </div>
 
         </div>
     </div>
 
 
-
-    <div class="page-header">
-      <h3>Password</h3>
-    </div>
-    <form action="/user/password" method="POST" class="form-horizontal">
-      <div class="form-group">
-        <label for="password" class="col-sm-3 control-label">New Password</label>
-        <div class="col-sm-4">
-          <input type="password" name="password" class="form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="confirm" class="col-sm-3 control-label">Confirm Password</label>
-        <div class="col-sm-4">
-          <input type="password" name="confirm" class="form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-4">
-          <button type="submit" class="btn btn-primary">Update Password</button>
-        </div>
-      </div>
-    </form>
-
-    <div class="page-header">
-      <h3>Delete Account</h3>
-    </div>
-    <form action="/user/delete" method="POST" class="form-horizontal">
-      <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-4">
-          <button type="submit" class="btn btn-danger">Delete Account</button>
-        </div>
-      </div>
-    </form>
 </div>
+
+<!-- Modal -->
+<div class="modal fade LoginSignup" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="LoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Change My Password</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+            Updating your password here, will update your VPN password as well. If you created manual configuration,
+            you will need to update the passsword.
+        </p><br/>
+        <form action="/user/password" method="POST" class="form-horizontal">
+          <div class="form-group">
+            <input type="password" name="password" placeholder="New password" class="form-control input-lg">
+          </div>
+          <div class="form-group">
+            <input type="password" name="confirm" placeholder="Confirm new password" class="form-control input-lg">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Update my Password" class="btn btn-success btn-lg"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade LoginSignup" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="LoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Delete my Account</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+            <b>ATTENTION! Deleting your account will remove your account details.<br/><br/>If you want to ask a refund, you need to contact us by email at
+            <a href="mailto:support@vpn.ht">support@vpn.ht</a> and provide your payment details. (ex: paypal email)</b>
+        </p><br/>
+        <form action="/user/delete" method="POST" class="form-horizontal">
+          <div class="form-group">
+            <input type="submit" value="Got it, Delete My Account" class="btn btn-danger btn-lg"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 {% endblock %}
