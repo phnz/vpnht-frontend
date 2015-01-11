@@ -38,8 +38,12 @@ exports.activate = (customerId, plan, billingType, callback) ->
             else
 
                 # create our expiration
-                if plan is "yearly"
+                if plan is "lifely"
+                    t = moment().add(100, "years")
+                else if plan is "yearly"
                     t = moment().add(1, "years")
+                else if plan is "weekly"
+                    t = moment().add(1, "weeks")
                 else t = moment().add(1, "months")
                 expiration = t.format("DD MMM YYYY HH:mm:ss")
 

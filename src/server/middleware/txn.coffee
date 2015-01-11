@@ -16,8 +16,9 @@ module.exports =
                 unless user
                     callback false, false
                 else
-
-                    if req.body.coupon == 'POPCORNTIME' and plan = 'monthly'
+                    if billingType == 'manual'
+                        price = 0
+                    else if req.body.coupon == 'POPCORNTIME' and plan = 'monthly'
                         price = 1
                     else if plan is 'monthly'
                         price = 4.99

@@ -26,7 +26,9 @@
         if (!user) {
           return callback(false, false);
         } else {
-          if (req.body.coupon === 'POPCORNTIME' && (plan = 'monthly')) {
+          if (billingType === 'manual') {
+            price = 0;
+          } else if (req.body.coupon === 'POPCORNTIME' && (plan = 'monthly')) {
             price = 1;
           } else if (plan === 'monthly') {
             price = 4.99;

@@ -1,0 +1,36 @@
+{% extends '../layouts/dashboard.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<h3>Create new user</h3>
+
+<form action="/staff/adduser" class="form" method="POST">
+
+          <div class="form-group">
+            <input class="form-control" id="username" name="username" type="text" value="{{form.username}}" placeholder="Username" autofocus>
+          </div>
+          <div class="form-group">
+            <input class="form-control" id="email" name="email" type="text" value="{{form.email}}" placeholder="Email" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="text" id="password" name="password" class="form-control" placeholder="Password">
+          </div>
+
+          <div class="form-group">
+            <label for="plan">Expiration</label>
+            <select id="plan" class="plan" name="plan" class="form-control">
+                <option value="weekly">1 week</option>
+                <option value="monthly">1 month</option>
+                <option value="yearly">1 year</option>
+                <option value="lifely">never expire</option>
+              </select>
+          </div>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+
+
+</form>
+
+{% endblock %}

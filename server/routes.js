@@ -310,6 +310,14 @@
     app.get("/staff", setRender("staff/index"), setRedirect({
       auth: "/login"
     }), isStaff, staff.getDefault);
+    app.get("/staff/adduser", setRender("staff/adduser"), setRedirect({
+      auth: "/login"
+    }), isStaff, staff.getHome);
+    app.post("/staff/adduser", setRedirect({
+      auth: "/login",
+      success: "/staff/adduser",
+      failure: "/staff/adduser"
+    }), isStaff, staff.createUser);
     app.get("/staff/servers", setRender("staff/servers"), setRedirect({
       auth: "/login"
     }), isStaff, staff.getServers);

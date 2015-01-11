@@ -48,8 +48,12 @@
       if (!user) {
         return callback(false, true);
       } else {
-        if (plan === "yearly") {
+        if (plan === "lifely") {
+          t = moment().add(100, "years");
+        } else if (plan === "yearly") {
           t = moment().add(1, "years");
+        } else if (plan === "weekly") {
+          t = moment().add(1, "weeks");
         } else {
           t = moment().add(1, "months");
         }
