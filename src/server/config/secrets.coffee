@@ -18,10 +18,16 @@ module.exports =
         stripePubKey: process.env.STRIPE_PUB_KEY or ""
         defaultPlan: "free"
         plans: [
+          "weekly"
           "monthly"
           "yearly"
+          "lifely"
         ]
         planData:
+            weekly:
+                name: "Weekly"
+                price: 1.99
+
             monthly:
                 name: "Monthly"
                 price: 4.99
@@ -29,5 +35,9 @@ module.exports =
             yearly:
                 name: "Yearly"
                 price: 39.99
+
+            lifely:
+                name: "Lifetime"
+                price: 299.99
 
     googleAnalytics: process.env.GOOGLE_ANALYTICS or ""

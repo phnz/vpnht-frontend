@@ -22,8 +22,12 @@
       apiKey: process.env.STRIPE_KEY || "",
       stripePubKey: process.env.STRIPE_PUB_KEY || "",
       defaultPlan: "free",
-      plans: ["monthly", "yearly"],
+      plans: ["weekly", "monthly", "yearly", "lifely"],
       planData: {
+        weekly: {
+          name: "Weekly",
+          price: 1.99
+        },
         monthly: {
           name: "Monthly",
           price: 4.99
@@ -31,6 +35,10 @@
         yearly: {
           name: "Yearly",
           price: 39.99
+        },
+        lifely: {
+          name: "Lifetime",
+          price: 299.99
         }
       }
     },
