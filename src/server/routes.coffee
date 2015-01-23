@@ -297,6 +297,14 @@ module.exports = (app, passport) ->
                     return next(err) if err
                     # success
                     res.status(200).end()
+
+        else if req.body.txn_type == 'subscr_payment'
+            txn.update req.body.custom, 'paid', req.body, (invoice) ->
+                api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
+                    # error?
+                    return next(err) if err
+                    # success
+                    res.status(200).end()
         else
             console.log('PAYPAL: unknown call')
             res.status(200).end()
