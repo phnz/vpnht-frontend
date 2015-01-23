@@ -19,6 +19,16 @@ knownEvents =
                 # success
                 res.status(200).end()
 
+    "customer.subscription.updated": (req, res, next) ->
+        invoiceId = req.stripeEvent.data.object.metadata.invoiceId
+        console.log("Update invoice ", invoiceId)
+        txn.update invoiceId, 'paid', req.query, (invoice) ->
+            api.activate invoice.customerId, invoice.plan, 'stripe', (err, success) ->
+                # error?
+                return next(err) if err
+                # success
+                res.status(200).end()
+
     "customer.subscription.deleted": (req, res, next) ->
         console.log req.stripeEvent.type + ": event processed"
         if req.stripeEvent.data and req.stripeEvent.data.object and req.stripeEvent.data.object.customer
