@@ -33,6 +33,19 @@
         });
       });
     },
+    "customer.subscription.updated": function(req, res, next) {
+      var invoiceId;
+      invoiceId = req.stripeEvent.data.object.metadata.invoiceId;
+      console.log("Update invoice ", invoiceId);
+      return txn.update(invoiceId, 'paid', req.query, function(invoice) {
+        return api.activate(invoice.customerId, invoice.plan, 'stripe', function(err, success) {
+          if (err) {
+            return next(err);
+          }
+          return res.status(200).end();
+        });
+      });
+    },
     "customer.subscription.deleted": function(req, res, next) {
       console.log(req.stripeEvent.type + ": event processed");
       if (req.stripeEvent.data && req.stripeEvent.data.object && req.stripeEvent.data.object.customer) {

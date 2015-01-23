@@ -236,6 +236,15 @@
             return res.status(200).end();
           });
         });
+      } else if (req.body.txn_type === 'subscr_payment') {
+        return txn.update(req.body.custom, 'paid', req.body, function(invoice) {
+          return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
+            if (err) {
+              return next(err);
+            }
+            return res.status(200).end();
+          });
+        });
       } else {
         console.log('PAYPAL: unknown call');
         return res.status(200).end();
