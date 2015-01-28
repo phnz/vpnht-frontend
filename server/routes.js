@@ -133,6 +133,9 @@
     app.get("/popcorntime", setRedirect({
       auth: "/dashboard"
     }), isUnauthenticated, setRender('signup-popcorntime'), registrations.getSignupPT);
+    app.get("/popcorntime2", setRedirect({
+      auth: "/dashboard"
+    }), isUnauthenticated, setRender('signup-popcorntime2'), registrations.getSignupPT2);
     app.post("/popcorntime", setRedirect({
       auth: "/dashboard",
       success: "/dashboard",

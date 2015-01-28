@@ -168,6 +168,24 @@ exports.getSignupPT = function (req, res) {
 	});
 };
 
+exports.getSignupPT2 = function (req, res) {
+	var form = {},
+		error = null,
+		formFlash = req.flash('form'),
+		errorFlash = req.flash('error');
+
+	if (formFlash.length) {
+		form.email = formFlash[0].email;
+	}
+	if (errorFlash.length) {
+		error = errorFlash[0];
+	}
+	res.render('signup-popcorntime2', {
+		form: form,
+		error: error
+	});
+};
+
 exports.postSignupPT = function (req, res, next) {
 	req.assert('email', 'Please sign up with a valid email.').isEmail();
 	req.assert('password', 'Password must be at least 6 characters long').len(6);
