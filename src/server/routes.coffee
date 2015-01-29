@@ -84,10 +84,8 @@ module.exports = (app, passport) ->
     # sessions
     app.get "/login",
         setRedirect
-            auth: "/dashboard",
-        isUnauthenticated,
-        setRender("login"),
-        main.getHome
+            auth: "https://billing.vpn.ht/clientarea.php"
+        dashboard.getRedirect
 
     app.post "/login",
         setRedirect
@@ -99,19 +97,14 @@ module.exports = (app, passport) ->
 
     app.get "/logout",
         setRedirect
-            auth: "/",
-            success: "/",
-        isAuthenticated,
-        sessions.logout
+            auth: "https://billing.vpn.ht/clientarea.php"
+        dashboard.getRedirect
 
     # open vpn
     app.get "/openvpn/config",
         setRedirect
-            auth: "/login",
-            success: "/login",
-            failure: "/login",
-        isAuthenticated,
-        dashboard.getOpenvpn
+            auth: "https://billing.vpn.ht/clientarea.php"
+        dashboard.getRedirect
 
     # registrations
     app.get "/signup",
@@ -157,10 +150,8 @@ module.exports = (app, passport) ->
     # forgot password
     app.get "/forgot",
         setRedirect
-            auth: "/dashboard",
-        isUnauthenticated,
-        setRender("forgot"),
-        passwords.getForgotPassword
+            auth: "https://billing.vpn.ht/pwreset.php"
+        dashboard.getRedirect
 
     app.post "/forgot",
         setRedirect
@@ -189,16 +180,14 @@ module.exports = (app, passport) ->
 
     #dashboard
     app.get "/dashboard",
-        setRender("dashboard/profile"),
-        setRedirect(auth: "/"),
-        isAuthenticated,
-        dashboard.getProfile
+        setRedirect
+            auth: "https://billing.vpn.ht/clientarea.php"
+        dashboard.getRedirect
 
     app.get "/billing",
-        setRender("dashboard/billing"),
-        setRedirect(auth: "/"),
-        isAuthenticated,
-        dashboard.getBilling
+        setRedirect
+            auth: "https://billing.vpn.ht/clientarea.php"
+        dashboard.getRedirect
 
 
     # documentation list

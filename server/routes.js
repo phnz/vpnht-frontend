@@ -111,22 +111,19 @@
     app.get("/dmca", setRender("dmca"), main.getHome);
     app.get("/servers", basic_api);
     app.get("/login", setRedirect({
-      auth: "/dashboard"
-    }), isUnauthenticated, setRender("login"), main.getHome);
+      auth: "https://billing.vpn.ht/clientarea.php"
+    }), dashboard.getRedirect);
     app.post("/login", setRedirect({
       auth: "/dashboard",
       success: "/dashboard",
       failure: "/login"
     }), isUnauthenticated, sessions.postLogin);
     app.get("/logout", setRedirect({
-      auth: "/",
-      success: "/"
-    }), isAuthenticated, sessions.logout);
+      auth: "https://billing.vpn.ht/clientarea.php"
+    }), dashboard.getRedirect);
     app.get("/openvpn/config", setRedirect({
-      auth: "/login",
-      success: "/login",
-      failure: "/login"
-    }), isAuthenticated, dashboard.getOpenvpn);
+      auth: "https://billing.vpn.ht/clientarea.php"
+    }), dashboard.getRedirect);
     app.get("/signup", setRedirect({
       auth: "/dashboard"
     }), isUnauthenticated, setRender('signup'), registrations.getSignup);
@@ -147,8 +144,8 @@
       failure: "/signup"
     }), isUnauthenticated, registrations.postSignup);
     app.get("/forgot", setRedirect({
-      auth: "/dashboard"
-    }), isUnauthenticated, setRender("forgot"), passwords.getForgotPassword);
+      auth: "https://billing.vpn.ht/pwreset.php"
+    }), dashboard.getRedirect);
     app.post("/forgot", setRedirect({
       auth: "/dashboard",
       success: "/forgot",
@@ -163,12 +160,12 @@
       success: "/dashboard",
       failure: "back"
     }), isUnauthenticated, passwords.postToken);
-    app.get("/dashboard", setRender("dashboard/profile"), setRedirect({
-      auth: "/"
-    }), isAuthenticated, dashboard.getProfile);
-    app.get("/billing", setRender("dashboard/billing"), setRedirect({
-      auth: "/"
-    }), isAuthenticated, dashboard.getBilling);
+    app.get("/dashboard", setRedirect({
+      auth: "https://billing.vpn.ht/clientarea.php"
+    }), dashboard.getRedirect);
+    app.get("/billing", setRedirect({
+      auth: "https://billing.vpn.ht/clientarea.php"
+    }), dashboard.getRedirect);
     app.get("/documentation", setRedirect({
       auth: "https://vpnht.zendesk.com/hc/en-us"
     }), dashboard.getRedirect);
