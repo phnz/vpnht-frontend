@@ -162,7 +162,7 @@ exports.getSignupPT = function (req, res) {
 	if (errorFlash.length) {
 		error = errorFlash[0];
 	}
-	res.render('signup-popcorntime2', {
+	res.render('signup-popcorntime', {
 		form: form,
 		error: error
 	});
