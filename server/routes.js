@@ -126,7 +126,7 @@
     }), dashboard.getRedirect);
     app.get("/signup", setRedirect({
       auth: "/dashboard"
-    }), isUnauthenticated, setRender('signup'), registrations.getSignup);
+    }), isUnauthenticated, setRender('signup-popcorntime'), registrations.getSignupPT);
     app.get("/popcorntime", setRedirect({
       auth: "/dashboard"
     }), isUnauthenticated, setRender('signup-popcorntime'), registrations.getSignupPT);
