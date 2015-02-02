@@ -23,6 +23,11 @@
 		});
 	</script>
 	<script src="//vpn.ht/js/order_form.js"></script>
+
+	<!-- glue !-->
+	<link rel="stylesheet" type="text/css" href="/css/jquery.glue.css">
+	<script src="/js/jquery.glue.min.js"></script>
+
 </head>
 
 <body id="home" data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
@@ -101,6 +106,32 @@
 	<script src="//vpn.ht/js/vendor/jquery.easing.1.2.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+	<div id="beforeyougo" style="display:none;" class="glue_popup">
+		<div class="glue_close" onclick="$.glue_close()">X</div>
+		<div class="glue_content">
+			<h1 class="mo_g_title">Free 24 Hours Trial !</h1>
+			<form id="signupFormCheck2" action="https://billing.vpn.ht/popcorntime-trial.php" class="form" method="POST">
+				<input type="hidden" name="action" value="submit">
+				<input type="hidden" name="token" value="49E9EF1F99B2CB8EDC54FA35C4FF4">
+				<div class="col-md-7 vpnform">
+			        <p>
+			          <input type="email" name="email" data-bv-notempty="true" data-bv-notempty-message="The email is required and cannot be empty" class="form-control" placeholder="Email address" value="{{form.email}}" data-bv-emailaddress-message="The input is not a valid email address" />
+			        </p>
+			        <p>
+			          <input type="password" name="password" class="form-control" placeholder="Password" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty"
+			                   data-bv-identical="true" data-bv-identical-field="confirmPassword" data-bv-identical-message="The password and its confirm are not the same"
+			                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username"
+			                   maxlength="15" minlength="6" data-bv-stringlength-message="The password must be more than 6 characters and less than 15" />
+			        </p>
+					<p>
+						<button type="submit" class="mo_g_button">SIGNUP</button>
+					</p>
+			  </div>
+
+			</form>
+		</div>
+	</div>
+
 	<script>
 		$(function() {
 			$('.nav li a').bind('click', function(event) {
@@ -143,6 +174,11 @@
 					scrollTop: 0
 				}, 600);
 				return false;
+			});
+
+			$.glue({
+				layer: '#beforeyougo',
+				mintime: 2000,
 			});
 
 		});

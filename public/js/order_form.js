@@ -37,6 +37,9 @@ $(document).ready(function() {
     if ($('#signupFormCheck').length > 0) {
         $('#signupFormCheck').bootstrapValidator();
     };
+    if ($('#signupFormCheck2').length > 0) {
+        $('#signupFormCheck2').bootstrapValidator();
+    };
 
 
     if ($('.selected').length > 0) {

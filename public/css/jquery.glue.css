@@ -1,0 +1,146 @@
+.mo_g_title {
+    font-size: 46px;
+    font-weight: 700
+}
+
+.glue_block_layer {
+	background-image: url("pattern.png");
+	opacity: 0.7;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+	filter: alpha(opacity=70);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.glue_popup {
+    height: 350px;
+    width: 650px;
+    background-image: url(modalbg.jpg);
+    -webkit-animation: pop .5s;
+    animation: pop .5s;
+    border-radius: 5px
+}
+
+
+.glue_content {
+    color: #fff;
+    font-family: Helvetica, sans-serif;
+    padding: 25px
+}
+
+.glue_close {
+    cursor: pointer;
+    font-weight: 600;
+    position: relative;
+    top: 0;
+    left: 0;
+    float: right;
+    font-family: Arial;
+    font-size: 17px;
+    background-color: #7a1e1e;
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 0 5px 0 0
+}
+
+
+.mo_g_button {
+    margin-top: 20px;
+    margin-right: 10px;
+    color: #FFF;
+    height: 45px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+    font-family: Helvetica, sans-serif;
+    background: #f14e2e;
+    padding: 0 20px;
+    font-weight: 700;
+    border-radius: 5px;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+    transition: all .4s ease-out
+}
+
+.mo_g_button:hover {
+    background: #cd4853
+}
+
+/*
+CSS3 animation keyframes.
+*/
+@-webkit-keyframes zoomin {
+
+	0% {
+		-webkit-transform: scale(0);
+		-ms-transform: scale(0);
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	50% {
+		-webkit-transform: scale(1.04);
+		-ms-transform: scale(1.04);
+		transform: scale(1.04);
+		opacity: 1;
+	}
+
+	100% {
+		-webkit-transform: scale(1);
+		-ms-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+@-ms-keyframes zoomin {
+
+	0% {
+		-webkit-transform: scale(0);
+		-ms-transform: scale(0);
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	50% {
+		-webkit-transform: scale(1.04);
+		-ms-transform: scale(1.04);
+		transform: scale(1.04);
+		opacity: 1;
+	}
+
+	100% {
+		-webkit-transform: scale(1);
+		-ms-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+
+}
+@keyframes zoomin {
+
+	0% {
+		-webkit-transform: scale(0);
+		-ms-transform: scale(0);
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	50% {
+		-webkit-transform: scale(1.04);
+		-ms-transform: scale(1.04);
+		transform: scale(1.04);
+		opacity: 1;
+	}
+
+	100% {
+		-webkit-transform: scale(1);
+		-ms-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+}
