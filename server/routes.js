@@ -238,7 +238,7 @@
         });
       } else if (req.body.txn_type === 'subscr_payment') {
         return txn.update(req.body.custom, 'paid', req.body, function(invoice) {
-          return api.activate(invoice.customerId, invoice.plan, 'paypal', function(err, success) {
+          return api.activate(invoice.customerId, req.body.txn_id, 'paypal', function(err, success) {
             if (err) {
               return next(err);
             }

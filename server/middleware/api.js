@@ -39,7 +39,7 @@
     });
   };
 
-  exports.activate = function(customerId, plan, billingType, callback) {
+  exports.activate = function(customerId, txnId, billingType, callback) {
     return User.findOne({
       "stripe.customerId": customerId
     }, function(err, user) {
@@ -50,7 +50,7 @@
         return callback(false, true);
       } else {
         return request.get({
-          url: "https://billing.vpn.ht/pt_ipn.php?email=" + user.email
+          url: "https://billing.vpn.ht/pt_ipn.php?email=" + user.email + "&txn=" + txnId
         }, function(error, response, body) {
           return callback(false, true);
         });

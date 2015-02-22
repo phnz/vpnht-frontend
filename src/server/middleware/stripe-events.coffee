@@ -23,7 +23,7 @@ knownEvents =
         invoiceId = req.stripeEvent.data.object.metadata.invoiceId
         console.log("Update invoice ", invoiceId)
         txn.update invoiceId, 'paid', req.query, (invoice) ->
-            api.activate invoice.customerId, invoice.plan, 'stripe', (err, success) ->
+            api.activate invoice.customerId, '', 'stripe', (err, success) ->
                 # error?
                 return next(err) if err
                 # success

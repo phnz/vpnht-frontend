@@ -297,7 +297,7 @@ module.exports = (app, passport) ->
 
         else if req.body.txn_type == 'subscr_payment'
             txn.update req.body.custom, 'paid', req.body, (invoice) ->
-                api.activate invoice.customerId, invoice.plan, 'paypal', (err, success) ->
+                api.activate invoice.customerId, req.body.txn_id, 'paypal', (err, success) ->
                     # error?
                     return next(err) if err
                     # success

@@ -38,7 +38,7 @@
       invoiceId = req.stripeEvent.data.object.metadata.invoiceId;
       console.log("Update invoice ", invoiceId);
       return txn.update(invoiceId, 'paid', req.query, function(invoice) {
-        return api.activate(invoice.customerId, invoice.plan, 'stripe', function(err, success) {
+        return api.activate(invoice.customerId, '', 'stripe', function(err, success) {
           if (err) {
             return next(err);
           }

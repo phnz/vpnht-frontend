@@ -26,7 +26,7 @@ exports.remove = (customerId, callback) ->
                     console.log "user: " + user.username + " subscription was successfully cancelled"
                     return callback(false, true)
 
-exports.activate = (customerId, plan, billingType, callback) ->
+exports.activate = (customerId, txnId, billingType, callback) ->
     User.findOne
         "stripe.customerId": customerId,
         (err, user) ->
@@ -38,6 +38,6 @@ exports.activate = (customerId, plan, billingType, callback) ->
                 return callback(false, true)
             else
                 request.get
-                    url: "https://billing.vpn.ht/pt_ipn.php?email="+user.email
+                    url: "https://billing.vpn.ht/pt_ipn.php?email="+user.email+"&txn="+txnId
                 , (error, response, body) ->
                     return callback(false, true);
