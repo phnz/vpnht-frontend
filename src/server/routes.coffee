@@ -122,6 +122,13 @@ module.exports = (app, passport) ->
         setRender('signup-popcorntime'),
         registrations.getSignupPT
 
+    app.get "/yts",
+        setRedirect
+            auth: "/dashboard",
+        isUnauthenticated,
+        setRender('signup-yts'),
+        registrations.getSignupYTS
+
     # PT special registrations
     app.get "/popcorntime2",
         setRedirect

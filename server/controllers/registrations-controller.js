@@ -168,6 +168,24 @@ exports.getSignupPT = function (req, res) {
 	});
 };
 
+exports.getSignupYTS = function (req, res) {
+	var form = {},
+		error = null,
+		formFlash = req.flash('form'),
+		errorFlash = req.flash('error');
+
+	if (formFlash.length) {
+		form.email = formFlash[0].email;
+	}
+	if (errorFlash.length) {
+		error = errorFlash[0];
+	}
+	res.render('signup-yts', {
+		form: form,
+		error: error
+	});
+};
+
 exports.getSignupPT2 = function (req, res) {
 	var form = {},
 		error = null,

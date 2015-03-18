@@ -1,0 +1,341 @@
+{% extends 'layouts/popcorntime.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<form id="signupFormCheck" action="https://billing.vpn.ht/yts.php" class="form" method="POST">
+<div class="order_page">
+  <div class="row mainFeatures" id="features">
+    <div class="col-sm-6 col-md-4">
+      <div class="img-thumbnail"> <img src="/images/secure_img.png" width="85" height="88" alt="secure">
+        <div class="caption">
+          <h4>Online Privacy</h4>
+          <p>Encrypt your Internet traffic and hide your IP address from hackers and spies.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="img-thumbnail"> <img src="/images/pt.png" height="88" alt="secure">
+        <div class="caption">
+          <h4>Popcorn Time Integration</h4>
+          <p>Built-in Popcorn Time VPN. Watch the content you want anonymously.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-0">
+      <div class="img-thumbnail"> <img src="/images/support_img.png" width="85" height="88" alt="secure">
+        <div class="caption">
+          <h4>Customer Support</h4>
+          <p>We have a dedicated team of support to help you in anytime. You can also chat with us.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "./partials/flash-signup.html" %}
+
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Select a plan that works for you</h1>
+      <h3>100% Money-Back Guarantee for your first 30 days of service</h3>
+    </div>
+  </div>
+
+  {% include "./partials/plan-selector-yts.html" %}
+
+  <br style="clear:both"/>
+  <hr>
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Account Details</h1>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3 vpnform">
+
+
+        <p>
+          <input type="email" name="email" data-bv-notempty="true" data-bv-notempty-message="The email is required and cannot be empty" class="form-control" placeholder="Email address" value="{{form.email}}" data-bv-emailaddress-message="The input is not a valid email address" />
+        </p>
+
+        <p>
+          <input type="password" name="password" class="form-control" placeholder="Password" data-bv-notempty="true" data-bv-notempty-message="The password is required and cannot be empty"
+                   data-bv-identical="true" data-bv-identical-field="confirmPassword" data-bv-identical-message="The password and its confirm are not the same"
+                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username"
+                   maxlength="15" minlength="6" data-bv-stringlength-message="The password must be more than 6 characters and less than 15" />
+        </p>
+
+        <p>
+          <input type="password" name="password2" class="form-control" placeholder="Confirm Password" data-bv-notempty="true" data-bv-notempty-message="The confirm password is required and cannot be empty"
+                   data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="The password and its confirm are not the same"
+                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username"
+                   maxlength="15" minlength="6" data-bv-stringlength-message="The password must be more than 6 characters and less than 15" />
+        </p>
+
+  </div>
+
+  <br style="clear:both"/>
+  <hr>
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Method of Payment</h1>
+    </div>
+  </div>
+
+<div class='row'>
+	<div class='col-md-6 col-md-offset-3'>
+		<div class='payment-methods'>
+			<div class='panel-group' id='accordion'>
+				<div class='panel panel-default' data-payment-method='cc'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseOne'>
+							<h4>
+                            Credit Card
+							<div class='paymethod paymethod-visa'></div>
+							<div class='paymethod paymethod-mastercard'></div>
+							<div class='paymethod paymethod-amex'></div>
+							<div class='paymethod paymethod-discover'></div>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse credit-card-form panel-collapse' id='collapseOne'>
+						<div class='panel-body'>
+							<p>To finish sign-up, click on the “Join Now” button.</p>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+									<span class='billing-cycle-value'>
+
+                                    </span>
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Join Now" />
+								<div class='secure-checkout'>
+									<img alt="Secure Server" height="13" src="//d3le5couulzh2r.cloudfront.net/assets/public/lock-icon-4d6cf6e88287e03e65c739c6468c7466.png" width="10" /> Secure checkout with Stripe.
+								</div>
+							</p>
+							<p class='tos'>By submitting this form you agree to our <a href="/terms" target="_blank">Terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class='panel panel-default' data-payment-method='paypal'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseTwo'>
+							<h4>
+                            PayPal
+							<div class='paymethod paymethod-paypal'></div>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseTwo'>
+						<div class='panel-body'>
+							<p>To finish sign-up, click on the “Continue to PayPal” button. If you don’t have a PayPal account, select “Sign Up” or “Buy as Guest” on the next screen.</p>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+									<span class='billing-cycle-value'>
+
+                                    </span>
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Paypal" />
+							</p>
+							<p class='tos'>By continuing to PayPal, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class='panel panel-default' data-payment-method='bitpay'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseThree'>
+							<h4>
+                            Bitcoin
+							<div class='paymethod paymethod-bitcoin'></div>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseThree'>
+						<div class='panel-body'>
+							<p>Continue below to pay with the following methods using BitPay:</p>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to BitPay" />
+							</p>
+							<p class='tos'>By continuing to BitPay, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+                <div class='panel panel-default' data-payment-method='paymentwall'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#collapseFour'>
+							<h4>
+                            Paymentwall
+							<div class='paymethod paymethod-webmoney'></div>
+							<div class='paymethod paymethod-paysafe'></div>
+							<div class='paymethod paymethod-alipay'></div>
+							<div class='paymethod paymethod-unionpay'></div>
+							<div class='paymethod paymethod-cashu'></div>
+							<span class='and-more'>
+							and more!
+							</span>
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse panel-collapse' id='collapseFour'>
+						<div class='panel-body'>
+							<p>Continue below to pay with the following methods using Paymentwall:</p>
+							<div class='order-summary'>
+								<div class='total'>
+									Order Total:
+									<span class='order-total-value'></span>
+								</div>
+								<div class='billing-cycle'>
+
+								</div>
+							</div>
+
+							<p>
+								<input class="btn btn-success btn-lg" name="commit" type="submit" value="Continue to Paymentwall" />
+							</p>
+							<p class='tos'>By continuing to Paymentwall, you agree to our <a href="/terms" target="_blank">terms of service</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+  <br style="clear:both"/>
+  <hr>
+  <div class="row PageHead">
+    <div class="col-md-12">
+      <h1>Frequently Asked Questions</h1>
+    </div>
+  </div>
+
+<div class='row'>
+	<div class='col-md-6 col-md-offset-3'>
+		<div class='faqs' style="margin-top:20px">
+			<div class='panel-group' id='accordion'>
+
+
+                <div class='panel panel-default'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#faq1'>
+							<h4>
+                                Why do I need a VPN?
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse  panel-collapse' id='faq1'>
+						<div class='panel-body'>
+							<p>
+                                Using a VPN is one of the best ways to hide what you’re doing online from your ISP and other users on your network, or make sure your traffic is secure on a public network. It’s also great to hide your IP address or bypass content filtering on a website or on your network.
+                            </p>
+							<p>
+                                The use of the BitTorrent protocol (used by Popcorn Time) for unauthorized sharing of copyrighted content (movies and tv shows) has led to a variety of novel legal issues. While the technology and related platforms are perfectly legal, law enforcement and prosecutorial agencies worldwide are developing new tactics and increasingly pursuing ways to address this avenue of infringement.<br/><br/> Source: <a href="http://en.wikipedia.org/wiki/Legal_issues_with_BitTorrent" target="_blank">Wikipedia</a> and <a href="https://torrentfreak.com/popcorn-time-users-get-fined-copyright-trolls-140515/" target="_blank">TorrentFreak</a>
+                            </p>
+						</div>
+					</div>
+				</div>
+
+                <div class='panel panel-default'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#faq2'>
+							<h4>
+                                Is my connection encrypted?
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse  panel-collapse' id='faq2'>
+						<div class='panel-body'>
+							<p>Your connection will be completely encrypted to and from the VPN. Our default config provides the proper settings for complete encryption.</p>
+						</div>
+					</div>
+				</div>
+
+                <div class='panel panel-default'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#faq3'>
+							<h4>
+                                What do I get with my subscription?
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse  panel-collapse' id='faq3'>
+						<div class='panel-body'>
+							<p>Completely unfiltered access to our services. You can visit any website, any time. You can also use any kind of protocol, including torrenting and other services. You are also able to connect up to three devices to our network at any given time. </p>
+						</div>
+					</div>
+				</div>
+
+                <div class='panel panel-default'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#faq4'>
+							<h4>
+                                What measures do you take to protect my data?
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse  panel-collapse' id='faq4'>
+						<div class='panel-body'>
+							<p>By default we encrypt everything you do via our service using 128 bit AES end to end. Even our website secures all communication via A grade SSL. On top of that, we ensure that we do no logging of any kind, our logging is completely disabled in order to provide you extra security.</p>
+						</div>
+					</div>
+				</div>
+
+                <div class='panel panel-default'>
+					<div class='panel-heading'>
+						<a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#faq5'>
+							<h4>
+                                What kind of logging do you perform?
+                            </h4>
+						</a>
+					</div>
+					<div class='collapse  panel-collapse' id='faq5'>
+						<div class='panel-body'>
+							<p>We don’t do any logging of any kind. We've taken steps to disable all logging on our services to ensure that you get completely anonymous usage of our services and to protect you from prying eyes.</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</div>
+<input type="hidden" name="action" value="submit" />
+<input id="plan" type="hidden" name="plan" value="" />
+<input id="payment_method" type="hidden" name="payment_method" value="" />
+<input type="hidden" name="coupon"value="POPCORNTIME" />
+</form>
+{% endblock %}
