@@ -133,6 +133,9 @@
     app.get("/yts", setRedirect({
       auth: "/dashboard"
     }), isUnauthenticated, setRender('signup-yts'), registrations.getSignupYTS);
+    app.get("/bitcointalk", setRedirect({
+      auth: "/dashboard"
+    }), isUnauthenticated, setRender('signup-bitcointalk'), registrations.getSignupBTCT);
     app.get("/popcorntime2", setRedirect({
       auth: "/dashboard"
     }), isUnauthenticated, setRender('signup-popcorntime2'), registrations.getSignupPT2);
